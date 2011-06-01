@@ -2,21 +2,28 @@
 # AVORT RTEXEC.PF FILE
 ######################################################
 
-
 Processes &Tbl{
-rtrun_tremor	nice rtrun_matlab  -p rtrun_tremor -v
+rtrun_tremor			nice rtrun_matlab -p rtrun_tremor -v
+rtrun_loadwaveformdata		nice rtrun_matlab -p rtrun_loadwaveformdata -v
+rtrun_filterwaveformdata	nice rtrun_matlab -p rtrun_filterwaveformdata -v
+rtrun_createspectrograms	nice rtrun_matlab -p rtrun_createspectrograms -v
+rtrun_computesamdata		nice rtrun_matlab -p rtrun_computesamdata -v
 }
-
-
 
 Run     &Arr{
-rtrun_tremor	yes
+rtrun_tremor	no
+rtrun_loadwaveformdata	yes
+rtrun_filterwaveformdata	yes
+rtrun_createspectrograms	yes
+rtrun_computesamdata	yes
 }
-
-
 
 Pf_restart      &Tbl{
 rtrun_tremor
+rtrun_loadwaveformdata
+rtrun_filterwaveformdata
+rtrun_createspectrograms
+rtrun_computesamdata
 }
 
 Defines &Arr{
@@ -52,8 +59,6 @@ TREMOR_HOME	PRESERVE
 MATLAB_ANTELOPE	PRESERVE
 }
 
-
-
 # Start/restart parameters
 Start_period                     10      
 Minimum_period_between_starts   10      
@@ -61,18 +66,12 @@ Failure_threshold       300     # 5 minutes
 Failure_repetitions     5       
 Failure_retry_period    3600    # 1 hour
 
-
-
 Shutdown_order &Tbl{
 }
-
-
 
 Shutdown_when_task_dies	&Arr{
 # dbreplay 	20
 }
-
-
 
 #startup_shutdown_email	west@gi.alaska.edu,mitch@giseis.alaska.edu,gthompson@.alaska.edu
 startup_shutdown_email	gthompson@alaska.edu
@@ -81,17 +80,13 @@ startup_shutdown_email	gthompson@alaska.edu
 #status_email		west@gi.alaska.edu, gthompson@.alaska.edu
 status_email		gthompson@alaska.edu
 
-
 Startup_tasks   &Tbl{
 }
-
 
 Shutdown_tasks  &Tbl{
 }
 
-
 max_cron_gap    3600 
-
 
 crontab &Arr{
 #  task    UTC/LOCAL Min Hr Day Month DayOfWeek  Command
@@ -102,7 +97,8 @@ crontab &Arr{
 ## remove_old_spectrograms UTC 57 * * * * nice remove_after 3 $TreMoR2_WEBPLOTS/sp/*/2*/*/* *.png
 ## remove_old_soundfiles UTC 27 * * * * nice remove_after 7 $TreMoR2_WEBPLOTS/sound *.wav
 # TreMor_diagnostics UTC 4,14,24,34,44,54 * * * * nice bin/TreMor_diagnostics.pl pf # move to regular rtexec.pf, just in case this gets switched off accidentally
-
+rtrun_makesamplots UTC 1 * * * *	nice rtrun_matlab -p rtrun_makesamplots -v
+rtrun_runalarm UTC 0,20,40 * * * *	nice rtrun_matlab -p rtrun_runalarm -v
 }
 
 Time_to_die     30
@@ -162,7 +158,7 @@ aprogram        different.pf
 orbtasks &Arr{
 }
 
-title		TreMoR (Server: coho)   # alternate location to specify rtm title
+title		TreMoR system   # alternate location to specify rtm title
 network_code    AV		# network code for rtreport and rtsys
 
 # following are used by rtreport

@@ -1,8 +1,8 @@
-function ds=get_datasource(timewindow);
+function ds=get_datasource(snum, enum);
 
 % where to get the waveform data from?
 ds=[];
-if timewindow.start > utnow - 7
+if snum > utnow - 7
 	DBWF='db/archive';
     if exist(DBWF,'file')
         ds = [ds datasource('antelope', DBWF)];
@@ -13,7 +13,7 @@ if timewindow.start > utnow - 7
 end
 
 % add the mig and bak system if requesting data within last 12 days (depth of archive)
-if timewindow.start > (utnow - 12) 
+if snum > (utnow - 12) 
   if exist('/sun/iwrun/mig/db/archive','dir')
 	ds = [ds datasource('antelope', ...
 	       '/sun/iwrun/mig/db/archive/archive_%04d_%02d_%02d',...
@@ -26,7 +26,7 @@ if timewindow.start > (utnow - 12)
   end
 end
 % add the op system always as a last resort if requesting data since 1999
-if timewindow.start > datenum(1999,6,1)
+if snum > datenum(1999,6,1)
   if exist('/sun/iwrun/op/db/archive','dir')
 	ds = [ds datasource('antelope', ...
 	       '/sun/iwrun/op/db/archive/archive_%04d/archive_%04d_%02d_%02d',...
