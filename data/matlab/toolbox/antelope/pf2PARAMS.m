@@ -2,7 +2,7 @@ function [paths,PARAMS]=pf2PARAMS();
 % [paths,PARAMS]=pf2PARAMS()
 
 % create pointer to main parameter file
-parametersfile = catpath('pf','iceweb_parameters');
+parametersfile = catpath('pf','parameters');
 
 if exist([parametersfile,'.pf'], 'file')
 

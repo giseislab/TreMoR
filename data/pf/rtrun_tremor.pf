@@ -23,7 +23,7 @@ matlab_script   &Literal{ # This is the script that gets executed when Matlab st
 	warning off;
 	path
 	while 1
-		iceweb3();
+		tremor();
 		pause(10);
 	end
 }

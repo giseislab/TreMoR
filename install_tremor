@@ -3,19 +3,19 @@ use File::Basename;
 use File::Path;
 $repo = dirname($0);
 system("cp $repo/rtexec.pf rtexec.pf") unless(-e "rtexec.pf");
+system("cp $repo/startup_tremor.m startup_tremor.m") unless(-e "startup_tremor.m");
+system("ln -s $repo/data/pf pf");
 mkpath(qw(1mindata bin logs pf db dbmaster rtsys state www), {
  verbose => 1,
  mode => 0755,
  });
 print<<"EOF";
-Make sure that db points to a valid waveform data source.
-And dbmaster points to a valid master_stations database.
-And www points to where the plots should be on the webserver.
-You will also need $0/pf in your PFPATH in rtexec.pf and
-possibly in your shell rc file.
-And you will need addpath(genpath($0/data/matlab) in your
-Matlab startup file, or possibly in your rtrun_matlab
-pf file.
+You need to add links like:
+	ln -s /avort/oprun/dbmaster dbmaster
+	ln -s /avort/oprun/db db
+	ln -s /usr/local/mosaic/AVO/internal/TreMoR www
+You might also need to add a link TREMOR_HOME in your 
+shell rc file.
   
 EOF
 

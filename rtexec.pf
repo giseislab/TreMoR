@@ -4,100 +4,20 @@
 
 
 Processes &Tbl{
-TreMorwrapper	nice  rtrun_matlab  -p rtrun_TreMorwrapper -v
-TreMorWrangell	nice rtrun_matlab  -p rtrun_subnet_Wrangell -v
-TreMorSpurr	nice rtrun_matlab -p rtrun_subnet_Spurr -v
-TreMorRedoubt	nice  rtrun_matlab  -p rtrun_subnet_Redoubt -v
-TreMorIliamna	nice rtrun_matlab  -p rtrun_subnet_Iliamna -v
-TreMorAugustine	nice rtrun_matlab -p rtrun_subnet_Augustine -v
-TreMorFourpeaked	nice rtrun_matlab  -p rtrun_subnet_Fourpeaked -v
-TreMorSnowy	nice rtrun_matlab -p rtrun_subnet_Snowy -v
-TreMorKatmai	nice rtrun_matlab -p rtrun_subnet_Katmai -v
-TreMorMageik	nice rtrun_matlab  -p rtrun_subnet_Mageik -v
-TreMorPeulik	nice rtrun_matlab -p rtrun_subnet_Peulik -v
-TreMorAniakchak	nice rtrun_matlab  -p rtrun_subnet_Aniakchak -v
-TreMorVeniaminof	nice rtrun_matlab  -p rtrun_subnet_Veniaminof -v
-TreMorPavlof	nice rtrun_matlab  -p rtrun_subnet_Pavlof -v
-TreMorDutton	nice rtrun_matlab  -p rtrun_subnet_Dutton -v
-TreMorShishaldin	nice rtrun_matlab  -p rtrun_subnet_Shishaldin -v
-TreMorWestdahl	nice rtrun_matlab -p rtrun_subnet_Westdahl -v
-TreMorAkutan	nice rtrun_matlab -p rtrun_subnet_Akutan -v
-TreMorMakushin	nice rtrun_matlab -p rtrun_subnet_Makushin -v
-TreMorOkmok	nice rtrun_matlab -p rtrun_subnet_Okmok -v
-TreMorKorovin	nice rtrun_matlab  -p rtrun_subnet_Korovin -v
-TreMorGreatSitkin	nice rtrun_matlab -p rtrun_subnet_GreatSitkin -v
-TreMorKanaga	nice rtrun_matlab -p rtrun_subnet_Kanaga -v
-TreMorTanaga	nice rtrun_matlab -p rtrun_subnet_Tanaga -v
-TreMorGareloi	nice rtrun_matlab -p rtrun_subnet_Gareloi -v
-TreMorSemisopochnoi	nice rtrun_matlab  -p rtrun_subnet_Semisopochnoi -v
-TreMorLittleSitkin	nice rtrun_matlab  -p rtrun_subnet_LittleSitkin -v
+rtrun_tremor	nice rtrun_matlab  -p rtrun_tremor -v
 }
 
 
 
 Run     &Arr{
-#TreMorWrangell	no
-#TreMorSpurr	yes
-#TreMorRedoubt	yes
-TreMorwrapper	yes
-#TreMorIliamna	yes
-#TreMorAugustine	yes
-#TreMorFourpeaked	yes
-#TreMorSnowy	no
-#TreMorKatmai	no
-#TreMorMageik	no
-#TreMorPeulik	no
-#TreMorAniakchak	no
-#TreMorVeniaminof	no
-#TreMorPavlof	no
-#TreMorDutton	no
-#TreMorShishaldin	no
-#TreMorWestdahl	no
-#TreMorAkutan	yes
-#TreMorMakushin	yes
-#TreMorOkmok	yes
-#TreMorKorovin	no
-#TreMorGreatSitkin	no
-#TreMorKanaga	no
-#TreMorTanaga	no
-#TreMorGareloi	no
-#TreMorSemisopochnoi	no
-#TreMorLittleSitkin	no
+rtrun_tremor	yes
 }
 
 
 
 Pf_restart      &Tbl{
-TreMorWrangell
-TreMorSpurr
-TreMorRedoubt	
-TreMorIliamna
-TreMorAugustine
-TreMorFourpeaked
-TreMorSnowy
-TreMorKatmai
-TreMorMageik
-TreMorPeulik
-TreMorAniakchak	
-TreMorVeniaminof
-TreMorPavlof
-TreMorDutton
-TreMorShishaldin	
-TreMorWestdahl
-TreMorAkutan
-TreMorMakushin
-TreMorOkmok
-TreMorKorovin
-TreMorGreatSitkin
-TreMorKanaga
-TreMorTanaga
-TreMorGareloi
-TreMorSemisopochnoi
-TreMorLittleSitkin
+rtrun_tremor
 }
-
-
-
 
 Defines &Arr{
 ANTELOPE        /opt/antelope/5.0-64       # location of the real time software
@@ -106,10 +26,6 @@ ELOG_MAXMSG 	0
 #AVOSEISWEB	avoseisweb
 }
 
-
-
-# /usr/sfw/bin			required for convert and ps2pdf called by make_recent_event_list
-# /opt/free/gmt/bin		required for images in make_recent_event_list
 Env     &Arr{
 ANTELOPE                $ANTELOPE
 #PATH                    .:./bin:$ANTELOPE/bin:/opt/free/gmt/bin:/usr/sfw/bin:/usr/local/bin:/bin:/usr/bin:/usr/sbin:/usr/proc/bin:/usr/openwin/bin:/usr/X11R6/bin:/usr/X11/bin
@@ -132,7 +48,7 @@ PERL5LIB		PRESERVE
 #ALARMDB                 $ALARMDB
 HTTP			http://giseis.alaska.edu/AVO/internal/avoseis/dev/
 HOST	PRESERVE
-TreMoR2_HOME	PRESERVE
+TREMOR_HOME	PRESERVE
 MATLAB_ANTELOPE	PRESERVE
 }
 
@@ -181,7 +97,7 @@ crontab &Arr{
 #  task    UTC/LOCAL Min Hr Day Month DayOfWeek  Command
 
 # TreMor2 cronjobs
-makeTreMoRMenu UTC 4,14,24,34,44,54 * * * * nice bin/makeTreMoRMenu  pf
+#makeTreMoRMenu UTC 4,14,24,34,44,54 * * * * nice bin/makeTreMoRMenu  pf
 # This will not work because now need to search subnet/yyyy/mm/dd
 ## remove_old_spectrograms UTC 57 * * * * nice remove_after 3 $TreMoR2_WEBPLOTS/sp/*/2*/*/* *.png
 ## remove_old_soundfiles UTC 27 * * * * nice remove_after 7 $TreMoR2_WEBPLOTS/sound *.wav
