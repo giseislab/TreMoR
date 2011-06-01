@@ -49,7 +49,9 @@ if exist('titlestr','var')
 end
 
 % Set appropriate date ticks
-wt=waveform2timewindow(w);
+[wsnum, wenum]=gettimerange(w);
+wt.start = min(wsnum);
+wt.stop = max(wenum);
 [Xtickmarks,XTickLabel]=findMinuteMarks(wt);
 set(ha, 'XTick', Xtickmarks, 'XTickLabel', {},  'FontSize', 10);
 set(ha(1), 'XTick', Xtickmarks, 'XTickLabel', XTickLabel, 'FontSize', 10);

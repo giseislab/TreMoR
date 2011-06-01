@@ -20,8 +20,7 @@ matlab_script   &Literal{ # This is the script that gets executed when Matlab st
 	pwd
 	startup_tremor;
 	%debug(0);
-	warning off;
-	path
+	%warning off;
 	while 1
 		tremor_loadwaveformdata();
 		pause(10);

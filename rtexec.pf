@@ -4,10 +4,13 @@
 
 Processes &Tbl{
 rtrun_tremor			nice rtrun_matlab -p rtrun_tremor -v
-rtrun_loadwaveformdata		nice rtrun_matlab -p rtrun_loadwaveformdata -v
-rtrun_filterwaveformdata	nice rtrun_matlab -p rtrun_filterwaveformdata -v
+rtrun_loadwaveformdata	nice rtrun_matlab -p rtrun_loadwaveformdata -v
+rtrun_filterwaveformdata	nice  rtrun_matlab -p rtrun_filterwaveformdata -v
 rtrun_createspectrograms	nice rtrun_matlab -p rtrun_createspectrograms -v
-rtrun_computesamdata		nice rtrun_matlab -p rtrun_computesamdata -v
+rtrun_createspectrograms2	nice rtrun_matlab -p rtrun_createspectrograms -v
+rtrun_createspectrograms3	nice rtrun_matlab -p rtrun_createspectrograms -v
+rtrun_createspectrograms4	nice rtrun_matlab -p rtrun_createspectrograms -v
+rtrun_computesamdata	nice  rtrun_matlab -p rtrun_computesam -v
 }
 
 Run     &Arr{
@@ -15,6 +18,9 @@ rtrun_tremor	no
 rtrun_loadwaveformdata	yes
 rtrun_filterwaveformdata	yes
 rtrun_createspectrograms	yes
+rtrun_createspectrograms2	yes
+rtrun_createspectrograms3	yes
+rtrun_createspectrograms4	yes
 rtrun_computesamdata	yes
 }
 

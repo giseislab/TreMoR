@@ -35,7 +35,7 @@ for subnet_num=1:length(subnets)
 		lastenumfile = ['state/lastenum_',subnet,'.mat'];
 		if (exist(lastenumfile, 'file') && strcmp(PARAMS.mode, 'realtime'))
 			eval(['load ',lastenumfile]);
-			if (lastenum == timewindow.stop && ~strcmp(PARAMS.mode, 'test') )
+			if (lastenum == enum && ~strcmp(PARAMS.mode, 'test') )
 				disp('Already processed these data');
 				continue;
 			end
@@ -53,25 +53,29 @@ for subnet_num=1:length(subnets)
 			w = getwaveforms(scnl, snum, enum);
 			if isempty(w)
 				disp('No waveform data found for this timewindow');
-				continue; % jump to next timewindow (or subnet)
+				break;
 			else
-				[wsnum, wenum] = waveform2timewindow(w);
+				%[wsnum, wenum] = waveform2timewindow(w);
+				[wsnum, wenum] = gettimerange(w);
 				secsGotLastTime = secsGot;
-				secsGot = (wenum - wsnum) * 86400;
+				secsGot = (max(wenum) - min(wsnum)) * 86400;
 				if (secsGotLastTime >= secsGot) % quit the loop as doing no better
 					break;
 				end
-              			print_debug(sprintf('Pausing %.0f seconds for data to catch up',secsRequested - secsGot));
-				pause(secsRequested - secsGot); 
+				if (secsGot/secsRequested) < 0.9 
+              				print_debug(sprintf('Pausing %.0f seconds for data to catch up',secsRequested - secsGot),1);
+					pause(secsRequested - secsGot); 
+				end
 			end
 		end
 
-		% Save waveform data
-		save2waveformmat(w, 'waveforms_raw', snum, enum, subnet);
-
-		% update state file
-		lastenum = tenum;
-		eval(['save ',lastenumfile,' lastenum']);
+		if ~isempty(w)
+			% Save waveform data
+			save2waveformmat(w, 'waveforms_raw', snum, enum, subnet);
+			% update state file
+			lastenum = enum;
+			eval(['save ',lastenumfile,' lastenum']);
+		end
 	end
 end
 print_debug(sprintf('< %s at %s',mfilename, datestr(now,31)),1)

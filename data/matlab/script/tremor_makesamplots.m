@@ -15,6 +15,7 @@ for subnet_num=1:length(subnets)
 			plotoneminwrapper(subnet, station, snum, enum, measure, 'despikeOn', false, 'downsampleOn', false, 'correctOn', false, 'reduceOn', false);
 			IMGDIR = catpath(paths.WEBDIR, 'plots', measure);
 			saveImageFile(IMGDIR, IMGBASE, 90);
+			close;
 		end
 	end
 end

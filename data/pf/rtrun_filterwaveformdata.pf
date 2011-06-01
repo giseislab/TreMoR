@@ -20,12 +20,8 @@ matlab_script   &Literal{ # This is the script that gets executed when Matlab st
 	pwd
 	startup_tremor;
 	%debug(0);
-	warning off;
-	path
-	while 1
-		tremor_filterwaveformdata();
-		pause(10);
-	end
+	%warning off;
+	tremor_filterwaveformdata();
 }
 matlab_timeout_sec	86400
 pf_revision_time	1152921082

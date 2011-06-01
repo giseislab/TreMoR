@@ -6,6 +6,9 @@ load pf/runtime
 while 1,
 	[w, filename, snum, enum, subnet] = loadnextwaveformmat('waveforms_sgram');
 
+	% Remove waveforms MAT file here so can have multiple jobs running  without  them processing the same waveform file
+	delete(filename);
+
 	% Output some information
 	disp(sprintf('\n***** New waveform *****'));
 	disp(sprintf('Start time is %s UTC',datestr(snum)));
@@ -13,7 +16,6 @@ while 1,
 	timestamp = datestr(enum, 30);
         
 	% Create 10 minute spectrogram plots
-	close all;
 	spdir = catpath(paths.WEBDIR, 'plots', 'sp', subnet, timestamp(1:4), timestamp(5:6), timestamp(7:8));
 	tenminspfile = catpath(spdir, [timestamp, '.png']);
 	disp(sprintf('Creating spectrogram, file will go to %s',tenminspfile));
@@ -37,8 +39,7 @@ while 1,
 	disp(sprintf('Creating spectrogram, file will go to %s',spthumbfile));
 	makeThumbnail(spthumbfile, timestamp);
 
-	% Remove waveforms MAT file
-	delete(filename);
+	close;
 
 	% Pause briefly
 	pause(1);

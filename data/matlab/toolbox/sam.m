@@ -20,22 +20,28 @@ classdef sam
         function self=downsample(self, minutes)
             % downsample to screen resolution, or given number of minutes
             t = self.dnum;
-            y = self.data;
+            y = self.data
+	    Fs = computeFs(self);
+	    samplingIntervalMinutes = 1.0 / (60 * Fs); 
             if ~exist('minutes', 'var')
                 choices = [1 2 5 10 30 60 120 240 360 ];
                 days = max(t) - min(t);
                 choice=max(find(days > choices));
                 minutes=choices(choice);
             end
-            minutes
-            if minutes>1 
-                [t, y]=downsamplegt(t, y, minutes);
+            if minutes>samplingIntervalMinutes
+                [t, y]=downsamplegt(t, y, minutes / samplingIntervalMinutes);
                 print_debug(sprintf('Downsampling data by %d', minutes),3)
             end
             self.dnum = t;
             self.data = y;
-            
         end
+
+	function Fs=computeFs(self)
+		l = length(self.dnum);a
+		s = self.dnum(2:l) - self.dnum(1:l-1);
+		Fs = 1.0/(median(s)*86400);
+	end
 
         function toTextFile(self, filepath);
            % toTextFile(filepath);

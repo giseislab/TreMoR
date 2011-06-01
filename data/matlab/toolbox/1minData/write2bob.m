@@ -77,7 +77,7 @@ else
     offset = startsample*4;
     fid = fopen(fname,'r+','l'); % little-endian. Anything written on a PC is little-endian by default. Sun is big-endian.
     fseek(fid,offset,'bof');
-    print_debug(sprintf('saving %e to %s, position %d of %d',data,fname,startsample,(datapointsperday*daysperyear)),3)
+    print_debug(sprintf('saving to %s, position %d of %d',fname,startsample,(datapointsperday*daysperyear)),3)
     fwrite(fid,data,'float32');
     fclose(fid);
         
