@@ -1,0 +1,124 @@
+latitude	61.2989
+longitude	-152.2539
+spectrograms	1
+onemindata	1
+plots	1
+alarms	0
+stations &Arr{
+	CP2 &Arr{
+		distance	3.91
+		latitude	61.2642
+		longitude	-152.2418
+		elevation	1.98
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	CRP &Arr{
+		distance	6.34
+		latitude	61.2670
+		longitude	-152.1555
+		elevation	1.62
+		channels &Arr{
+			EHE &Arr{
+				use	0
+				threshold	0.0
+			}
+			EHN &Arr{
+				use	0
+				threshold	0.0
+			}
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	SPCP &Arr{
+		distance	6.51
+		latitude	61.2661
+		longitude	-152.1529
+		elevation	1.62
+		channels &Arr{
+			BHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+			BHN &Arr{
+				use	0
+				threshold	0.0
+			}
+			BHE &Arr{
+				use	0
+				threshold	0.0
+			}
+		}
+	}
+	SPBG &Arr{
+		distance	7.58
+		latitude	61.2597
+		longitude	-152.3699
+		elevation	1.09
+		channels &Arr{
+			BHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+			BHN &Arr{
+				use	0
+				threshold	0.0
+			}
+			BHE &Arr{
+				use	0
+				threshold	0.0
+			}
+		}
+	}
+	BGL &Arr{
+		distance	8.05
+		latitude	61.2669
+		longitude	-152.3890
+		elevation	1.13
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	SPCN &Arr{
+		distance	9.04
+		latitude	61.2250
+		longitude	-152.1832
+		elevation	0.73
+		channels &Arr{
+			BHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+			BHN &Arr{
+				use	0
+				threshold	0.0
+			}
+			BHE &Arr{
+				use	0
+				threshold	0.0
+			}
+		}
+	}
+	CKN &Arr{
+		distance	9.18
+		latitude	61.2240
+		longitude	-152.1815
+		elevation	0.73
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+}

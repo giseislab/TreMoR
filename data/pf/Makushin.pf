@@ -1,0 +1,100 @@
+latitude	53.8899
+longitude	-166.9250
+spectrograms	1
+onemindata	1
+plots	1
+alarms	0
+stations &Arr{
+	MCIR &Arr{
+		distance	7.17
+		latitude	53.9514
+		longitude	-166.8922
+		elevation	0.80
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	MSOM &Arr{
+		distance	8.22
+		latitude	53.8163
+		longitude	-166.9364
+		elevation	0.01
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	MSW &Arr{
+		distance	9.52
+		latitude	53.9155
+		longitude	-166.7864
+		elevation	0.42
+		channels &Arr{
+			EHE &Arr{
+				use	0
+				threshold	0.0
+			}
+			EHN &Arr{
+				use	0
+				threshold	0.0
+			}
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	MGOD &Arr{
+		distance	11.06
+		latitude	53.7947
+		longitude	-166.8760
+		elevation	0.65
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	MREP &Arr{
+		distance	14.71
+		latitude	53.8105
+		longitude	-166.7456
+		elevation	0.79
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	MNAT &Arr{
+		distance	15.83
+		latitude	53.8838
+		longitude	-166.6836
+		elevation	0.40
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	MTBL &Arr{
+		distance	18.33
+		latitude	53.9689
+		longitude	-166.6793
+		elevation	0.81
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+}

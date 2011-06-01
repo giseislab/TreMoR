@@ -1,0 +1,116 @@
+latitude	59.3626
+longitude	-153.4350
+spectrograms	1
+onemindata	1
+plots	1
+alarms	0
+stations &Arr{
+	AUH &Arr{
+		distance	0.47
+		latitude	59.3638
+		longitude	-153.4430
+		elevation	0.90
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	AUP &Arr{
+		distance	0.84
+		latitude	59.3634
+		longitude	-153.4202
+		elevation	1.03
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	AUW &Arr{
+		distance	2.19
+		latitude	59.3701
+		longitude	-153.4708
+		elevation	0.28
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	AUL &Arr{
+		distance	2.21
+		latitude	59.3823
+		longitude	-153.4403
+		elevation	0.35
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+			BHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+			BHN &Arr{
+				use	0
+				threshold	0.0
+			}
+			BHE &Arr{
+				use	0
+				threshold	0.0
+			}
+		}
+	}
+	AUNW &Arr{
+		distance	2.94
+		latitude	59.3782
+		longitude	-153.4768
+		elevation	0.16
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+			ELZ &Arr{
+				use	0
+				threshold	0.0
+			}
+		}
+	}
+	AUI &Arr{
+		distance	3.07
+		latitude	59.3352
+		longitude	-153.4277
+		elevation	0.29
+		channels &Arr{
+			EHE &Arr{
+				use	0
+				threshold	0.0
+			}
+			EHN &Arr{
+				use	0
+				threshold	0.0
+			}
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	AUSE &Arr{
+		distance	3.17
+		latitude	59.3414
+		longitude	-153.3975
+		elevation	0.15
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+}

@@ -1,0 +1,116 @@
+latitude	53.3970
+longitude	-168.1660
+spectrograms	1
+onemindata	1
+plots	1
+alarms	0
+stations &Arr{
+	OKCF &Arr{
+		distance	1.98
+		latitude	53.3958
+		longitude	-168.1362
+		elevation	0.69
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	OKCE &Arr{
+		distance	3.34
+		latitude	53.4270
+		longitude	-168.1643
+		elevation	0.52
+		channels &Arr{
+			BHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+			BHN &Arr{
+				use	0
+				threshold	0.0
+			}
+			BHE &Arr{
+				use	0
+				threshold	0.0
+			}
+		}
+	}
+	OKSO &Arr{
+		distance	4.41
+		latitude	53.3575
+		longitude	-168.1599
+		elevation	0.46
+		channels &Arr{
+			BHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+			BHN &Arr{
+				use	0
+				threshold	0.0
+			}
+			BHE &Arr{
+				use	0
+				threshold	0.0
+			}
+		}
+	}
+	OKWR &Arr{
+		distance	4.95
+		latitude	53.4347
+		longitude	-168.2056
+		elevation	1.02
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	OKNC &Arr{
+		distance	7.24
+		latitude	53.4570
+		longitude	-168.1237
+		elevation	0.42
+		channels &Arr{
+			BHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+			BHN &Arr{
+				use	0
+				threshold	0.0
+			}
+			BHE &Arr{
+				use	0
+				threshold	0.0
+			}
+		}
+	}
+	OKTU &Arr{
+		distance	8.41
+		latitude	53.3839
+		longitude	-168.0411
+		elevation	0.65
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	OKWE &Arr{
+		distance	9.68
+		latitude	53.4721
+		longitude	-168.2398
+		elevation	0.45
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+}

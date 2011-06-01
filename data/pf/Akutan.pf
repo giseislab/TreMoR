@@ -1,0 +1,124 @@
+latitude	54.1331
+longitude	-165.9856
+spectrograms	1
+onemindata	1
+plots	1
+alarms	0
+stations &Arr{
+	AKV &Arr{
+		distance	1.68
+		latitude	54.1262
+		longitude	-165.9627
+		elevation	0.86
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	AKLV &Arr{
+		distance	3.83
+		latitude	54.1627
+		longitude	-165.9556
+		elevation	0.55
+		channels &Arr{
+			BHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+			BHN &Arr{
+				use	0
+				threshold	0.0
+			}
+			BHE &Arr{
+				use	0
+				threshold	0.0
+			}
+		}
+	}
+	LVA &Arr{
+		distance	4.40
+		latitude	54.1609
+		longitude	-166.0337
+		elevation	0.46
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	ZRO &Arr{
+		distance	4.64
+		latitude	54.0916
+		longitude	-165.9780
+		elevation	0.45
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	AKMO &Arr{
+		distance	4.94
+		latitude	54.0912
+		longitude	-166.0106
+		elevation	0.28
+		channels &Arr{
+			BHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+			BHN &Arr{
+				use	0
+				threshold	0.0
+			}
+			BHE &Arr{
+				use	0
+				threshold	0.0
+			}
+		}
+	}
+	AKBB &Arr{
+		distance	5.21
+		latitude	54.0984
+		longitude	-165.9318
+		elevation	0.31
+		channels &Arr{
+			BHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+			BHN &Arr{
+				use	0
+				threshold	0.0
+			}
+			BHE &Arr{
+				use	0
+				threshold	0.0
+			}
+		}
+	}
+	AKRB &Arr{
+		distance	5.43
+		latitude	54.1301
+		longitude	-166.0688
+		elevation	0.33
+		channels &Arr{
+			BHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+			BHN &Arr{
+				use	0
+				threshold	0.0
+			}
+			BHE &Arr{
+				use	0
+				threshold	0.0
+			}
+		}
+	}
+}

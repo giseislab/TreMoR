@@ -1,0 +1,98 @@
+###############################################################
+############# LIST OF VOLCANO SUBNETS TO USE ##################
+###############################################################
+subnetnames &Tbl{
+#Wrangell
+Spurr
+Redoubt
+Iliamna
+Augustine
+Fourpeaked
+#Snowy
+#Katmai
+#Mageik
+#Peulik
+#Aniakchak
+#Veniaminof
+#Pavlof
+#Dutton
+#Shishaldin
+#Westdahl
+Akutan
+Makushin
+Okmok
+#Korovin
+#GreatSitkin
+#Kanaga
+#Tanaga
+#Gareloi
+#Semisopochnoi
+#LittleSitkin
+#PressureSensor
+#Broadbands
+}
+
+###############################################################
+############# MODULES                        ##################
+###############################################################
+compute1mindata     1                       # not used
+plotspectrograms    1                       # not used
+detectAlarms        1                       # used in iceweb2
+plot1mindata        1                       # not used
+makeHTML            0                       # not used
+sound               0
+print               1
+
+###############################################################
+############# PATHS                          ##################
+###############################################################
+DBMASTER        dbmaster/master_stations    # used in db2stationmetadata, db2stationcoordinates, icewebpaths, getStationsWithinDist
+PFS             pf                          # used in openPointerToSubnet, pf2PARAMS, icewebpaths
+ONEMINDATA      1mindata                    # used in loadwfmeas, make1minPlots, plotdr, plotoneminwrapper, save1min2file, save2bob, save2wfmeas
+WEBDIR          www                         # used in make1minPlots, iceweb2, icewebpaths
+
+###############################################################
+############# WAVEFORM PROCESSING            ##################
+###############################################################
+lowcut	0.5	
+highcut	15.0
+npoles	2
+
+###############################################################
+############# SPECTROGRAMS                   ##################
+###############################################################
+nfft		1024	# must be a power of 2
+overlap		512
+blue		40
+red         100
+max_freq	10.0
+
+###############################################################
+############# DERIVED DATA MEASUREMENTS      ##################
+###############################################################
+measures &Tbl{                              # used in make1minPlots, iceweb2      
+	Drms
+}
+dayplots &Tbl{                             # used in subnetpf2days
+7
+}
+surfaceWaveSpeed	2000                    # used in subnet21mindata
+df                  0.09765625              # used in db2stationmetadata
+
+###############################################################
+############# ALARM SYSTEM                   ##################
+###############################################################
+triggersForAlarmFraction	0.5             # used in detecttremoralarms, threshold2tremoralarm
+
+
+#####
+# CURRENTLY PARAMS is used in:
+# make1minPlots, subnet21mindata db2stationmetadata, getwaveforms, pf2PARAMS, subnetpf2days, 
+# subnetsetup, iceweb2, icewebWrapper, iceweb1minplot, iceweb_spectrogram2, specgram3,
+# subnet2spectrogram2, detecttremoralarms, plottremoralarmswrapper, threshold2tremoralarm, get_timewindow
+
+# CURRENTLY paths is used in:
+# compute_energy, load1minfile, loadbob, loadwfmeas, make1minPlots, plotdr, plotoneminwrrapper, save21minfile, 
+# save2bob, save2wfmeas, db2stationcoordinates, db2stationmetadata, get_datasrouce, getWavefors, openPointerToSubnet, 
+# pf2PARAMS, pf2source, subnetsetup, iceweb2, icwebwrapper, durationamplitudewrapper, gui_plotoneminwrapper, iceweb_spectrograms2, 
+# plot1minGui, makeThumbnail, subnet2spectrogram2, dtecttremoralarms, threshold2tremoralarm, getStationWithinDist, icewebpaths
