@@ -17,10 +17,7 @@ matlab_pf       &Arr{ # Any variables given here will be available in Matlab wit
 }
 # after matlab_paths added, temporary parameter file created, and Pf created as a pointer to it
 matlab_script   &Literal{ # This is the script that gets executed when Matlab starts,
-	pwd
 	startup_tremor;
-	%debug(0);
-	%warning off;
 	while 1
 		tremor_loadwaveformdata();
 		pause(10);

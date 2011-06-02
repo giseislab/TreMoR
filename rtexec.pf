@@ -10,7 +10,7 @@ rtrun_createspectrograms	nice rtrun_matlab -p rtrun_createspectrograms -v
 rtrun_createspectrograms2	nice rtrun_matlab -p rtrun_createspectrograms -v
 rtrun_createspectrograms3	nice rtrun_matlab -p rtrun_createspectrograms -v
 rtrun_createspectrograms4	nice rtrun_matlab -p rtrun_createspectrograms -v
-rtrun_computesamdata	nice  rtrun_matlab -p rtrun_computesam -v
+rtrun_computesamdata	nice rtrun_matlab -p rtrun_computesam -v
 }
 
 Run     &Arr{

@@ -70,11 +70,11 @@ classdef sam
         end        
         
         function s = station(self)
-            s = get(s.scnl, 'station');
+            s = get(self.scnl, 'station');
         end 
         
         function c = channel(self)
-            c = get(s.scnl, 'channel');
+            c = get(self.scnl, 'channel');
         end 
         
         function plot(self, varargin)

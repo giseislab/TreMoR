@@ -1,24 +1,28 @@
 function stats = waveform2stats(w, newFs)
+stats=[];
 for c=1:length(w)
-    stats(c) = [];
     oldFs = get(w(c), 'freq');
     cf = round(oldFs / newFs);
     if strcmp(get(w(c), 'units'), 'nm / sec')
-        s = waveform2sam(w(c));
-        stats(c).Vmax = s.resample('absmax', cf);
-        stats(c).Vmedian = s.resample('absmedian', cf);
-        stats(c).Vmean = s.resample('absmean', cf);
+        stats(c).Vmax = makestat(w(c), 'absmax', cf);
+        stats(c).Vmedian = makestat(w(c), 'absmedian', cf);
+        stats(c).Vmean = makestat(w(c), 'absmean', cf);
         %e = energy(s); 
         %stats.Energy = e.resample('absmean', cf);, 
         w(c) = integrate(w(c));
     end
 
     if strcmp(get(w(c), 'units'), 'nm')
-        s = waveform2sam(w(c));
-        stats(c).Dmax = s.resample('absmax', cf);
-        stats(c).Dmedian = s.resample('absmedian', cf);
-        stats(c).Dmean = s.resample('absmean', cf);
-        stats(c).Drms = s.resample('rms', cf);
+        stats(c).Dmax = makestat(w(c), 'absmax', cf);
+        stats(c).Dmedian = makestat(w(c), 'absmedian', cf);
+        stats(c).Dmean = makestat(w(c),'absmean', cf);
+        stats(c).Drms = makestat(w(c), 'rms', cf);
     end
 end
+end
+
+function s=makestat(w, method, cf)
+        wr = resample(w, method, cf);
+        s = waveform2sam(wr);
+        s.measure = method;
 end
