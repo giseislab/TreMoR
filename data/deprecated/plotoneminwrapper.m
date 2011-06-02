@@ -20,7 +20,7 @@ end
 
 if cumulative
 for c=1:length(onemin)
-        if onemin(c).datafound % run twice since there may be two pulses per day
+        if onemin(c).datafound 
             onemin(c).data=cumsum(onemin(c).data);
         end
 end
