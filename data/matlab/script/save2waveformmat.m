@@ -11,7 +11,9 @@ function [w, filename, snum, enum, subnet] = save2waveformmat(w, matdir, snum, e
 		if ~exist(matdir2, 'dir')
 			mkdir('.', matdir2);
 		end
-		disp(sprintf('Copying to %s',filename2));
-		system(sprintf('cp %s %s',filename, filename2));
+		%disp(sprintf('Copying to %s',filename2));
+		disp(sprintf('Saving to %s',filename2));
+		eval(sprintf('save %s w snum enum subnet',filename2));
+		%system(sprintf('cp %s %s',filename, filename2));
 	end
 end
