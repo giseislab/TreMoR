@@ -20,7 +20,7 @@ for c=1:length(PARAMS.subnetnames)
     
     % So do it the long way instead
     if exist(outfile, 'file')
-        system(sprintf('mv %s %s.%s',outfile,outfile,datestr(now,31)));
+        system(sprintf('mv %s %s.%s',outfile,outfile,datestr(now,30)));
     end
     fout = fopen(outfile, 'w');
     fprintf(fout, 'latitude\t%.4f\n',subnets.source.latitude);
