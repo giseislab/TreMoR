@@ -22,7 +22,11 @@ end
 end
 
 function s=makestat(w, method, cf)
-        wr = resample(w, method, cf);
-        s = waveform2sam(wr);
-        s.measure = method;
+	try % rare error in waveform/resample
+        	wr = resample(w, method, cf);
+        	s = waveform2sam(wr);
+        	s.measure = method;
+	catch
+		s = [];
+	end
 end
