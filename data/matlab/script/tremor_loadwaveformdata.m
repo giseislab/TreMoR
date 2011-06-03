@@ -53,6 +53,7 @@ for subnet_num=1:length(subnets)
 			w = getwaveforms(scnl, snum, enum);
 			if isempty(w)
 				disp('No waveform data found for this timewindow');
+				%append2missingDataList(scnl, snum, enum, subnet); 
 				break;
 			else
 				%[wsnum, wenum] = waveform2timewindow(w);
@@ -80,4 +81,11 @@ for subnet_num=1:length(subnets)
 end
 print_debug(sprintf('< %s at %s',mfilename, datestr(now,31)),1)
 
-
+function append2missingDataList(scnl, snum, enum, subnet)
+load state/missingDataList.mat
+l = length(mdi);
+mdi(l+1).scnl = scnl;
+mdi(l+1).snum = snum;
+mdi(l+1).enum = enum;
+mdi(l+1).subnet = subnet;
+save state/missingDataList.mat mdi 

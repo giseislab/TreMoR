@@ -66,8 +66,15 @@ while (length(w)==0 && dsi<=length(ds)),
 
             try
                 w = waveform(ds(dsi), scnl, snum, enum); % CALL WAVEFORM
-            catch
+            catch % Try 1 scnl at a time
                 w=[];
+		wn = 1;
+		for cc=1:length(scnl)	
+			try	
+                		w(wn) = waveform(ds(dsi), scnl(cc), snum, enum); % CALL WAVEFORM
+				wn = wn + 1;
+			end	
+		end	
             end
 		end
 %	end
