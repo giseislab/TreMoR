@@ -4,9 +4,9 @@ function ds=get_datasource(snum, enum);
 ds=[];
 if snum > utnow - 7
 	DBWF='db/archive';
-    if exist(DBWF,'file')
-        ds = [ds datasource('antelope', DBWF)];
-        ds = [ds datasource('antelope', [DBWF,'_%04d_%02d_%02d'], 'year','month','day')];
+    if exist(DBWF,'file') % skip this to see if can correct bronco problems...
+        %ds = [ds datasource('antelope', DBWF)];
+        %ds = [ds datasource('antelope', [DBWF,'_%04d_%02d_%02d'], 'year','month','day')];
     else
         print_debug('No local datasource found',3);
     end

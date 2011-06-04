@@ -17,16 +17,16 @@ len = length(data);
 nsecs = 600; % number of seconds before downsampling occurs
 binsize = ceil(len/(nsecs * freqSamp));
 
-if (binsize > 1) 
+if (binsize > 1) % skip this 
 	if (timeDiffInMins <= 10) % up to 1 hour of data
-		disp(sprintf('Downsampling trace by factor %d with mean method',binsize))
+		%disp(sprintf('Downsampling trace by factor %d with mean method',binsize))
 		%data = abs(data); % have to rectify before averaging it out
-		[dnum, data] = downsamplegt(dnum, data, binsize);
+		%[dnum, data] = downsamplegt(dnum, data, binsize);
 	else % more than 1 hour of data
-		disp(sprintf('Downsampling trace by factor %d with decimate method',binsize))
+		%disp(sprintf('Downsampling trace by factor %d with decimate method',binsize))
 		i = 1:binsize:len;
-		dnum = dnum(i);
-		data = data(i);
+		%dnum = dnum(i);
+		%data = data(i);
 	end
 end
 % plot seismogram
