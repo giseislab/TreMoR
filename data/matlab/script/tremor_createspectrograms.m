@@ -36,7 +36,7 @@ while 1,
 				
 	% Create a thumbnail spectrogram
 	%spthumbfile = catpath(spdir, ['small_', timestamp, '.png']);
-	%disp(sprintf('Creating spectrogram, file will go to %s',spthumbfile));
+	disp(sprintf('Creating thumbnail'));
 	%makeThumbnail(spthumbfile, timestamp);
     makesgramthumbnail(tenminspfile);
 
