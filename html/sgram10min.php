@@ -330,7 +330,7 @@ include('./includes/header.inc');
 						#echo "<td><h3>Sorry, the spectrogram image you requested does not exist.<br/>($sgram)<br/>Click <a href=\"sgram10min.php?subnet=$subnet\"> here </a> for current image or <a href=\"sgram10min.php?subnet=$subnet&year=$ryear&month=$rmonth&day=$rday&hour=$rhour&minute=$rminute\"> here </a>for the most recent image</h3></td>";
 						echo "\t<td>";
 						echo "<h1>$subnet $year/$month/$day $hour:$minute</h1>\n";	
-						echo "<h3>Sorry, the spectrogram image you requested does not exist!</h3>";
+						echo "<h3>Sorry, the spectrogram image you requested does not exist!</h3><br/>$sgram";
 						echo "<h3>Today's spectrograms:</h3><br/>\n";
 						foreach ($sgramfiles as $sgramfile) {
 							list ($ryear, $rmonth, $rday, $rhour, $rminute, $rsubnet) = sgramfilename2parts($sgramfile);

@@ -11,12 +11,8 @@ clearstatcache();
 # global variables	
 $pfdir = '../pf';
 $parameterspf = $pfdir . '/parameters.pf';
-$WEBPLOTSPATH = "/usr/local/mosaic/AVO/internal/avoseis/bronco/TreMoR/plots";
-#$WEBPLOTSPATH = "/usr/local/mosaic/AVO/internal/avoseis/coho/TreMoR/plots";
-#$WEBPLOTS = "http://giseis.alaska.edu/AVO/internal/avoseis/bronco/TreMoR/plots";
-#$WEBPLOTS = "http://giseis.alaska.edu/AVO/internal/avoseis/coho/TreMoR/plots";
-$WEBPLOTS = "../plots";
-#$WEBPLOTS = "../../../coho/TreMoR/plots";
+$WEBPLOTSPATH = "/usr/local/mosaic/AVO/internal/avoseis/bronco/plots";
+$WEBPLOTS = "../plots"; # URL
 $subnets = pfget($parameterspf, 'subnetnames');
 
 ?>

@@ -54,10 +54,10 @@ our %imageFormat;
 # read paths
 $paths{PFS} 		= $ARGV[0]; 
 $parameterspf		= $paths{PFS}."/parameters.pf";
-$paths{INTERNALWEBPRODUCTS}= 'www';
+$paths{INTERNALWEBPRODUCTS}	= $ENV{'INTERNALWEBPRODUCTS'};
 $paths{INTERNALWEBPRODUCTSURL}	= $ENV{'INTERNALWEBPRODUCTSURL'};
 $paths{DOCS}		= "http://www.avo.alaska.edu/wiki/index.php/IceWeb";
-$DAILYURL 		= "http://kiska.giseis.alaska.edu/internal/ICEWEB/SPECTROGRAMS";
+our $DAILY 		= "http://kiska.giseis.alaska.edu/internal/ICEWEB/SPECTROGRAMS";
 
 # other globals
 $imageFormat{IN} 	= "png";
