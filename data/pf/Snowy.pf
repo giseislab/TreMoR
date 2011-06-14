@@ -1,0 +1,64 @@
+latitude	58.3336
+longitude	-154.6859
+spectrograms	1
+onemindata	1
+plots	1
+alarms	0
+stations &Arr{
+	KAWH &Arr{
+		distance	8.64
+		latitude	58.3837
+		longitude	-154.7992
+		elevation	0.78
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	KARR &Arr{
+		distance	18.29
+		latitude	58.4978
+		longitude	-154.7033
+		elevation	0.61
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	KAHG &Arr{
+		distance	19.60
+		latitude	58.4940
+		longitude	-154.5463
+		elevation	0.92
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	KAKN &Arr{
+		distance	22.29
+		latitude	58.2970
+		longitude	-155.0611
+		elevation	1.05
+		channels &Arr{
+			BHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+			BHN &Arr{
+				use	0
+				threshold	0.0
+			}
+			BHE &Arr{
+				use	0
+				threshold	0.0
+			}
+		}
+	}
+}

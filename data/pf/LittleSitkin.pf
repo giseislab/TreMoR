@@ -1,0 +1,64 @@
+latitude	51.9531
+longitude	178.5356
+spectrograms	1
+onemindata	1
+plots	1
+alarms	0
+stations &Arr{
+	LSSA &Arr{
+		distance	1.58
+		latitude	51.9496
+		longitude	178.5132
+		elevation	0.55
+		channels &Arr{
+			SHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	LSNW &Arr{
+		distance	2.32
+		latitude	51.9705
+		longitude	178.5168
+		elevation	0.29
+		channels &Arr{
+			SHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	LSPA &Arr{
+		distance	2.62
+		latitude	51.9569
+		longitude	178.5734
+		elevation	0.34
+		channels &Arr{
+			SHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+			SHN &Arr{
+				use	0
+				threshold	0.0
+			}
+			SHE &Arr{
+				use	0
+				threshold	0.0
+			}
+		}
+	}
+	LSSE &Arr{
+		distance	3.18
+		latitude	51.9332
+		longitude	178.5690
+		elevation	0.34
+		channels &Arr{
+			SHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+}

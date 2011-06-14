@@ -1,0 +1,44 @@
+latitude	55.1867
+longitude	-162.2744
+spectrograms	1
+onemindata	1
+plots	1
+alarms	0
+stations &Arr{
+	DTN &Arr{
+		distance	4.69
+		latitude	55.1457
+		longitude	-162.2570
+		elevation	0.40
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	DT1 &Arr{
+		distance	8.85
+		latitude	55.1071
+		longitude	-162.2781
+		elevation	0.20
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	DRR3 &Arr{
+		distance	24.46
+		latitude	54.9669
+		longitude	-162.2611
+		elevation	0.46
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+}

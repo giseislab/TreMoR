@@ -1,0 +1,92 @@
+latitude	56.1979
+longitude	-159.3931
+spectrograms	1
+onemindata	1
+plots	1
+alarms	0
+stations &Arr{
+	VNSS &Arr{
+		distance	4.98
+		latitude	56.2267
+		longitude	-159.4548
+		elevation	1.73
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	VNNF &Arr{
+		distance	10.66
+		latitude	56.2837
+		longitude	-159.3160
+		elevation	1.15
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	VNWF &Arr{
+		distance	11.66
+		latitude	56.1517
+		longitude	-159.5622
+		elevation	1.10
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	VNFG &Arr{
+		distance	13.81
+		latitude	56.2857
+		longitude	-159.5511
+		elevation	1.07
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	VNHG &Arr{
+		distance	14.39
+		latitude	56.2211
+		longitude	-159.1642
+		elevation	0.97
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	VNSW &Arr{
+		distance	17.35
+		latitude	56.0720
+		longitude	-159.5585
+		elevation	0.72
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	VNKR &Arr{
+		distance	18.60
+		latitude	56.0312
+		longitude	-159.3678
+		elevation	0.62
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+}

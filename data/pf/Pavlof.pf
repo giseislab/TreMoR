@@ -1,0 +1,92 @@
+latitude	55.4173
+longitude	-161.8937
+spectrograms	1
+onemindata	1
+plots	1
+alarms	0
+stations &Arr{
+	PN7A &Arr{
+		distance	6.66
+		latitude	55.4337
+		longitude	-161.9952
+		elevation	0.84
+		channels &Arr{
+			BDF &Arr{
+				use	1
+				threshold	0.0
+			}
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	PV6 &Arr{
+		distance	7.03
+		latitude	55.4536
+		longitude	-161.9850
+		elevation	0.75
+		channels &Arr{
+			EHE &Arr{
+				use	0
+				threshold	0.0
+			}
+			EHN &Arr{
+				use	0
+				threshold	0.0
+			}
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	PVV &Arr{
+		distance	8.13
+		latitude	55.3740
+		longitude	-161.7899
+		elevation	0.16
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	PS4A &Arr{
+		distance	8.22
+		latitude	55.3469
+		longitude	-161.8539
+		elevation	0.32
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	PS1A &Arr{
+		distance	9.69
+		latitude	55.4220
+		longitude	-161.7404
+		elevation	0.29
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	HAG &Arr{
+		distance	11.08
+		latitude	55.3178
+		longitude	-161.9025
+		elevation	0.50
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+}

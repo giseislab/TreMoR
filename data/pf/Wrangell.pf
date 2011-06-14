@@ -1,0 +1,64 @@
+latitude	62.0057
+longitude	-144.0194
+spectrograms	1
+onemindata	1
+plots	1
+alarms	0
+stations &Arr{
+	WANC &Arr{
+		distance	2.65
+		latitude	62.0032
+		longitude	-144.0699
+		elevation	4.19
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	WAZA &Arr{
+		distance	10.37
+		latitude	62.0751
+		longitude	-144.1522
+		elevation	2.53
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	WASW &Arr{
+		distance	11.76
+		latitude	61.9282
+		longitude	-144.1724
+		elevation	2.20
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	WACK &Arr{
+		distance	16.28
+		latitude	61.9863
+		longitude	-144.3284
+		elevation	2.28
+		channels &Arr{
+			EHE &Arr{
+				use	0
+				threshold	0.0
+			}
+			EHN &Arr{
+				use	0
+				threshold	0.0
+			}
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+}

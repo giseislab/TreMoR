@@ -1,0 +1,88 @@
+latitude	51.9288
+longitude	179.5977
+spectrograms	1
+onemindata	1
+plots	1
+alarms	0
+stations &Arr{
+	CERB &Arr{
+		distance	2.21
+		latitude	51.9314
+		longitude	179.6297
+		elevation	0.30
+		channels &Arr{
+			SHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+			SHN &Arr{
+				use	0
+				threshold	0.0
+			}
+			SHE &Arr{
+				use	0
+				threshold	0.0
+			}
+		}
+	}
+	CESW &Arr{
+		distance	3.89
+		latitude	51.9010
+		longitude	179.5633
+		elevation	0.24
+		channels &Arr{
+			SHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	CEPE &Arr{
+		distance	5.42
+		latitude	51.9658
+		longitude	179.6492
+		elevation	0.34
+		channels &Arr{
+			SHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	CERA &Arr{
+		distance	6.43
+		latitude	51.9070
+		longitude	179.6846
+		elevation	0.30
+		channels &Arr{
+			SHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	CETU &Arr{
+		distance	8.22
+		latitude	51.9661
+		longitude	179.4942
+		elevation	0.34
+		channels &Arr{
+			SHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	CEAP &Arr{
+		distance	8.30
+		latitude	52.0024
+		longitude	179.5778
+		elevation	0.24
+		channels &Arr{
+			SHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+}

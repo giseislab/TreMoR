@@ -1,0 +1,40 @@
+body{font-family:Verdana,Arial,Helvetica,sans-serif;font-size:12px;}
+
+
+th {background-color:#FAEBD7}
+
+body
+{
+	background-color: #ffffff;
+}
+
+h1,h2,h3,hr 
+{
+	color:saddlebrown; 
+}
+
+a:link    {color:darkred}
+a:visited {color:darkred}
+a:active  {color:red}
+
+h1 {font-size: 14pt}
+h2 {font-size: 12pt}
+h3, a {font-size: 11pt}
+p, li {font-size: 10pt}
+
+.tdimg
+{
+   display: table-cell;
+   background-repeat : no-repeat;
+   #background-position:-16px -15px;
+   overflow: hidden;
+   height: 100px;
+   width: 119px;	
+}
+
+.table_collapse
+{ 
+	border-collapse: collapse;
+}
+
+

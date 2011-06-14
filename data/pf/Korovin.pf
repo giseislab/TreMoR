@@ -1,0 +1,100 @@
+latitude	52.3817
+longitude	-174.1653
+spectrograms	1
+onemindata	1
+plots	1
+alarms	0
+stations &Arr{
+	KOKV &Arr{
+		distance	2.26
+		latitude	52.3614
+		longitude	-174.1653
+		elevation	0.78
+		channels &Arr{
+			EHE &Arr{
+				use	0
+				threshold	0.0
+			}
+			EHN &Arr{
+				use	0
+				threshold	0.0
+			}
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	KONE &Arr{
+		distance	3.39
+		latitude	52.3936
+		longitude	-174.1193
+		elevation	0.25
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	KONW &Arr{
+		distance	3.48
+		latitude	52.3965
+		longitude	-174.2105
+		elevation	0.33
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	KOWE &Arr{
+		distance	6.06
+		latitude	52.3657
+		longitude	-174.2507
+		elevation	0.53
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	KOKL &Arr{
+		distance	6.92
+		latitude	52.3232
+		longitude	-174.2002
+		elevation	0.76
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	KOSE &Arr{
+		distance	8.88
+		latitude	52.3458
+		longitude	-174.0485
+		elevation	0.62
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	KOFP &Arr{
+		distance	12.72
+		latitude	52.2751
+		longitude	-174.0972
+		elevation	0.66
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+}

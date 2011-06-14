@@ -1,0 +1,76 @@
+latitude	54.5171
+longitude	-164.6476
+spectrograms	1
+onemindata	1
+plots	1
+alarms	0
+stations &Arr{
+	WESP &Arr{
+		distance	5.43
+		latitude	54.4935
+		longitude	-164.7213
+		elevation	0.94
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+			EHN &Arr{
+				use	0
+				threshold	0.0
+			}
+			EHE &Arr{
+				use	0
+				threshold	0.0
+			}
+		}
+	}
+	WESE &Arr{
+		distance	6.38
+		latitude	54.4732
+		longitude	-164.5840
+		elevation	0.95
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	WESN &Arr{
+		distance	7.60
+		latitude	54.5724
+		longitude	-164.5784
+		elevation	0.55
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	WECS &Arr{
+		distance	8.53
+		latitude	54.5309
+		longitude	-164.7776
+		elevation	0.64
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	WEBT &Arr{
+		distance	10.67
+		latitude	54.5911
+		longitude	-164.7530
+		elevation	0.47
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+}

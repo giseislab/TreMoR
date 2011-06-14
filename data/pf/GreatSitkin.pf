@@ -1,0 +1,88 @@
+latitude	52.0765
+longitude	-176.1109
+spectrograms	1
+onemindata	1
+plots	1
+alarms	0
+stations &Arr{
+	GSTD &Arr{
+		distance	3.26
+		latitude	52.0559
+		longitude	-176.1448
+		elevation	0.87
+		channels &Arr{
+			EHE &Arr{
+				use	0
+				threshold	0.0
+			}
+			EHN &Arr{
+				use	0
+				threshold	0.0
+			}
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	GSTR &Arr{
+		distance	4.06
+		latitude	52.0943
+		longitude	-176.0591
+		elevation	0.54
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	GSSP &Arr{
+		distance	4.78
+		latitude	52.0928
+		longitude	-176.1757
+		elevation	0.29
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	GSMY &Arr{
+		distance	5.26
+		latitude	52.0432
+		longitude	-176.0563
+		elevation	0.42
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	GSCK &Arr{
+		distance	7.99
+		latitude	52.0119
+		longitude	-176.1620
+		elevation	0.38
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	GSIG &Arr{
+		distance	16.19
+		latitude	51.9864
+		longitude	-175.9250
+		elevation	0.41
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+}

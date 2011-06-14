@@ -1,0 +1,112 @@
+latitude	54.7554
+longitude	-163.9711
+spectrograms	1
+onemindata	1
+plots	1
+alarms	0
+stations &Arr{
+	SSLS &Arr{
+		distance	5.14
+		latitude	54.7120
+		longitude	-163.9988
+		elevation	0.82
+		channels &Arr{
+			EHE &Arr{
+				use	0
+				threshold	0.0
+			}
+			EHN &Arr{
+				use	0
+				threshold	0.0
+			}
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	SSLN &Arr{
+		distance	6.47
+		latitude	54.8118
+		longitude	-163.9959
+		elevation	0.64
+		channels &Arr{
+			BDF &Arr{
+				use	1
+				threshold	0.0
+			}
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	SSLW &Arr{
+		distance	9.81
+		latitude	54.7718
+		longitude	-164.1214
+		elevation	0.64
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	SSBA &Arr{
+		distance	10.03
+		latitude	54.7727
+		longitude	-164.1245
+		elevation	0.77
+		channels &Arr{
+			BHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+			BHN &Arr{
+				use	0
+				threshold	0.0
+			}
+			BHE &Arr{
+				use	0
+				threshold	0.0
+			}
+		}
+	}
+	ISNN &Arr{
+		distance	15.02
+		latitude	54.8323
+		longitude	-163.7784
+		elevation	0.47
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	ISLZ &Arr{
+		distance	17.01
+		latitude	54.7260
+		longitude	-163.7110
+		elevation	0.63
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	BRPK &Arr{
+		distance	19.19
+		latitude	54.6455
+		longitude	-163.7408
+		elevation	0.39
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+}

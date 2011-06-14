@@ -1,0 +1,64 @@
+latitude	57.7510
+longitude	-156.3680
+spectrograms	1
+onemindata	1
+plots	1
+alarms	0
+stations &Arr{
+	PLK2 &Arr{
+		distance	2.98
+		latitude	57.7642
+		longitude	-156.3243
+		elevation	0.40
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	PLK3 &Arr{
+		distance	9.15
+		latitude	57.6887
+		longitude	-156.2674
+		elevation	0.49
+		channels &Arr{
+			EHE &Arr{
+				use	0
+				threshold	0.0
+			}
+			EHN &Arr{
+				use	0
+				threshold	0.0
+			}
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	PLK4 &Arr{
+		distance	13.24
+		latitude	57.6321
+		longitude	-156.3577
+		elevation	1.03
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	PLK1 &Arr{
+		distance	15.27
+		latitude	57.8019
+		longitude	-156.6072
+		elevation	0.08
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+}

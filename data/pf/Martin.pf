@@ -1,0 +1,108 @@
+latitude	58.1692
+longitude	-155.3566
+spectrograms	1
+onemindata	1
+plots	1
+alarms	0
+stations &Arr{
+	ACH &Arr{
+		distance	4.95
+		latitude	58.2107
+		longitude	-155.3260
+		elevation	0.96
+		channels &Arr{
+			EHE &Arr{
+				use	0
+				threshold	0.0
+			}
+			EHN &Arr{
+				use	0
+				threshold	0.0
+			}
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	ANCK &Arr{
+		distance	8.70
+		latitude	58.1988
+		longitude	-155.4940
+		elevation	0.87
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	KABU &Arr{
+		distance	12.12
+		latitude	58.2709
+		longitude	-155.2822
+		elevation	1.06
+		channels &Arr{
+			BHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+			BHN &Arr{
+				use	0
+				threshold	0.0
+			}
+			BHE &Arr{
+				use	0
+				threshold	0.0
+			}
+		}
+	}
+	MGLS &Arr{
+		distance	12.13
+		latitude	58.1343
+		longitude	-155.1608
+		elevation	0.47
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	KCE &Arr{
+		distance	13.08
+		latitude	58.2433
+		longitude	-155.1833
+		elevation	0.78
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	CAHL &Arr{
+		distance	13.37
+		latitude	58.0525
+		longitude	-155.3015
+		elevation	0.81
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	KBM &Arr{
+		distance	14.86
+		latitude	58.2750
+		longitude	-155.2017
+		elevation	0.73
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+}

@@ -1,0 +1,80 @@
+latitude	51.9242
+longitude	-177.1623
+spectrograms	1
+onemindata	1
+plots	1
+alarms	0
+stations &Arr{
+	KICM &Arr{
+		distance	2.34
+		latitude	51.9189
+		longitude	-177.1953
+		elevation	0.18
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	KINC &Arr{
+		distance	2.51
+		latitude	51.9314
+		longitude	-177.1276
+		elevation	0.20
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	KIKV &Arr{
+		distance	5.08
+		latitude	51.8788
+		longitude	-177.1704
+		elevation	0.41
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	KIRH &Arr{
+		distance	5.45
+		latitude	51.8996
+		longitude	-177.0935
+		elevation	0.31
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	KIWB &Arr{
+		distance	7.95
+		latitude	51.8531
+		longitude	-177.1508
+		elevation	0.24
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	KIMD &Arr{
+		distance	18.76
+		latitude	51.7616
+		longitude	-177.2349
+		elevation	0.18
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+}

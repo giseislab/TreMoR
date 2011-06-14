@@ -1,0 +1,76 @@
+latitude	51.7892
+longitude	-178.7960
+spectrograms	1
+onemindata	1
+plots	1
+alarms	0
+stations &Arr{
+	GAEA &Arr{
+		distance	3.45
+		latitude	51.7830
+		longitude	-178.7468
+		elevation	0.33
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	GALA &Arr{
+		distance	3.49
+		latitude	51.7617
+		longitude	-178.7715
+		elevation	0.32
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	GANO &Arr{
+		distance	3.50
+		latitude	51.8203
+		longitude	-178.8038
+		elevation	0.45
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	GANE &Arr{
+		distance	3.56
+		latitude	51.8189
+		longitude	-178.7767
+		elevation	0.33
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	GASW &Arr{
+		distance	4.19
+		latitude	51.7789
+		longitude	-178.8546
+		elevation	0.25
+		channels &Arr{
+			EHE &Arr{
+				use	0
+				threshold	0.0
+			}
+			EHN &Arr{
+				use	0
+				threshold	0.0
+			}
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+}
