@@ -31,14 +31,24 @@ while 1,
 	try
 		saveImageFile(tenminspfile, 60);
         catch exception
-        	disp(sprintf('Could not save %s\n%s' ,tenminspfile, exception.message));
+		pause(5);
+		try
+			saveImageFile(tenminspfile, 60);
+        	catch exception
+        		disp(sprintf('Could not save %s\n%s' ,tenminspfile, exception.message));
+			next;
+		end
 	end
 				
 	% Create a thumbnail spectrogram
 	%spthumbfile = catpath(spdir, ['small_', timestamp, '.png']);
 	disp(sprintf('Creating thumbnail'));
 	%makeThumbnail(spthumbfile, timestamp);
-    makesgramthumbnail(tenminspfile);
+	try
+    		makesgramthumbnail(tenminspfile);
+	catch
+		disp('Could not create thumbnail. Source file probably does not exist');
+	end
 
 	close;
 
