@@ -1,4 +1,63 @@
 classdef sam 
+    
+%
+% SAM Seismic Amplitude Measurement class constructor, version 1.0.
+% CORRELATION Correlation class constructor, version 1.5.
+%
+% SAM is a generic term used here to represent any continuous data
+% sampled at a regular time interval (usually 1 minute). Originally 
+% designed for loading and plotting RSAM data at the Montserrat Volcano 
+% Observatory (MVO), and then similar measurements derived from the VME 
+% "ltamon" program and ampengfft and rbuffer2bsam which took Seisan 
+% waveform files as input. 
+%
+% RSAM data are historically stored in "BOB" format, which consists
+% of a 4 byte floating number for each minute of the year, for a 
+% single station-channel. In version 2.x of IceWeb (TreMoR) various
+% new datasets are stored in BOB format, including the maximum, median,
+% mean and RMS values of the ground velocity and displacement, as well
+% as energy, peak frequency and mean frequency. So this class also
+% can be used to load and plot those data. See usage for LOADBOBFILE
+% below.
+%
+% S = SAM() creates an empty correlation object.
+%
+% S = SAM(dnum, data) creates a SAM object from a vector of datenum's
+% and a corresponding vector of data.
+%
+% S = LOADBOBFILE(sta, chan, snum, enum, measure, datadir) can be used
+% to read BOB files and create a SAM object directly.
+%
+% Methods:
+%   RESAMPLE:
+%   DOWNSAMPLE: (possibly obsolete, use RESAMPLE).
+%   PLOT:
+%   TOTEXTFILE:
+%   PLOTYY:
+%   MAKEBOBFILE:
+%   LOADBOBFILE:
+%   LOADWFMEASTABLE:
+%   REDUCE:
+%   ENERGY:
+%   SAM2WAVEFORM: Convert SAM object into a WAVEFORM object (be careful!)
+%   
+%
+% % ------- DESCRIPTION OF FIELDS IN SAM OBJECT ------------------
+% All calls to correlation return a "correlation object" containing
+% the following fields where M is the number of traces:
+%   DNUM:   a vector of MATLAB datenum's
+%   DATA:   a vector of data (same size as DNUM)
+%   MEASURE:    a string describing the type of data
+%   UNITS:  the units of the data, e.g. nm / sec.
+%   SCNL:   the scnlobject corresponding to the data.
+%   ISREDUCED:  are the data reduced to remove geometrical spreading.
+%               (boolean).
+
+% AUTHOR: Glenn Thompson, Montserrat Volcano Observatory
+% $Date: 2000-03-20 $
+% $Revision: 0 $
+
+
     properties(Access = public)
         dnum = [];
         data = [];
@@ -12,9 +71,21 @@ classdef sam
 
     methods(Access = public)
 
-        function self=sam(dnum, data)
-            self.dnum = dnum;
-            self.data = data;
+        %function self=sam(dnum, data)
+        %    self.dnum = dnum;
+        %    self.data = data;
+        %end
+        function self=sam(varargin)
+            switch nargin
+                
+                case 2, 
+                    self.dnum = varargin{1};
+                    self.data = varargin{2};
+                case 6,
+                    self = self.loadbob(varargin{1}, varargin{2},varargin{3},varargin{4},varargin{5},varargin{6});
+                    
+            end
+                
         end
 
         function self=downsample(self, minutes)
@@ -185,22 +256,206 @@ classdef sam
             self.measure = measure;
         end
         
+        
+        
+        function self = loadbob(self, sta, chan, snum, enum, measure, filepattern)
+        % Purpose:
+        %	Loads derived data from a binary file in the BOB RSAM format
+        %	The pointer position at which to reading from the binary file is determined timewindow.start. 
+        %	Load all the data in the timewindow given. So if timewindow is 12:34:56 to 12:44:56, 
+        %	it is the samples at 12:35, ..., 12:44 - i.e. 10 of them.
+        %       If the timewindow requested spans a year boundary, it will read from all the binary files.
+        %	importBinary is the function that reads the binary file. load1minfile is a wrapper to that. 
+        %	
+        % Input:
+        % 	sta - the station name, used as part of the filename
+        %	snum, enum - a Matlab datenum representing the start/end date/time.
+        %	measure - a string which identifies the measurement type
+        %               - examples include dr, drs, en, tdr, tdrs, tmdr, tmdrs
+        %
+        % Author:
+        % 	Glenn Thompson, MVO/AVO, 2000 - 2009 
+            self.scnl = scnlobject(sta, chan);
+            self.measure = measure;
+
+            [filepattern, datadir] = basename(filepattern);
+
+            % set start year and month, and end year and month
+            [syyy sm]=datevec(snum);
+            [eyyy em]=datevec(enum);
+
+            %filebase =  catpath(datadir, sprintf('%s_%s_%s',sta,chan,measure));
+            % filepattern is like s_c_m_YYYY.bob or S_YYYY.DAT
+            filebase = '';
+            for i=1:length(filepattern)
+                switch filepattern(i)
+                    case 's',
+                        filebase = sprintf('%s%s',filebase, lower(sta));
+                    case 'c',
+                        filebase = sprintf('%s%s',filebase, lower(chan));
+                    case 'm',
+                        filebase = sprintf('%s%s',filebase, lower(measure));
+                    case 'S',
+                        filebase = sprintf('%s%s',filebase, sta);
+                    case 'C',
+                        filebase = sprintf('%s%s',filebase, chan);
+                    case 'M',
+                        filebase = sprintf('%s%s',filebase, measure);
+                    otherwise,
+                        filebase = sprintf('%s%s', filebase, filepattern(i));
+                end
+            end
+    
+
+            % load the data
+            for yyyy=syyy:eyyy
+    
+                % Check year against start year 
+                if yyyy~=syyy
+                    % if not the first year, start on 1st Jan
+                    yrsnum=datenum(yyyy,1,1);
+                else
+                    yrsnum=snum;
+                end
+   
+                % Check year against end year
+                if yyyy~=eyyy
+                    % if not the last year, end at 31st Dec
+                    yrenum=datenum(yyyy,12,31,23,59,59);
+                else
+                    yrenum = enum;
+                end   
+   
+                % Set path to data file
+                % filepattern is like s_c_m_Y.bob or S_Y.DAT
+                infile = filebase;
+                index = strfind(upper(infile), 'YYYY');
+                switch length(index)
+                    case 1,
+                        infile(index(1):index(1)+3) = sprintf('%d',yyyy);           
+                    case 2,
+                        infile(index(1):index(2)-1) = sprintf('%d',yyyy);
+                end
+                infile = catpath(datadir, infile)
+                datestr(yrsnum)
+                datestr(yrenum)   
+                if exist(infile, 'file')
+                    % Import the data for this year
+
+                    %[dnum, data, datafound] = import1minfile(infile, yrsnum, yrenum);
+                    datapointsperday = 1440;
+
+                    % initialise return variables
+                    datafound=0;
+                    dnum=[];
+                    data=[];
+
+
+                    [yyyy mm]=datevec(snum);
+                    days=365;
+                    if mod(yyyy,4)==0
+                        days=366;
+                    end
+
+                    startsample=ceil((snum-datenum(yyyy,1,1))*datapointsperday);
+                    endsample =floor((enum-datenum(yyyy,1,1))*datapointsperday);
+                    nsamples = endsample - startsample;
+
+                    % now ready to create dnum vector
+                    dnum = ceilminute(snum)+(0:nsamples-1)/datapointsperday;
+
+                    if ~exist(infile,'file')	
+                        % infile doesn't exist
+                        print_debug(['No file ',infile],1)
+                        data(1:length(dnum))=NaN;
+   
+                    else
+                        % file found
+                        print_debug(sprintf( 'Loading data from %s, position %d to %d of %d', ...
+                            infile, startsample,(startsample+nsamples-1),(datapointsperday*days) ),3); 
+   
+                        %fid=fopen(infile,'r', 'b'); % big-endian for Sun, little-endian for PC
+                        fid=fopen(infile,'r', 'l'); % big-endian for Sun, little-endian for PC
+
+                        % Position the pointer
+                        offset=(startsample)*4;
+                        fseek(fid,offset,'bof');
+   
+                        % Read the data
+                        [data,numlines] = fread(fid, nsamples, 'float32');
+                        fclose(fid);
+                        datafound=0;
+                        print_debug(sprintf('mean of data loaded is %e',nanmean(data)),1);
+   
+                        % Transpose to give same dimensions as dnum
+                        data=data';
+
+                        % Test for Nulls
+                        if length(find(data>0)) > 0
+                            datafound=1;
+                        end	
+
+   
+                    end
+
+                    % Now paste together the matrices
+                    if datafound
+                        self.dnum = catmatrices(dnum, self.dnum);
+                        self.data = catmatrices(data, self.data);
+                    end
+                end   
+            end
+
+
+            % reset the datafound flag - in case last year was a blank
+            if length(find(self.data>0)) > 0
+                %self.datafound = 1;
+                %self.use = true;
+            else
+                print_debug(sprintf('%s: No data loaded from file %s',mfilename,infile),1);
+            end
+
+
+
+            clipOn = 0;
+            if clipOn==1
+                % clip the data depending on type
+                if strfind(lower(measure),'dr')
+                    i = find(self.data>500);
+                    self.data(i)=NaN;
+                end
+
+                if strfind(lower(measure),'isp')
+                    i = find(self.data>0.01);
+                    self.data(i)=NaN;
+                end
+
+                if strfind(lower(measure), 'td')
+                    i = find(self.data>0.01);
+                    self.data(i)=NaN;
+                end
+
+                if strfind(lower(measure),'rsam')
+                    i = find(self.data>0.01);
+                	self.data(i)=NaN;
+                end
+
+                if strfind(measure,'en')
+                    i = find(self.data>0.0001);
+                    self.data(i)=NaN;
+                end
+            end
+
+            % eliminate any data outside range asked for
+            i = find(self.dnum >= snum & self.dnum <= enum);
+            self.dnum = self.dnum(i);
+            self.data = self.data(i);
+
+        end
+
     end
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FILE LOAD AND SAVE FUNCTIONS %%%%%%%%%%%%%%%%%%%%%%%	
     methods(Access = public, Static)
-
-        function self = loadbobfile(sta, chan, snum, enum, measure, datadir)
-	    % could vectorise this function with "if iscell(sta), for s=1:length(sta), station.name = sta{c} etc., then inner loops for chan, measure, [snum enum?]
-	    % then would not need wrapper like stationmeasure2onemin.m
- 	    % first get it working in scalar mode though
- 	    % if I do vectorise this, I should vectorise other functions too. And they might be harder to maintain. Perhaps only IceWeb run-time codes would need it.
-            station.name = sta; station.channel = chan;
-            onemin = loadbob(station, snum, enum, measure, datadir);
-            self.dnum = onemin.dnum;
-            self.data = onemin.data;
-            self.scnl = scnlobject(onemin.station.name, onemin.station.channel);
-            self.measure = onemin.measure;
-        end
 
         function self = loadwfmeastable(sta, chan, snum, enum, measure, datadir)
             station.name = sta; station.channel = chan;
@@ -220,7 +475,7 @@ classdef sam
             fwrite(fid,a,'float32');
             fclose(fid);
         end
-
+  
  
      
     end
