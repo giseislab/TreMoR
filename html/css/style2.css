@@ -28,8 +28,10 @@ p, li {font-size: 10pt}
    background-repeat : no-repeat;
    #background-position:-16px -15px;
    overflow: hidden;
-   height: 100px;
-   width: 119px;	
+   #height: 100px; 
+   #width: 119px;	
+   height: 150px; 
+   width: 96px;	
 }
 
 .table_collapse
@@ -37,4 +39,11 @@ p, li {font-size: 10pt}
 	border-collapse: collapse;
 }
 
+th,td {
+padding:0;
+}
+
+table {
+border-collapse:collapse;
+}
 

@@ -4,7 +4,7 @@ print_debug(sprintf('> %s at %s',mfilename, datestr(now,31)),1)
 load pf/runtime
 
 while 1,
-	[w, filename, snum, enum, subnet] = loadnextwaveformmat('waveforms_sam')
+	[w, filename, snum, enum, subnet] = loadnextwaveformmat('waveforms_sam');
 
 	% Output some information
 	disp(sprintf('\n***** %s *****',filename));
@@ -18,8 +18,14 @@ while 1,
 
 	% Calculate and save true ground motion data (at the
 	% seismometer) to file (no reduced measurements)
-    stats = waveform2stats(w, 1/60);  
-    %stats = waveform2f(w);
+	try
+    		stats = waveform2stats(w, 1/60);  
+    		%stats = waveform2f(w);
+	catch	
+		disp('waveform2stats failed');
+    		%delete(filename);
+		system(sprintf('mv %s waveforms_sam/corrupt',filename));
+	end
 
     for c = 1:length(stats)
         samcollection = stats(c);
@@ -36,6 +42,7 @@ while 1,
                     try
                         save2bob(s.station, s.channel, s.dnum, s.data, measure);
                     catch
+			disp(sprintf('save2bob failed for %s-%s',s.station, s.channel));
                         s
                         measure
                     end

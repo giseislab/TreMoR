@@ -50,6 +50,7 @@ our %paths;
 our($paths, $parameterspf, @subnets);
 our ($convert, $ALCHEMY); 
 our %imageFormat;
+our $STARTHOUR= 3;
 
 # read paths
 $paths{PFS} 		= $ARGV[0]; 
@@ -75,7 +76,7 @@ my $menuxml = &update_iceweb_menu;
 ########################################################
 
 sub update_iceweb_menu {
-	our (%paths, %imageFormat, @subnets);
+	our (%paths, %imageFormat, @subnets, $STARTHOUR);
 	my $menuhtml = $paths{INTERNALWEBPRODUCTS}."/iceweb_menu.html";
 
 	my $pffile;
@@ -157,7 +158,7 @@ sub update_iceweb_menu {
 	foreach $subnet (@subnets) {
 		print FXML "\t\t<subnet name=\"$subnet\">\n";
 		print FXML "\t\t\t<link url=\"$baseurl/html/sgram10min.php?subnet=$subnet\" label=\"10min\" />\n";
-		print FXML "\t\t\t<link url=\"$baseurl/html/mosaicMakerHoursAgo.php?subnet=".$subnet."&amp;starthour=12&amp;endhour=0\" label=\"mosaic\" />\n";
+		print FXML "\t\t\t<link url=\"$baseurl/html/mosaicMakerHoursAgo.php?subnet=".$subnet."&amp;starthour=$STARTHOUR&amp;endhour=0\" label=\"mosaic\" />\n";
 		print FXML "\t\t\t<link url=\"$DAILY/".$subnet."/currentday.gif\" label=\"today\" />\n";
 		print FXML "\t\t\t<link url=\"$DAILY/".$subnet."/lastday.gif\" label=\"yesterday\"/>\n";
 		print FXML "\t\t</subnet>\n";

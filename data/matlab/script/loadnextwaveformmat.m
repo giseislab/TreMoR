@@ -9,11 +9,7 @@ function [w, filename, snum, enum, subnet] = loadnextwaveformmat(matdir)
 				pause(2); % pause just to give time for file to be saved properly
 				eval(['load ',filename]);
 			catch
-				corruptDir = [matdir,'/corrupt'];
-				if ~exist(corruptDir, 'dir')
-					system(sprintf('mkdir -p %s',corruptDir));	
-				end
-				system(sprintf('mv %s %s',filename,corruptDir));
+				system(sprintf('rm %s',filename));
 				d = [];
 			end	
         else

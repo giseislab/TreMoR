@@ -5,12 +5,27 @@ load pf/runtime
 
 while 1,
 	[w, filename, snum, enum, subnet] = loadnextwaveformmat('waveforms_sgram');
-
+	
 	% Remove waveforms MAT file here so can have multiple jobs running  without  them processing the same waveform file
 	delete(filename);
 
+	% Sanity checks
+	if ~strcmp(class(w),'waveform')
+		return;
+	end
+	if ~(snum>datenum(1989,1,1) && snum<utnow) 
+		return;
+	end
+	if ~(enum>datenum(1989,1,1) && enum<utnow) 
+		return;
+	end
+	if length(subnet)==0 
+		return;
+	end
+
 	% Output some information
 	disp(sprintf('\n***** New waveform *****'));
+	print_debug(filename, 1);
 	disp(sprintf('Start time is %s UTC',datestr(snum)));
 	disp(sprintf('End time is %s UTC',datestr(enum)));
 	timestamp = datestr(enum, 30);
@@ -28,29 +43,14 @@ while 1,
 
 	% save image file
 	orient tall;
-	try
-		saveImageFile(tenminspfile, 60);
-        catch exception
-		pause(5);
-		try
-			saveImageFile(tenminspfile, 60);
-        	catch exception
-        		disp(sprintf('Could not save %s\n%s' ,tenminspfile, exception.message));
-			next;
-		end
-	end
+	if saveImageFile(tenminspfile, 50)
+		%close;
 				
-	% Create a thumbnail spectrogram
-	%spthumbfile = catpath(spdir, ['small_', timestamp, '.png']);
-	disp(sprintf('Creating thumbnail'));
-	%makeThumbnail(spthumbfile, timestamp);
-	try
+		% Create a thumbnail spectrogram
+		spthumbfile = catpath(spdir, ['small_', timestamp, '.png']);
+		%makeThumbnail(spthumbfile, timestamp);
     		makesgramthumbnail(tenminspfile);
-	catch
-		disp('Could not create thumbnail. Source file probably does not exist');
 	end
-
-	close;
 
 	% Pause briefly
 	pause(1);

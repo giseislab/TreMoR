@@ -1,4 +1,4 @@
-function specgram3(w, titlestr, s, spectrogramFraction)
+function result=specgram3(w, titlestr, s, spectrogramFraction)
 % specgram3(w [,titlestr [,s] ])
 % Wrapper for spectralobject/specgram that produces an IceWeb-like spectrogram
 %
@@ -6,17 +6,23 @@ function specgram3(w, titlestr, s, spectrogramFraction)
 %    specgram3(waveformWrapper2(subnet, timewindow), '', PARAMS.spectralobject)
 
 print_debug(sprintf('> %s',mfilename),2)
-
+result = 0;
+w = waveform_nonempty(w);
 numw = length(w);
-if ~exist('s','var')
-	s = spectralobject(512, 268, 10, [40 100]);
+if numw==0
+	return;
 end
+
+%if ~exist('s','var')
+%	s = spectralobject(512, 268, 10, [40 100]);
+	s = spectralobject(1024, 524, 12, [40 120]);
+%end
 if ~exist('spectrogramFraction','var')
 	spectrogramFraction = 1;
 end
 
 % draw spectrogram using Celso's 
-sg = specgram(s, w, 'xunit', 'date', 'colorbar', 'none', 'yscale', 'normal', 'colormap', 'jet'); % default for colormap is SPECTRAL_MAP
+	sg = specgram(s, w, 'xunit', 'date', 'colorbar', 'none', 'yscale', 'normal', 'colormap', 'jet'); % default for colormap is SPECTRAL_MAP
 
 % Get axis handles
 ha = get(gcf, 'Children');
@@ -67,7 +73,7 @@ for c=1:numw
 		plotTrace(tracePosition, get(demean(w(numw-c+1)),'data'), get(w(numw-c+1),'freq'), Xtickmarks, wt);
 	end
 end
-
+result = 1;
 print_debug(sprintf('< %s',mfilename),2);
 
 

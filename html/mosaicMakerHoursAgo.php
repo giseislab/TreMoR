@@ -20,6 +20,7 @@ include('./includes/header.inc');
 	# header files
 	include('./includes/daysPerMonth.inc');
 	include('./includes/mosaicMaker.inc');
+	#include('./includes/mosaicMakerTable.inc');
 
 	# Set convenience variables from CGI parameters
 	$subnet = !isset($_REQUEST['subnet'])? NULL : $_REQUEST['subnet'];
