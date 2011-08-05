@@ -1,6 +1,6 @@
 function samobject=durationAmplitudeWrapper2(snum, enum)
 global paths subnets
-load /scratch/run/TreMoR/pf/runtime.mat
+load pf/runtime.mat
 si = find(strcmp({subnets.name}, 'Redoubt'));
 subnets = subnets(si);
 numstations = length({subnets.stations.name});
