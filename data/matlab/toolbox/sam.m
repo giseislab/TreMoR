@@ -345,8 +345,7 @@ classdef sam
                         infile(index(1):index(2)-1) = sprintf('%d',yyyy);
                 end
                 infile = catpath(datadir, infile)
-                datestr(yrsnum)
-                datestr(yrenum)   
+  
                 if exist(infile, 'file')
                     % Import the data for this year
 
@@ -359,18 +358,18 @@ classdef sam
                     data=[];
 
 
-                    [yyyy mm]=datevec(snum);
+                    [yyyy mm]=datevec(yrsnum);
                     days=365;
                     if mod(yyyy,4)==0
                         days=366;
                     end
 
-                    startsample=ceil((snum-datenum(yyyy,1,1))*datapointsperday);
-                    endsample =floor((enum-datenum(yyyy,1,1))*datapointsperday);
+                    startsample=ceil((yrsnum-datenum(yyyy,1,1))*datapointsperday);
+                    endsample =floor((yrenum-datenum(yyyy,1,1))*datapointsperday);
                     nsamples = endsample - startsample;
 
                     % now ready to create dnum vector
-                    dnum = ceilminute(snum)+(0:nsamples-1)/datapointsperday;
+                    dnum = ceilminute(yrsnum)+(0:nsamples-1)/datapointsperday;
 
                     if ~exist(infile,'file')	
                         % infile doesn't exist

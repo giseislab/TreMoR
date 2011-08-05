@@ -1,6 +1,6 @@
 function [fh,ah,samobject]=plotsamwrapper(subnet, station, snum, enum, measure, varargin)
 [panelperstation, yAxisType] = process_options(varargin, 'panelperstation', true, 'yAxisType', 'linear');
-
+samobject=[];
 numstations = length({station.name});
 fh=figure;
 set(fh, 'Position',[20 20 800 800]);

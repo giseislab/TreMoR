@@ -1,4 +1,4 @@
-function onemin=durationAmplitudeWrapper2(snum, enum)
+function samobject=durationAmplitudeWrapper2(snum, enum)
 global paths subnets
 load /scratch/run/TreMoR/pf/runtime.mat
 si = find(strcmp({subnets.name}, 'Redoubt'));
@@ -6,8 +6,12 @@ subnets = subnets(si);
 numstations = length({subnets.stations.name});
 %[subnets, numstations] = subnetsetup('Redoubt', pwd );
 measure = 'Drms';
-[fh,ah,onemin]=plotsamwrapper(subnets.name, subnets.stations, snum, enum, measure, 'despikeOn', true, 'downsampleOn', false, 'correctOn', true, 'reduceOn', true);
-setappdata(fh,'onemin',onemin);
+[fh,ah,samobject]=plotsamwrapper(subnets.name, subnets.stations, snum, enum, measure, 'despikeOn', true, 'downsampleOn', false, 'correctOn', true, 'reduceOn', true);
+setappdata(fh,'samobject',samobject);
+if isempty(samobject)
+    disp('No data found');
+    return;
+end
 %datetick('x',3,'keeplimits');
 datetickgt;
 pos=get(fh,'Position')
@@ -17,7 +21,7 @@ for c=1:numstations
     %pos_cbh = [90 20*c 130 20]
     cbh(c) = uicontrol(fh,'Style','checkbox',...
                 'String',subnets.stations(c).name,...
-                'Value',onemin(c).use,'Position',pos_cbh);
+                'Value',samobject(c).use,'Position',pos_cbh);
     set(cbh(c),'Callback',{@cbh_Callback, c, fh});
 end
 pbh1 = uicontrol(fh,'Style','pushbutton','String','Exponential law',...
@@ -28,19 +32,19 @@ pbh2 = uicontrol(fh,'Style','pushbutton','String','Power law',...
 set(pbh2,'Callback',{@pbh_Callback,fh,'power'});
 
 
-function onemin = cbh_Callback(hObject,eventdata,c, fh)
-onemin=getappdata(fh,'onemin');
+function samobject = cbh_Callback(hObject,eventdata,c, fh)
+samobject=getappdata(fh,'samobject');
 if (get(hObject,'Value') == get(hObject,'Max'))
    % Checkbox is checked-take appropriate action
    disp(sprintf('checkbox %d selected',c))
-   onemin(c).use = true;
+   samobject(c).use = true;
 else
    % Checkbox is not checked-take appropriate action
    disp(sprintf('checkbox %d deselected',c))
-   onemin(c).use = false;
+   samobject(c).use = false;
 end
-setappdata(fh,'onemin',onemin);
+setappdata(fh,'samobject',samobject);
 
 function pbh_Callback(hObject,eventdata, fh, law)
-lambda=durationAmplitude(getappdata(fh,'onemin'), law);
+lambda=durationAmplitude(getappdata(fh,'samobject'), law);
 
