@@ -9,7 +9,7 @@ if panelperstation % Each dataset in a separate panel
     for c=1:numstations
         [frame1pos, frame2pos] = calculateFramePositions(numstations, numstations-c+1, 0.95, 0.8, 0.8);
         ah(c) = axes('position',frame1pos);
-        s = sam(station(c).name, station(c).channel, snum, enum, measure, '/scratch/run/TreMoR/1mindata/S_C_M_YYYY.bob');
+        s = sam(station(c).name, station(c).channel, snum, enum, measure, '1mindata/S_C_M_YYYY.bob');
         if ~isempty(s.dnum)
             count = count + 1;
             samobject(count) = s;
