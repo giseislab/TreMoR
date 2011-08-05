@@ -1,5 +1,5 @@
-function plot1mindata(onemin, yaxisType, h, addgrid, addlegend);
-% plot1mindata(onemin, yaxisType, h, addgrid, addlegend);
+function plot1mindata(samobject, yaxisType, h, addgrid, addlegend);
+% plot1mindata(samobject, yaxisType, h, addgrid, addlegend);
 % to change where the legend plots set the global variable legend_ypos
 % a positive value will be within the axes, a negative value will be below
 % default is -0.2. For within the axes, log(20) is a reasonable value.
@@ -22,7 +22,7 @@ print_debug(sprintf('> %s', mfilename),1)
 %set(h);
 
 % set loop sizes
-numdatasets = length(onemin);
+numdatasets = length(samobject);
 
 % colours to plot each station
 lineColour={[0 0 0]; [0 0 1]; [1 0 0]; [0 1 0]; [.4 .4 0]; [0 .4 0 ]; [.4 0 0]; [0 0 .4]; [0.5 0.5 0.5]; [0.25 .25 .25]};
@@ -31,9 +31,9 @@ lineColour={[0 0 0]; [0 0 1]; [1 0 0]; [0 1 0]; [.4 .4 0]; [0 .4 0 ]; [.4 0 0]; 
 for c = numdatasets:-1:1
 
 	hold on; 
-	t = onemin(c).dnum;
-	y = onemin(c).data;
-	measure = onemin(c).measure;
+	t = samobject(c).dnum;
+	y = samobject(c).data;
+	measure = samobject(c).measure;
 
 	print_debug(sprintf('Data length: %d',length(y)),2)
 
@@ -44,9 +44,9 @@ for c = numdatasets:-1:1
 		plot(t, y, '-', 'Color', lineColour{c}, 'MarkerSize', 1.0);
 
 
-		if strfind(onemin(c).measure, 'dr')
-			%ylabel(sprintf('%s (cm^2)',onemin(c).measure));
-			ylabel(sprintf('D_R (cm^2)',onemin(c).measure));
+		if strfind(samobject(c).measure, 'dr')
+			%ylabel(sprintf('%s (cm^2)',samobject(c).measure));
+			ylabel(sprintf('D_R (cm^2)',samobject(c).measure));
 			Yticks = [0.01 0.02 0.05 0.1 0.2 0.5 1 2 5 10 20 50 ];
 			Ytickmarks = log10(Yticks);
 			for count = 1:length(Yticks)
@@ -60,7 +60,7 @@ for c = numdatasets:-1:1
 		% datetick too, add measure as title, fiddle with the YTick's and add max(y) in top left corner
 
 		plot(t, y, '-', 'Color', lineColour{c});
-		ylabel(onemin(c).measure);
+		ylabel(samobject(c).measure);
 
 
 		if c ~= numdatasets
@@ -76,8 +76,8 @@ for c = numdatasets:-1:1
         %	set(gca,'YTickLabel',ytl);
 
 	end
-
-	datetickgt(onemin(c).snum, onemin(c).enum);
+samobject(c)
+	datetickgt(samobject(c).snum, samobject(c).enum);
 	if addgrid
 		grid on;
 	end
@@ -90,11 +90,11 @@ for c = numdatasets:-1:1
 			legend_ypos = 0.9;
 %			if legend_ypos > 0
 %				legend_xpos = (xlim(2) - xlim(1)) * c/10 + xlim(1);
-%			 	text( legend_xpos, legend_ypos, onemin(c).station.name, 'Color', lineColour{c}, ...
+%			 	text( legend_xpos, legend_ypos, samobject(c).station.name, 'Color', lineColour{c}, ...
 %					'FontName', 'Helvetica', 'FontSize', get(get(gca,'XLabel'), 'FontSize'), 'FontWeight', 'bold');
 %			else
 				legend_xpos = c/10;
-			 	%text( legend_xpos, legend_ypos, onemin(c).station.name, 'Color', lineColour{c}, ...
+			 	%text( legend_xpos, legend_ypos, samobject(c).station.name, 'Color', lineColour{c}, ...
 %					'FontName', 'Helvetica', 'FontSize', [14], 'FontWeight', 'bold', 'Units', 'normalized');
 %			end
 %		catch

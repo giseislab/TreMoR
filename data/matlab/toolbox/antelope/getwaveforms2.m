@@ -27,8 +27,7 @@ if isempty(ds)
     return;
 end
 
-
-numchannels = length(get(scnl, 'station')); % assumes station channel pairs
+numchannels = numel(scnl) % assumes station channel pairs
 scnlgot = zeros(1:numchannels);
 for c=1:numchannels
 	w(c) = waveform;
@@ -41,7 +40,7 @@ for dsi=1:length(ds)
 			fname = getfilename(ds(dsi),scnl(c), snum);
 			print_debug(sprintf('Attempting to load waveform data for %s-%s from %s from %s',get(scnl(c),'station'),get(scnl(c),'channel'),datestr(snum,31),fname{1}),0);
 			try	
-               			w(c) = waveform(ds(dsi), scnl(c), snum, enum); % CALL WAVEFORM
+               	w(c) = waveform(ds(dsi), scnl(c), snum, enum); % CALL WAVEFORM
 				if get(w(c), 'data_length') > 0
 					addfield(w(c), 'ds', fname{1});
 					scnlgot(c)=1;

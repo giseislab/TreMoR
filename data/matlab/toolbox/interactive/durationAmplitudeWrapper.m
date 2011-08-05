@@ -1,8 +1,12 @@
 function onemin=durationAmplitudeWrapper2(snum, enum)
-global paths 
-[subnets, numstations] = subnetsetup('Redoubt', pwd );
-measure = 'Dstd';
-[fh,ah,onemin]=plotoneminwrapper(subnets.name, subnets.stations, snum, enum, 'Dstd', 'despikeOn', true, 'downsampleOn', false, 'correctOn', true, 'reduceOn', true);
+global paths subnets
+load /scratch/run/TreMoR/pf/runtime.mat
+si = find(strcmp({subnets.name}, 'Redoubt'));
+subnets = subnets(si);
+numstations = length({subnets.stations.name});
+%[subnets, numstations] = subnetsetup('Redoubt', pwd );
+measure = 'Drms';
+[fh,ah,onemin]=plotsamwrapper(subnets.name, subnets.stations, snum, enum, measure, 'despikeOn', true, 'downsampleOn', false, 'correctOn', true, 'reduceOn', true);
 setappdata(fh,'onemin',onemin);
 %datetick('x',3,'keeplimits');
 datetickgt;

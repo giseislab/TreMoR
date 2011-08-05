@@ -6,6 +6,9 @@ print_debug(sprintf('> %s', mfilename),4)
 
 if ~exist('pffile', 'var') 
 	pffile=(['pf/avo_volcs.pf']);
+	if ~exist('pffile', 'file') 
+		pffile=(['/avort/oprun/pf/avo_volcs.pf']);
+	end
 end
 if exist(pffile, 'file')
 	volcano = camelcase2underscore(volcano);

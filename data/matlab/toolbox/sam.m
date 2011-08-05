@@ -290,13 +290,21 @@ classdef sam
             for i=1:length(filepattern)
                 switch filepattern(i)
                     case 's',
-                        filebase = sprintf('%s%s',filebase, lower(sta));
+                        %if i == 1
+                            filebase = sprintf('%s%s',filebase, lower(sta));
+                        %else
+                        %    filebase = sprintf('%s%s', filebase, filepattern(i));
+                        %end
                     case 'c',
                         filebase = sprintf('%s%s',filebase, lower(chan));
                     case 'm',
                         filebase = sprintf('%s%s',filebase, lower(measure));
                     case 'S',
-                        filebase = sprintf('%s%s',filebase, sta);
+                        %if i==1
+                            filebase = sprintf('%s%s',filebase, sta);
+                        %else
+                        %    filebase = sprintf('%s%s', filebase, filepattern(i));
+                        %end
                     case 'C',
                         filebase = sprintf('%s%s',filebase, chan);
                     case 'M',
