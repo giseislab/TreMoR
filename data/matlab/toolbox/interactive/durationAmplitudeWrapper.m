@@ -3,25 +3,25 @@ global paths subnets
 load pf/runtime.mat
 si = find(strcmp({subnets.name}, 'Redoubt'));
 subnets = subnets(si);
-numstations = length({subnets.stations.name});
-%[subnets, numstations] = subnetsetup('Redoubt', pwd );
+
 measure = 'Drms';
 [fh,ah,samobject]=plotsamwrapper(subnets.name, subnets.stations, snum, enum, measure, 'despikeOn', true, 'downsampleOn', false, 'correctOn', true, 'reduceOn', true);
+numstations = numel(samobject)
 setappdata(fh,'samobject',samobject);
 if isempty(samobject)
     disp('No data found');
     return;
 end
-%datetick('x',3,'keeplimits');
-datetickgt;
-pos=get(fh,'Position')
+pos=get(fh,'Position');
+sta = station(samobject);
+use = [samobject.use];
 for c=1:numstations
     frac = (numstations-c)/numstations;
-    pos_cbh = [pos(3)*.9 pos(4)*frac*0.8+130 130 20]
-    %pos_cbh = [90 20*c 130 20]
+    pos_cbh = [pos(3)*.9 pos(4)*frac*0.8+130 130 20];
+    %pos_cbh = [90 20*c 130 20];
     cbh(c) = uicontrol(fh,'Style','checkbox',...
-                'String',subnets.stations(c).name,...
-                'Value',samobject(c).use,'Position',pos_cbh);
+                'String',sta{c},...
+                'Value',use(c),'Position',pos_cbh);
     set(cbh(c),'Callback',{@cbh_Callback, c, fh});
 end
 pbh1 = uicontrol(fh,'Style','pushbutton','String','Exponential law',...

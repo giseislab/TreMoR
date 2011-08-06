@@ -1,6 +1,8 @@
-function lambda=durationAmplitude(onemin, law)
-%lambda=durationAmplitude(onemin, law)
-measure=onemin(1).measure;
+function lambda=durationAmplitude(samobject, law)
+%lambda=durationAmplitude(samobject, law)
+measure=samobject(1).measure;
+sta=station(samobject);
+%chan=channel(samobject);
 
 % colours to plot each station
 lineColour={[0 0 1];[1 0 0];[0 1 0];[0 0 0];[.4 .4 0];[0 .4 0 ];[.4 0 0];[0 0 .4];[0.5 0.5 0.5];[0.25 .25 .25]};
@@ -8,34 +10,32 @@ lineColour={[0 0 1];[1 0 0];[0 1 0];[0 0 0];[.4 .4 0];[0 .4 0 ];[.4 0 0];[0 0 .4
 interval = 0.05;
 
 % remove datasets marked for use==false
-use = dealgt(onemin,'use');
-onemin = onemin(find(use == true));
+use = [samobject.use];
+samobject = samobject(find(use == true));
 
-% Exponential law
-for c=1:length(onemin)
+
+for c=1:numel(samobject)
     figure;
-    sta=onemin(c).station.name;
-    chan=onemin(c).station.channel;
-    disp(sprintf('Processing station %s',sta)) 
+    disp(sprintf('Processing station %s',sta{c})) 
 
 	% bin the data in 0.05 cm^2 bins
-	m = max(onemin(c).data);
+	m = max(samobject(c).data);
 	threshold = 0.0:interval:m;
 	minutes=[];
 	for d = 1:length(threshold)
-		i = find(onemin(c).data > threshold(d));
+		i = find(samobject(c).data > threshold(d));
 		minutes(d) = length(i);
 	end
 
 	% define x and y
-	totalMinutes = length(onemin(c).data);
+	totalMinutes = length(samobject(c).data);
 	switch law
         case {'exponential'}
             x = threshold;
-            xlabelstr = onemin(c).measure;
+            xlabelstr = samobject(c).measure;
         case {'power'}
             x = log10(threshold);
-            xlabelstr = sprintf('log10(%s)',onemin(c).measure);
+            xlabelstr = sprintf('log10(%s)',samobject(c).measure);
         otherwise
             error('law unknown')
     end
@@ -94,7 +94,7 @@ for c=1:length(onemin)
                 %ylabel('log10(t/t0)');
                 %xlabel(sprintf('D_R_S (%s) (cm^2)',measure));
 
-                title(sprintf('Duration-Amplitude from %s to %s',datestr(onemin(c).snum,31),datestr(onemin(c).enum,31)));
+                title(sprintf('Duration-Amplitude from %s to %s',datestr(samobject(c).snum,31),datestr(samobject(c).enum,31)));
 
                 % Add legend
                 yrange=get(gca,'YLim');
@@ -104,7 +104,7 @@ for c=1:length(onemin)
                 xpos = xmax*0.65;
                 ypos = (yrange(1)-yrange(2))*0.8;
                 lstr = sprintf('%.2f R^2=%.2f',lambda{c},r2{c});
-                tstr = [ sta, ' ',lstr];
+                tstr = [ sta{c}, ' ',lstr];
                 text(xpos, ypos, tstr,'Color',lineColour{c}, ...
                     'FontName','Helvetica','FontSize',[14],'FontWeight','bold');
 

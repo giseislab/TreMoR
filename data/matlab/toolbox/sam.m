@@ -52,6 +52,7 @@ classdef sam
 %   SCNL:   the scnlobject corresponding to the data.
 %   ISREDUCED:  are the data reduced to remove geometrical spreading.
 %               (boolean).
+%   USE: use this samobject in plots?
 
 % AUTHOR: Glenn Thompson, Montserrat Volcano Observatory
 % $Date: 2000-03-20 $
@@ -65,6 +66,7 @@ classdef sam
         units = 'unknown';
         scnl = scnlobject();
         isReduced = false;
+        use = true;
     end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -129,23 +131,31 @@ classdef sam
         end
         
         function l=length(self)
-            l=1;
+            l=numel(self);
         end
 
         function d = snum(self)
-            d = min(self.dnum);
+            for i=1:numel(self)
+                d = min(self(i).dnum);
+            end
         end
         
         function d = enum(self)
-            d = max(self.dnum);
+            for i=1:numel(self)
+                d = max(self(i).dnum);
+            end
         end        
         
         function s = station(self)
-            s = get(self.scnl, 'station');
+            for i=1:numel(self)
+                s{i} = get(self(i).scnl, 'station');
+            end
         end 
         
         function c = channel(self)
-            c = get(self.scnl, 'channel');
+            for i=1:numel(self)
+                c = get(self(i).scnl, 'channel');
+            end
         end 
         
         function plot(self, varargin)

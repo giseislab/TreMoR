@@ -13,7 +13,7 @@ function plot1mindata(samobject, yaxisType, h, addgrid, addlegend);
 
 %global legend_ypos;
 warning off;
-print_debug(sprintf('> %s', mfilename),1)
+print_debug(sprintf('> %s', mfilename),3)
 
 %if isempty(legend_ypos)
 	legend_ypos = -0.2;
@@ -35,7 +35,7 @@ for c = numdatasets:-1:1
 	y = samobject(c).data;
 	measure = samobject(c).measure;
 
-	print_debug(sprintf('Data length: %d',length(y)),2)
+	print_debug(sprintf('Data length: %d',length(y)),4);
 
 	if strcmp(yaxisType,'logarithmic')==1
 		% make a logarithmic plot, with a marker size and add the station name below the x-axis like a legend
@@ -76,7 +76,7 @@ for c = numdatasets:-1:1
         %	set(gca,'YTickLabel',ytl);
 
 	end
-samobject(c)
+
 	datetickgt(samobject(c).snum, samobject(c).enum);
 	if addgrid
 		grid on;
@@ -105,5 +105,5 @@ samobject(c)
 
 end
 
-print_debug(sprintf('< %s', mfilename),1)
+print_debug(sprintf('< %s', mfilename),3)
 
