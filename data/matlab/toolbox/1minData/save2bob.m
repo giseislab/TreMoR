@@ -16,11 +16,14 @@ function save2bob(sta, chan, dnum, data, measure);
 % Author:
 % 	Glenn Thompson, MVO/AVO, 2000 - 2009 
 
-
-
 global paths ;
 print_debug(sprintf('> %s', mfilename),4)
-
+if isa(sta, 'cell')
+	sta=sta{1};
+end
+if isa(chan, 'cell')
+	chan=chan{1};
+end
 % write data
 if ~exist(paths.ONEMINDATA, 'dir')
         mkdir(paths.ONEMINDATA);
