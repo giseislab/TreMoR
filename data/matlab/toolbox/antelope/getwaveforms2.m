@@ -13,125 +13,154 @@ function w=getwaveforms(scnl, snum, enum, ds);
 global paths PARAMS;
 tic;
 t=toc;
-if isstruct(snum)
-	error('getwaveforms now uses snum & enum. timewindow is discontinued');
-end
 
-warning off;
+%warning off;
 print_debug(sprintf('> %s', mfilename),1)
 
 % get datasource
 if isempty(ds)
-    print_debug('No valid datasource',1);
+    print_debug('No valid datasource. Exiting.',1);
 	w=[];	
     return;
 end
 
-numchannels = numel(scnl); % assumes station channel pairs
-scnlgot = zeros(numchannels,1);
-for c=1:numchannels
+numscnls = numel(scnl); % assumes station channel pairs
+
+% scnlgot will record which scnls we've got data for, and which we haven't
+% initially set scnlgot for each scnl to 0.
+scnlgot = zeros(numscnls,1);
+
+% start off with blank waveform objects
+for c=1:numscnls
 	w(c) = waveform;
+	w(c) = set(w(c), 'station', get(scnl(c), 'station') );
+	w(c) = set(w(c), 'channel', get(scnl(c), 'channel') );
 end
 
 
 %% loop over all data sources until some data found
-scnlsta = get(scnl, 'station');
-scnlchan = get(scnl, 'channel');
-
-% all station mode for speed
-disp('ALL STATIONS MODE');
+% - all station mode for speed
+print_debug('- ALL STATIONS MODE',2);
 finished = false;
 for dsi=1:length(ds)
 	scnltoget = scnl(scnlgot==0);
 	if (length(scnltoget)==0)
-		disp('Got data for all scnls');
+		print_debug('- Got data for all scnls',2);
 		finished = true;
 		break;
 	end
 	
-	disp(sprintf('Trying datasource %d of %d',dsi,length(ds)));
+	print_debug(sprintf('- Trying datasource %d of %d',dsi,length(ds)),1);
 	fname = getfilename(ds(dsi),scnl(c), snum);
 	if exist(fname{1}, 'file')
-		print_debug(sprintf('Attempting to load waveform data for %d remaining stations (of %d total) at %s from %s',length(scnltoget),numchannels,datestr(snum,31),fname{1}),0);
+		print_debug(sprintf('- Attempting to load waveform data for %d remaining stations (of %d total) at %s from %s',length(scnltoget),numscnls,datestr(snum,31),fname{1}),1);
 		try	
         	 	w_new = waveform(ds(dsi), scnltoget, snum, enum); 
 		catch ME
-			disp('%%% Caught exception:%%%');
-			disp(ME.message);
-			disp('%%% End of exception:%%%');
-			mydatasource = ds(dsi);
-			errorfile = datestr(now,30);
-			eval(['save ',errorfile,' mydatasource scnltoget snum enum ME']);
+			handle_waveform_crash(ME, ds(dsi), scnltoget, snum, enum);
 			w_new = [];
 		end
 		if ~isempty(w_new)
-			for c=1:numchannels
-				for cw = 1:numel(w_new)
-					sta = get(w_new(cw), 'station');
-					chan = get(w_new(cw), 'channel');
-					if (strcmp(sta, scnlsta{c}) & strcmp(chan, scnlchan{c}))
-						% w_new(cw) corresponds to scnl(c)
-						if get(w_new(cw), 'data_length') > 0
-							w(c) = addfield(w_new(cw), 'ds', fname{1});
-							w(c) = addfield(w(c), 'mode', 'all');
-							scnlgot(c)=1;
-						end
-					end
-				end
-			end
+			[w, scnlgot] = deal_waveforms(w, w_new, scnlgot, fname{1});
 		end
 	else
-		fprintf('the database %s does not exist: skipping call to waveform\n',fname{1});
+		print_debug(sprintf('the database %s does not exist: skipping call to waveform\n',fname{1}),2);
 	end
 end	
 
-% individual station mode to fill in blanks
+% - individual station mode to fill in blanks
 if ~finished 
-	disp('SINGLE CHANNEL MODE');
+	print_debug('- SINGLE CHANNEL MODE',2);
 	for dsi=1:length(ds)
 		scnltoget = scnl(scnlgot==0);
 		if (length(scnltoget)==0)
-			disp('Got data for all scnls');
+			print_debug('- Got data for all scnls',2);
 			finished = true;
 			break;
 		end
 		
-		for c=1:numchannels	
+		for c=1:numscnls	
 			if scnlgot(c)==0
 				fname = getfilename(ds(dsi),scnl(c), snum);
-				print_debug(sprintf('Attempting to load waveform data for %s-%s at %s from %s',get(scnl(c),'station'),get(scnl(c),'channel'),datestr(snum,31),fname{1}),0);
+				print_debug(sprintf('- Attempting to load waveform data for %s-%s at %s from %s',get(scnl(c),'station'),get(scnl(c),'channel'),datestr(snum,31),fname{1}),0);
 				try	
-	               			w(c) = waveform(ds(dsi), scnl(c), snum, enum) % CALL WAVEFORM
+	               			w_new = waveform(ds(dsi), scnl(c), snum, enum) % CALL WAVEFORM
 				catch ME
-					disp('%%% Caught exception:%%%');
-					disp(ME.message);	
-					disp('%%% End of exception:%%%');
-					mydatasource = ds(dsi);
-					errorfile = datestr(now,30);
-					eval(['save ',errorfile,' mydatasource scnltoget snum enum ME']);
+					handle_waveform_crash(ME, ds(dsi), scnltoget, snum, enum);
+					w_new = [];
 				end
-				if get(w(c), 'data_length') > 0
-					w(c) = addfield(w(c), 'ds', fname{1});
-					w(c) = addfield(w(c), 'mode', 'single');
-					scnlgot(c)=1;
+				if ~isempty(w_new)
+					[w, scnlgot] = deal_waveforms(w, w_new, scnlgot, fname{1});
 				end
 			end	
 		end
 	end
 end	
 % now remove any waveforms which are empty
-w = w(find(scnlgot==1));
+%w = w(find(scnlgot==1));
+
+% report what waveforms we got and where they came from 
 for i=1:numel(w)
 	sta0 = get(w(i), 'station');
 	chan0 = get(w(i), 'channel');
 	ds0 = get(w(i), 'ds');
 	mode0 = get(w(i), 'mode');
 	dl0 = get(w(i), 'data_length');
-	fprintf('waveform %d: got %d samples for %s-%s from %s in mode %s\n',i,dl0,sta0,chan0,ds0,mode0);
+	print_debug(sprintf('- waveform %d: got %d samples for %s-%s from %s in mode %s\n',i,dl0,sta0,chan0,ds0,mode0),2);
 end
-print_debug(sprintf('- got %d waveform objects, took %.1f s\n', length(w), toc-t),1);
-
+print_debug(sprintf('- Got %d waveform objects, took %.1f s\n', length(w), toc-t),1);
 print_debug(sprintf('< %s', mfilename),1)
 fprintf('\n\n\n\n');
-pause(10);
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+function [w,scnlgot] = deal_waveforms(w, w_new, scnlgot, dbname)
+% take arrays of waveforms we just got, and waveforms we already have 
+for i=1:numel(w)
+	sta = get(w(i), 'station');
+	chan = get(w(i), 'channel');
+	for j = 1:numel(w_new)
+		sta_new = get(w_new(j), 'station');
+		chan_new = get(w_new(j), 'channel');
+		if (strcmp(sta_new, sta) & strcmp(chan_new, chan))
+			% w_new(j) corresponds to scnl(i)
+			if get(w_new(j), 'data_length') > 0
+				w(i) = addfield(w_new(j), 'ds', dbname);
+				w(i) = addfield(w(i), 'mode', 'all');
+				scnlgot(i)=1;
+			end
+		end
+	end
+end
+
+function [w,scnlgot] = deal_waveforms2(w, w_new, scnlgot, dbname)
+% take arrays of waveforms we just got, and waveforms we already have 
+stations = get(w, 'station');
+channels = get(w, 'channel');
+for j=1:numel(w_new)
+	sta_new = get(w_new(j), 'station');
+	chan_new = get(w_new(j), 'channel');
+	i = strfind(stations, sta_new);
+	if length(i)>0
+		for c=1:length(i)
+			if strcmp(channels{i(c)}, chan_new)
+				k = i(c);
+				% sta_new and chan_new matched
+				if isempty(w(k))
+					w(i) = addfield(w_new(j), 'ds', dbname);
+				else
+					w(i) = combine(w(i), w_new(j));
+					w(i) = addfield(w(i), 'ds', dbname);
+				end
+				w(i) = addfield(w(i), 'mode', 'all');
+				scnlgot(i)=1;
+			end
+		end
+	end
+end
+
+
+function handle_waveform_crash(ME, mydatasource, scnltoget, snum, enum)
+print_debug(sprintf('// Caught exception\n%s\n   End exception\n',ME.message),2);
+errorfile = datestr(now,30);
+eval(['save ',errorfile,' mydatasource scnltoget snum enum ME']);
