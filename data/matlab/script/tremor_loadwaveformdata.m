@@ -8,9 +8,9 @@ load pf/runtime
 subnets = randomizesubnets(subnets);
 
 % Process arguments
-[PARAMS.mode, snum, enum, nummins] = process_options(varargin, 'mode', 'realtime', 'snum', 0, 'enum', 0, 'nummins', 10);
+[PARAMS.mode, snum, enum, nummins, delaymins] = process_options(varargin, 'mode', 'realtime', 'snum', 0, 'enum', 0, 'nummins', 10, 'delaymins', 60);
 if enum==0
-    enum = utnow - nummins/1440;
+    enum = utnow - delaymins/1440;
 end
 if snum==0
     tw = get_timewindow(enum, nummins);
@@ -19,8 +19,7 @@ else
 end
 snum = enum - nummins/1440;
 
-DELAYMINS =  0;
-VALID_DATASOURCES = get_datasource(snum, enum + DELAYMINS/1440); % there have to be  wfdisc rows ending later than 2nd argument, else no valid datasources
+VALID_DATASOURCES = get_datasource(snum, enum); % there have to be  wfdisc rows ending later than 2nd argument, else no valid datasources
 if isempty(VALID_DATASOURCES)
 	disp('No valid datasources yet');
 	return;
