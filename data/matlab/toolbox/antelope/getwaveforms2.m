@@ -55,7 +55,10 @@ for dsi=1:length(ds)
 	if exist(fname{1}, 'file')
 		print_debug(sprintf('- Attempting to load waveform data for %d remaining stations (of %d total) at %s from %s',length(scnltoget),numscnls,datestr(snum,31),fname{1}),1);
 		try	
-        	 	w_new = waveform(ds(dsi), scnltoget, snum, enum); 
+			%scnltoget = miniseedExists(ds(dsi), scnltoget, snum, enum);
+			if length(scnltoget)>0
+        	 		w_new = waveform(ds(dsi), scnltoget, snum, enum); 
+			end
 		catch ME
 			handle_waveform_crash(ME, ds(dsi), scnltoget, snum, enum);
 			w_new = [];
@@ -84,9 +87,13 @@ if ~finished
 				fname = getfilename(ds(dsi),scnl(c), snum);
 				print_debug(sprintf('- Attempting to load waveform data for %s-%s at %s from %s',get(scnl(c),'station'),get(scnl(c),'channel'),datestr(snum,31),fname{1}),0);
 				try	
-	               			w_new = waveform(ds(dsi), scnl(c), snum, enum) % CALL WAVEFORM
+					%scnltoget = miniseedExists(ds(dsi), scnl(c), snum, enum);
+					scnltoget = scnl(c);
+					if length(scnltoget)>0
+        	 				w_new = waveform(ds(dsi), scnltoget, snum, enum); 
+					end
 				catch ME
-					handle_waveform_crash(ME, ds(dsi), scnltoget, snum, enum);
+					handle_waveform_crash(ME, ds(dsi), scnl(c), snum, enum);
 					w_new = [];
 				end
 				if ~isempty(w_new)
@@ -162,5 +169,13 @@ end
 
 function handle_waveform_crash(ME, mydatasource, scnltoget, snum, enum)
 print_debug(sprintf('// Caught exception\n%s\n   End exception\n',ME.message),2);
-errorfile = datestr(now,30);
+errorfile = sprintf('error_%s',datestr(now,30));
 eval(['save ',errorfile,' mydatasource scnltoget snum enum ME']);
+eout = fopen('loaderrors.txt', 'a');
+sta = get(scnltoget,'station');
+chan = get(scnltoget, 'chan');
+filename = getfilename(mydatasource, scnltoget, snum);
+sds = datestr(snum);
+eds = datestr(enum);
+fprintf('%s.%s\t%s\t%s\t%s\t%s\n',sta,chan,sds,eds,filename,ME.message);
+fclose(fout);
