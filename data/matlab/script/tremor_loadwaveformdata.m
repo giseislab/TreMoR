@@ -8,7 +8,7 @@ load pf/runtime
 subnets = randomizesubnets(subnets);
 
 % Process arguments
-[PARAMS.mode, snum, enum, nummins, delaymins] = process_options(varargin, 'mode', 'realtime', 'snum', 0, 'enum', 0, 'nummins', 10, 'delaymins', 60);
+[PARAMS.mode, snum, enum, nummins, delaymins] = process_options(varargin, 'mode', 'realtime', 'snum', 0, 'enum', 0, 'nummins', 10, 'delaymins', 20);
 if enum==0
     enum = utnow - delaymins/1440;
 end
