@@ -53,16 +53,21 @@ for dsi=1:length(ds)
 	print_debug(sprintf('- Trying datasource %d of %d',dsi,length(ds)),1);
 	fname = getfilename(ds(dsi),scnl(c), snum);
 	if exist(fname{1}, 'file')
-		print_debug(sprintf('- Attempting to load waveform data for %d remaining stations (of %d total) at %s from %s',length(scnltoget),numscnls,datestr(snum,31),fname{1}),1);
-		try	
-			%scnltoget = miniseedExists(ds(dsi), scnltoget, snum, enum);
+		%try	
+			print_debug(sprintf('- Checking if miniseed files exist for %d remaining stations (of %d total) at %s from %s',length(scnltoget),numscnls,datestr(snum,31),fname{1}),1);
+			scnltoget = miniseedExists(ds(dsi), scnltoget, snum, enum);
 			if length(scnltoget)>0
+				print_debug(sprintf('- Attempting to load waveform data for %d remaining stations (of %d total) at %s from %s',length(scnltoget),numscnls,datestr(snum,31),fname{1}),1);
         	 		w_new = waveform(ds(dsi), scnltoget, snum, enum); 
+			else
+				print_debug('No miniseed files to get',1);
+				continue;
 			end
-		catch ME
-			handle_waveform_crash(ME, ds(dsi), scnltoget, snum, enum);
-			w_new = [];
-		end
+		%catch ME
+		%	print_debug('Bugger! Either miniseedExists or waveform filed',1); 
+		%	handle_waveform_crash(ME, ds(dsi), scnltoget, snum, enum);
+		%	w_new = [];
+		%end
 		if ~isempty(w_new)
 			[w, scnlgot] = deal_waveforms(w, w_new, scnlgot, fname{1});
 		end
@@ -85,17 +90,21 @@ if ~finished
 		for c=1:numscnls	
 			if scnlgot(c)==0
 				fname = getfilename(ds(dsi),scnl(c), snum);
-				print_debug(sprintf('- Attempting to load waveform data for %s-%s at %s from %s',get(scnl(c),'station'),get(scnl(c),'channel'),datestr(snum,31),fname{1}),0);
-				try	
-					%scnltoget = miniseedExists(ds(dsi), scnl(c), snum, enum);
-					scnltoget = scnl(c);
+				print_debug(sprintf('- Checking if miniseed files exist for %d remaining stations (of %d total) at %s from %s',length(scnltoget),numscnls,datestr(snum,31),fname{1}),1);
+				%try	
+					scnltoget = miniseedExists(ds(dsi), scnl(c), snum, enum);
 					if length(scnltoget)>0
+						print_debug(sprintf('- Attempting to load waveform data for %s-%s at %s from %s',get(scnl(c),'station'),get(scnl(c),'channel'),datestr(snum,31),fname{1}),0);
         	 				w_new = waveform(ds(dsi), scnltoget, snum, enum); 
+					else
+						print_debug('No miniseed files to get',1);
+						continue;
 					end
-				catch ME
-					handle_waveform_crash(ME, ds(dsi), scnl(c), snum, enum);
-					w_new = [];
-				end
+				%catch ME
+				%	print_debug('Bugger! Either miniseedExists or waveform filed',1); 
+				%	handle_waveform_crash(ME, ds(dsi), scnl(c), snum, enum);
+				%	w_new = [];
+				%end
 				if ~isempty(w_new)
 					[w, scnlgot] = deal_waveforms(w, w_new, scnlgot, fname{1});
 				end
@@ -113,7 +122,7 @@ for i=1:numel(w)
 	ds0 = get(w(i), 'ds');
 	mode0 = get(w(i), 'mode');
 	dl0 = get(w(i), 'data_length');
-	print_debug(sprintf('- waveform %d: got %d samples for %s-%s from %s in mode %s\n',i,dl0,sta0,chan0,ds0,mode0),2);
+	print_debug(sprintf('- waveform %d: got %d samples for %s-%s from %s in mode %s',i,dl0,sta0,chan0,ds0,mode0),2);
 end
 print_debug(sprintf('- Got %d waveform objects, took %.1f s\n', length(w), toc-t),1);
 print_debug(sprintf('< %s', mfilename),1)

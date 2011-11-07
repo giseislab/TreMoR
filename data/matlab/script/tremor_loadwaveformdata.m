@@ -1,6 +1,6 @@
 function tremor_loadwaveformdata(varargin)
 global paths PARAMS
-debug(5)
+debug(2)
 
 print_debug(sprintf('> %s at %s',mfilename, datestr(now,31)),1)
 warning off
