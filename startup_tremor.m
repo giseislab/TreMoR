@@ -3,9 +3,11 @@ matlab_antelope=getenv('MATLAB_ANTELOPE');
 addpath(genpath(matlab_antelope));
 %startup_volcseis;
 tremor_home = getenv('TREMOR_HOME');
-addpath(tremor_home);
-chdir(tremor_home);
+if exist(tremor_home,'dir')
+	addpath(tremor_home);
+	chdir(tremor_home);
+end
 addpath(genpath('~/src/TreMoR/data/matlab'));
-debug(2);
+debug(0);
 
 

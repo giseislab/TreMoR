@@ -58,7 +58,14 @@ for dsi=1:length(ds)
 			scnltoget = miniseedExists(ds(dsi), scnltoget, snum, enum);
 			if length(scnltoget)>0
 				print_debug(sprintf('- Attempting to load waveform data for %d remaining stations (of %d total) at %s from %s',length(scnltoget),numscnls,datestr(snum,31),fname{1}),1);
-        	 		w_new = waveform(ds(dsi), scnltoget, snum, enum); 
+                    try 
+                        w_new = waveform(ds(dsi), scnltoget, snum, enum); 
+                        error('creating an error so we drop through to catch')
+                    catch
+                        ferr=fopen('waveform_error.log','a');
+                        fprintf(ferr,sprintf('waveform(%s, %s, %f, %f)',ds(dsi), scnltoget, snum, enum));
+                        fclose(ferr);
+                    end
 			else
 				print_debug('No miniseed files to get',1);
 				continue;
