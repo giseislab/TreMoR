@@ -19,7 +19,7 @@ matlab_pf       &Arr{ # Any variables given here will be available in Matlab wit
 matlab_script   &Literal{ # This is the script that gets executed when Matlab starts,
 	startup_tremor;
 	debug(4);
-	tremor_createspectrograms('waveforms_sgram');
+	tremor_createspectrograms('waveforms_sgram2');
 }
 matlab_timeout_sec	86400
 pf_revision_time	1152921082

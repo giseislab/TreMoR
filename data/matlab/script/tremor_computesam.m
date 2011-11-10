@@ -1,10 +1,10 @@
-function tremor_computesam2(varargin)
+function tremor_computesam2(waveformsdir)
 global paths PARAMS
 print_debug(sprintf('> %s at %s',mfilename, datestr(now,31)),1)
 load pf/runtime
 
 while 1,
-	[w, filename, snum, enum, subnet] = loadnextwaveformmat('waveforms_sam');
+	[w, filename, snum, enum, subnet] = loadnextwaveformmat(waveformsdir);
 
 	% Output some information
 	disp(sprintf('\n***** %s *****',filename));
@@ -12,7 +12,6 @@ while 1,
 		disp(sprintf('Start time is %s UTC',datestr(snum)));
 		disp(sprintf('End time is %s UTC',datestr(enum)));
 	%catch
-	%	system(sprintf('mv %s waveforms_sam/corrupt',filename));
 	%end
 
 
@@ -24,7 +23,6 @@ while 1,
 	%catch	
 %		disp('waveform2stats failed');
  %   		%delete(filename);
-%		system(sprintf('mv %s waveforms_sam/corrupt',filename));
 %	end
 
     for c = 1:length(stats)

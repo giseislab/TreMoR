@@ -1,10 +1,10 @@
-function tremor_createspectrograms(varargin)
+function tremor_createspectrograms(waveformdir)
 global paths PARAMS
 print_debug(sprintf('> %s at %s',mfilename, datestr(now,31)),1)
 load pf/runtime
 
 while 1,
-	[w, filename, snum, enum, subnet] = loadnextwaveformmat('waveforms_sgram');
+	[w, filename, snum, enum, subnet] = loadnextwaveformmat(waveformdir);
 	
 	% Remove waveforms MAT file here so can have multiple jobs running  without  them processing the same waveform file
 	delete(filename);

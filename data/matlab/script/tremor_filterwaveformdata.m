@@ -17,9 +17,9 @@ while 1,
         w = waveform_clean(w, 'filterObj', PARAMS.filterObj);
 
 	% Save waveforms
-	save2waveformmat(w, 'waveforms_sgram', snum, enum, subnet, 'copy', 'waveforms_sam');
+	save2waveformmat(w, 'waveforms_filtered', snum, enum, subnet);
 
-	% Remove waveforms MAT file
+	% Remove waveforms MAT file from waveforms_raw
 	delete(filename);
 
 	% Pause briefly
@@ -27,5 +27,4 @@ while 1,
 end    
 
 print_debug(sprintf('< %s at %s',mfilename, datestr(now,31)),1)
-
 
