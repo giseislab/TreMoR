@@ -51,7 +51,8 @@ for dsi=1:length(ds)
 	end
 	
 	print_debug(sprintf('- Trying datasource %d of %d',dsi,length(ds)),1);
-	fname = getfilename(ds(dsi),scnl(c), snum);
+	%fname = getfilename(ds(dsi),scnl(c), snum);
+	fname = getfilename(ds(dsi),scnl, snum);    
 	if exist(fname{1}, 'file')
 		%try	
 			print_debug(sprintf('- Checking if miniseed files exist for %d remaining stations (of %d total) at %s from %s',length(scnltoget),numscnls,datestr(snum,31),fname{1}),1);
@@ -63,7 +64,12 @@ for dsi=1:length(ds)
                         error('creating an error so we drop through to catch')
                     catch
                         ferr=fopen('waveform_error.log','a');
-                        fprintf(ferr,sprintf('waveform(%s, %s, %f, %f)',ds(dsi), scnltoget, snum, enum));
+                        text_datasource = evalc('disp(ds(dsi))');
+                        text_stations = get(scnltoget,'station');
+                        text_channels = get(scnltoget,'channels'); 
+                        fprintf(ferr,'\n*********************************************\n');
+                        fprintf(ferr,sprintf('waveform(%s, scnltoget, %f, %f)\n',fname, snum, enum));
+                        fprintf(ferr,sprintf('%s\n%s\n%s\n',text_datasource, text_stations, text_channels));                        
                         fclose(ferr);
                     end
 			else
