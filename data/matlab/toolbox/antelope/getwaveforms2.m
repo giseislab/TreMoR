@@ -54,33 +54,21 @@ for dsi=1:length(ds)
 	%fname = getfilename(ds(dsi),scnl(c), snum);
 	fname = getfilename(ds(dsi),scnl, snum);    
 	if exist(fname{1}, 'file')
-		%try	
+		try	
 			print_debug(sprintf('- Checking if miniseed files exist for %d remaining stations (of %d total) at %s from %s',length(scnltoget),numscnls,datestr(snum,31),fname{1}),1);
 			scnltoget = miniseedExists(ds(dsi), scnltoget, snum, enum);
 			if length(scnltoget)>0
 				print_debug(sprintf('- Attempting to load waveform data for %d remaining stations (of %d total) at %s from %s',length(scnltoget),numscnls,datestr(snum,31),fname{1}),1);
-                    try 
-                        w_new = waveform(ds(dsi), scnltoget, snum, enum); 
-                        error('creating an error so we drop through to catch')
-                    catch
-                        ferr=fopen('waveform_error.log','a');
-                        text_datasource = evalc('disp(ds(dsi))');
-                        text_stations = get(scnltoget,'station');
-                        text_channels = get(scnltoget,'channels'); 
-                        fprintf(ferr,'\n*********************************************\n');
-                        fprintf(ferr,sprintf('waveform(%s, scnltoget, %f, %f)\n',fname, snum, enum));
-                        fprintf(ferr,sprintf('%s\n%s\n%s\n',text_datasource, text_stations, text_channels));                        
-                        fclose(ferr);
-                    end
+                        	w_new = waveform(ds(dsi), scnltoget, snum, enum); 
 			else
 				print_debug('No miniseed files to get',1);
 				continue;
 			end
-		%catch ME
-		%	print_debug('Bugger! Either miniseedExists or waveform filed',1); 
-		%	handle_waveform_crash(ME, ds(dsi), scnltoget, snum, enum);
-		%	w_new = [];
-		%end
+		catch ME
+			print_debug('Bugger! Either miniseedExists or waveform failed',1); 
+			handle_waveform_crash(ME, ds(dsi), scnltoget, snum, enum, fname{1});
+			w_new = [];
+		end
 		if ~isempty(w_new)
 			[w, scnlgot] = deal_waveforms(w, w_new, scnlgot, fname{1});
 		end
@@ -104,7 +92,7 @@ if ~finished
 			if scnlgot(c)==0
 				fname = getfilename(ds(dsi),scnl(c), snum);
 				print_debug(sprintf('- Checking if miniseed files exist for %d remaining stations (of %d total) at %s from %s',length(scnltoget),numscnls,datestr(snum,31),fname{1}),1);
-				%try	
+				try	
 					scnltoget = miniseedExists(ds(dsi), scnl(c), snum, enum);
 					if length(scnltoget)>0
 						print_debug(sprintf('- Attempting to load waveform data for %s-%s at %s from %s',get(scnl(c),'station'),get(scnl(c),'channel'),datestr(snum,31),fname{1}),0);
@@ -113,11 +101,11 @@ if ~finished
 						print_debug('No miniseed files to get',1);
 						continue;
 					end
-				%catch ME
-				%	print_debug('Bugger! Either miniseedExists or waveform filed',1); 
-				%	handle_waveform_crash(ME, ds(dsi), scnl(c), snum, enum);
-				%	w_new = [];
-				%end
+				catch ME
+					print_debug('Bugger! Either miniseedExists or waveform failed',1); 
+					handle_waveform_crash(ME, ds(dsi), scnl(c), snum, enum, fname);
+					w_new = [];
+				end
 				if ~isempty(w_new)
 					[w, scnlgot] = deal_waveforms(w, w_new, scnlgot, fname{1});
 				end
@@ -189,15 +177,25 @@ for j=1:numel(w_new)
 end
 
 
-function handle_waveform_crash(ME, mydatasource, scnltoget, snum, enum)
-print_debug(sprintf('// Caught exception\n%s\n   End exception\n',ME.message),2);
-errorfile = sprintf('error_%s',datestr(now,30));
-eval(['save ',errorfile,' mydatasource scnltoget snum enum ME']);
-eout = fopen('loaderrors.txt', 'a');
-sta = get(scnltoget,'station');
-chan = get(scnltoget, 'chan');
-filename = getfilename(mydatasource, scnltoget, snum);
-sds = datestr(snum);
-eds = datestr(enum);
-fprintf('%s.%s\t%s\t%s\t%s\t%s\n',sta,chan,sds,eds,filename,ME.message);
-fclose(fout);
+function handle_waveform_crash(ME, mydatasource, scnltoget, snum, enum, fname)
+                        ferr=fopen('waveform_error.log','a');
+			fprintf(ferr,sprintf('// Caught exception\n%s\n   End exception\n',ME.message));
+                        text_datasource = evalc('disp(mydatasource)');
+                        text_stations = get(scnltoget,'station');
+                        text_channels = get(scnltoget,'channel');
+			if ~iscell(text_stations)
+				text_stations = {text_stations}; 
+				text_channels = {text_channels}; 
+			end
+                        fprintf(ferr,'\n*********************************************\n');
+                        fprintf(ferr,sprintf('Start: %s, End: %s\n', datestr(snum), datestr(enum)));
+                        if iscell(fname)
+				fname = fname{1};
+			end
+                        fprintf(ferr,sprintf('ds=datasource(''antelope'',''%s'')\n',fname));
+                        fprintf(ferr,sprintf('%s\n',text_datasource)); 
+			for count=1:length(text_stations)                       
+                        	fprintf(ferr,sprintf('scnl(%d)=scnlobject(''%s'',''%s'')\n',count,text_stations{count}, text_channels{count})); 
+			end                       
+                        fprintf(ferr,sprintf('waveform(ds, scnl, %f, %f)\n', snum, enum));
+                        fclose(ferr);
