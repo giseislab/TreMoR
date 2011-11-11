@@ -55,7 +55,7 @@ for subnet_num=1:length(subnets)
 					fprintf('Still only got %.1f seconds of data - quitting while loop\n',secsGot);	
 					break;
 				end
-				if (secsGot/secsRequested) < 0.9 
+				if (secsGot/secsRequested) < 0.9 && strcmp(PARAMS.mode, 'realtime') 
               				print_debug(sprintf('Pausing %.0f seconds for data to catch up',secsRequested - secsGot),1);
 					pause(secsRequested - secsGot); 
 				end

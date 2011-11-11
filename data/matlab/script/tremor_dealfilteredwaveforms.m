@@ -41,7 +41,7 @@ while 1,
 		end
         
 		% Remove waveforms MAT file from waveforms_raw
-		system(sprintf('mv waveforms_filtered/%s done/%s',filename, filename));
+		system(sprintf('mv -f waveforms_filtered/%s done/%s',filename, filename));
 		%delete(din(k).name);
 	end		
 

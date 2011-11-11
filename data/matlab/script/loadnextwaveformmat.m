@@ -1,4 +1,12 @@
 function [w, filename, snum, enum, subnet] = loadnextwaveformmat(matdir)
+
+% set null values
+w=[];
+filename='';
+snum=0;
+enum=0;
+subnet='';
+
 	d = [];
     firsttime = 1;
 	while isempty(d)
