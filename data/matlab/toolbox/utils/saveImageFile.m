@@ -14,6 +14,7 @@ switch nargin
 		res = arg3;
  	otherwise return;
 end
+res = 200;
 
 if ~exist(IMGDIR,'dir')
 	mkdir(IMGDIR);
