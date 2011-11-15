@@ -12,7 +12,7 @@ for subnet_num=1:length(subnets)
 		IMGBASE = sprintf('%s_%.1f', subnet, PARAMS.dayplots{plot_num});
 		for measureNum = 1:length(PARAMS.measures)
 			measure = PARAMS.measures{measureNum};
-			plotoneminwrapper(subnet, station, snum, enum, measure, 'despikeOn', false, 'downsampleOn', false, 'correctOn', false, 'reduceOn', false);
+			plotsamwrapper(subnet, station, snum, enum, measure, 'despikeOn', false, 'downsampleOn', false, 'correctOn', false, 'reduceOn', false);
 			IMGDIR = catpath(paths.WEBDIR, 'plots', measure);
 			saveImageFile(IMGDIR, IMGBASE, 90);
 			close;

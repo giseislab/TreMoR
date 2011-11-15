@@ -5,7 +5,7 @@ if ~exist('axh','var')
 end
 
 % add date labels
-if exist('snum', 'var')
+if exist('snum', 'var') && exist('enum', 'var');
     set(axh, 'XLim', [snum enum]);
 end
 datetick('x','keeplimits');
