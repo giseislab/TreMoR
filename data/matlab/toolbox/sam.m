@@ -354,9 +354,11 @@ classdef sam
                     case 2,
                         infile(index(1):index(2)-1) = sprintf('%d',yyyy);
                 end
-                infile = catpath(datadir, infile)
+                infile = catpath(datadir, infile);
+                fprintf('Looking for filenames like: %s\n',infile);
   
                 if exist(infile, 'file')
+                    disp('file found');
                     % Import the data for this year
 
                     %[dnum, data, datafound] = import1minfile(infile, yrsnum, yrenum);
@@ -420,6 +422,8 @@ classdef sam
                         self.dnum = catmatrices(dnum, self.dnum);
                         self.data = catmatrices(data, self.data);
                     end
+                else
+                    disp('file not found');
                 end   
             end
 
