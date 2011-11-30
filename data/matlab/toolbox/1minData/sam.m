@@ -2,7 +2,6 @@ classdef sam
     
 %
 % SAM Seismic Amplitude Measurement class constructor, version 1.0.
-% CORRELATION Correlation class constructor, version 1.5.
 %
 % SAM is a generic term used here to represent any continuous data
 % sampled at a regular time interval (usually 1 minute). Originally 
@@ -25,11 +24,12 @@ classdef sam
 % S = SAM(dnum, data) creates a SAM object from a vector of datenum's
 % and a corresponding vector of data.
 %
-% S = LOADBOBFILE(sta, chan, snum, enum, measure, datadir) can be used
+% S = SAM(sta, chan, snum, enum, measure, datadir) can be used
 % to read BOB files and create a SAM object directly.
 %
 % Methods:
 %   RESAMPLE:
+%   DETECTTREMOREPISODES:
 %   DOWNSAMPLE: (possibly obsolete, use RESAMPLE).
 %   PLOT:
 %   TOTEXTFILE:
@@ -43,8 +43,6 @@ classdef sam
 %   
 %
 % % ------- DESCRIPTION OF FIELDS IN SAM OBJECT ------------------
-% All calls to correlation return a "correlation object" containing
-% the following fields where M is the number of traces:
 %   DNUM:   a vector of MATLAB datenum's
 %   DATA:   a vector of data (same size as DNUM)
 %   MEASURE:    a string describing the type of data
@@ -67,6 +65,8 @@ classdef sam
         scnl = scnlobject();
         isReduced = false;
         use = true;
+        distance = [];
+        
     end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -79,18 +79,17 @@ classdef sam
         %end
         function self=sam(varargin)
             switch nargin
-                
                 case 2, 
                     self.dnum = varargin{1};
                     self.data = varargin{2};
                 case 6,
                     self = self.loadbob(varargin{1}, varargin{2},varargin{3},varargin{4},varargin{5},varargin{6});
-                    
             end
                 
         end
 
         function self=downsample(self, minutes)
+            % Deprecated? use resample instead?
             % downsample to screen resolution, or given number of minutes
             t = self.dnum;
             y = self.data;
@@ -125,7 +124,7 @@ classdef sam
             %
             fout=fopen(filepath, 'w');
             for c=1:length(self.dnum)
-                fprintf(fout, '%s\t%5.3e\n',datestr(self.dnum(c),'yyyy-mm-dd HH:MM:SS.FFF'),self.data(c));
+                fprintf(fout, '%f\t%s\t%5.3e\n',self.dnum(c),datestr(self.dnum(c),'yyyy-mm-dd HH:MM:SS.FFF'),self.data(c));
             end
             fclose(fout);
         end
@@ -158,9 +157,9 @@ classdef sam
             end
         end 
         
-        function plot(self, varargin)
-            [yaxisType, h, addgrid, addlegend] = process_options(varargin, 'yaxisType', 'linear', 'h', [], 'addgrid', false, 'addlegend', false);
-            plot1mindata(self, yaxisType, h, addgrid, addlegend);
+        function handlePlot = plot(self, varargin)
+            [yaxisType, h, addgrid, addlegend, fillbelow] = process_options(varargin, 'yaxisType', 'linear', 'h', [], 'addgrid', false, 'addlegend', false, 'fillbelow', false);
+            handlePlot = plot1mindata(self, yaxisType, h, addgrid, addlegend, fillbelow);
         end
 
         function plotyy(obj1, obj2, varargin);   
@@ -176,7 +175,7 @@ classdef sam
 	    % s.distance and waveSpeed assumed to be in metres (m)
 	    % (INPUT) s.data assumed to be in nm or Pa
 	    % (OUTPUT) s.data in cm^2 or Pa.m
-        [waveType, waveSpeed, outputUnits] = process_options(varargin, 'waveType', 'surface', 'waveSpeed', 2000);
+        [waveType, waveSpeed, sourcelat, sourcelon, f] = process_options(varargin, 'waveType', 'surface', 'waveSpeed', 2000, 'sourcelat', 0, 'sourcelon', 0, 'f', 2.0);
         if self.isReduced == true
             disp('Data are already reduced');
             return;
@@ -185,14 +184,24 @@ classdef sam
             case 'nm'  % Displacement
                 % Do computation in cm
                 self.data = self.data / 1e7;
-                r = self.distance * 100;
-                ws = waveSpeed * 100;
+                if isempty(self.distance)
+                    % get station coordinates in a structure
+                    site = db2stationcoordinates(get(self.scnl,'station'), datenum2epoch(self.dnum(1)));
+                    if sourcelat==0 && sourcelon==0
+                        disp('No source location given. Cannot compute distance')
+                        return;
+                    else
+                        self.distance = distancegt([sourcelon sourcelat 0], [site.longitude site.latitude 0]); % m
+                    end
+                end
+                r = self.distance * 100; % cm
+                ws = waveSpeed * 100; % cm/2
                 switch waveType
                     case 'body'
         				self.data = self.data * r; % cm^2
                         self.units = 'cm^2';
                     case 'surface'
-                        wavelength = surface_wave_speed ./ f;
+                        wavelength = ws / f; % cm
         				try
             					self.data = self.data .* sqrt(r * wavelength); % cm^2
         				catch
@@ -266,7 +275,41 @@ classdef sam
             self.measure = measure;
         end
         
+        function te=detectTremorEpisodes(obj, threshold, threshoff, duration)
+            te = tremorepisode();
+            d=obj.data;
+            l=length(d);
+            episodeFound=false;
+            episodeIndex = 0;
+            for c=1:length(d)
+                if ~episodeFound
+                    if d(c)>=threshold
+                        startIndex=c;
+                        episodeFound=true;
+                    end
+                else
+                    if (d(c)<threshoff)
+                        stopIndex=c;
+                        episodeFound=false;
+                        episodeDuration = obj.dnum(stopIndex)-obj.dnum(startIndex);
+                        meanlevel = mean(d(startIndex:stopIndex-1));
+                        if episodeDuration >= duration          
+                            episodeIndex = episodeIndex+1;
+                            episodeIndex
+                            startIndex
+                            stopIndex
+                            datestr(obj.dnum(startIndex))
+                            datestr(obj.dnum(stopIndex))  
+                            
+                            te(episodeIndex) = tremorepisode(obj.dnum(startIndex), obj.dnum(stopIndex));
+                            fprintf('Episode %d:\n\tStart: %s\n\tEnd: %s\n\tDuration: %.2f hours\n\tMean: %.2f\n',episodeIndex, datestr(obj.dnum(startIndex)), datestr(obj.dnum(stopIndex)), episodeDuration*24, meanlevel);
+                        end
+                    end
+                end
+            end
+        end
         
+                
         
         function self = loadbob(self, sta, chan, snum, enum, measure, filepattern)
         % Purpose:
@@ -472,6 +515,11 @@ classdef sam
             self.dnum = self.dnum(i);
             self.data = self.data(i);
 
+            % measure units
+            switch upper(self.measure(1))
+                case 'D',self.units = 'nm';
+                case 'V',self.units = 'nm/s';
+            end
         end
 
     end

@@ -12,17 +12,27 @@ function site = db2stationcoordinates(staname, epochdate);
 %
 % Glenn Thompson, 2008-03-28
 print_debug(sprintf('> %s', mfilename),4)
+
+% SET NULLS
 site.latitude = NaN;
 site.longitude = NaN;
 site.elev = NaN;
+
+% MASTER STATIONS DATABASE
 global paths;
 dbstations = 'dbmaster/master_stations';
+if ~exist(dbstations, 'file')
+    dbstations = '/avort/oprun/dbmaster/master_stations';
+end
+print_debug(sprintf('Processing %s',staname),4);
 if isfield(paths,'DBMASTER')
     if exist(paths.DBMASTER,'file')
         dbstations = paths.DBMASTER;
     end
 end
+print_debug(sprintf('Using DBMASTER %s',dbstations),4);
 
+% GET THE CORRECT STATION RECORD FORM THE SITE TABLE
 db = dbopen(dbstations, 'r');
 db = dblookup_table(db, 'site');
 print_debug(sprintf('Processing %s',staname),4);
@@ -34,14 +44,16 @@ if exist('epochdate', 'var')
     if dbquery(db2, 'dbRECORD_COUNT')==0
         db2 = dbsubset(db, sprintf('sta == "%s" && offdate == NULL',staname));
     end
-    
 else
     db2 = dbsubset(db, sprintf('sta == "%s" && offdate == NULL',staname));
 end
+
+% GET THE STATION COORDINATES
 if dbquery(db2, 'dbRECORD_COUNT') > 0
 	site.latitude = dbgetv(db2, 'lat');
 	site.longitude = dbgetv(db2, 'lon');
 	site.elev = dbgetv(db2, 'elev');
 end
 dbclose(db);
+
 print_debug(sprintf('< %s', mfilename),4)

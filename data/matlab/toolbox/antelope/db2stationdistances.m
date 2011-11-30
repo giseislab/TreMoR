@@ -16,6 +16,9 @@ if (source.latitude ~= 0)
 	% we can do better than distance parameters in subnet files
 	for c=1:length(station)
 			site = db2stationcoordinates(station(c).name, datenum2epoch(snum));
+            station(c).longitude = site(c).longitude;
+            station(c).latitude = site(c).latitude;
+            station(c).elev = site(c).elev;
             station(c).distance = distancegt([source.longitude source.latitude 0], [site.longitude site.latitude 0]);
 	end
 end

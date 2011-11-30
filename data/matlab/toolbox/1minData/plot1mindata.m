@@ -1,5 +1,5 @@
-function plot1mindata(samobject, yaxisType, h, addgrid, addlegend);
-% plot1mindata(samobject, yaxisType, h, addgrid, addlegend);
+function handlePlot = plot1mindata(samobject, yaxisType, h, addgrid, addlegend, fillbelow);
+% handle = plot1mindata(samobject, yaxisType, h, addgrid, addlegend, fillbelow);
 % to change where the legend plots set the global variable legend_ypos
 % a positive value will be within the axes, a negative value will be below
 % default is -0.2. For within the axes, log(20) is a reasonable value.
@@ -41,7 +41,7 @@ for c = numdatasets:-1:1
 		% make a logarithmic plot, with a marker size and add the station name below the x-axis like a legend
 		y = log10(y);  % use log plots
 		
-		plot(t, y, '-', 'Color', lineColour{c}, 'MarkerSize', 1.0);
+		handlePlot = plot(t, y, '-', 'Color', lineColour{c}, 'MarkerSize', 1.0);
 
 
 		if strfind(samobject(c).measure, 'dr')
@@ -58,8 +58,11 @@ for c = numdatasets:-1:1
 
 		% plot on a linear axis, with station name as a y label
 		% datetick too, add measure as title, fiddle with the YTick's and add max(y) in top left corner
-
-		plot(t, y, '-', 'Color', lineColour{c});
+        if ~fillbelow
+            handlePlot = plot(t, y, '-', 'Color', lineColour{c});
+        else
+            handlePlot = fill([min(t) t max(t)], [min([y 0]) y min([y 0])], lineColour{c});
+        end
 		ylabel(samobject(c).measure);
 
 
