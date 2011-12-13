@@ -6,7 +6,7 @@ plots	1
 alarms	0
 stations &Arr{
 	KAWH &Arr{
-		distance	8.64
+		distance	0.08
 		latitude	58.3837
 		longitude	-154.7992
 		elevation	0.78
@@ -18,7 +18,7 @@ stations &Arr{
 		}
 	}
 	KARR &Arr{
-		distance	18.29
+		distance	0.16
 		latitude	58.4978
 		longitude	-154.7033
 		elevation	0.61
@@ -30,7 +30,7 @@ stations &Arr{
 		}
 	}
 	KAHG &Arr{
-		distance	19.60
+		distance	0.18
 		latitude	58.4940
 		longitude	-154.5463
 		elevation	0.92
@@ -42,7 +42,7 @@ stations &Arr{
 		}
 	}
 	KAKN &Arr{
-		distance	22.29
+		distance	0.20
 		latitude	58.2970
 		longitude	-155.0611
 		elevation	1.05
@@ -57,6 +57,50 @@ stations &Arr{
 			}
 			BHE &Arr{
 				use	0
+				threshold	0.0
+			}
+		}
+	}
+	KCG &Arr{
+		distance	0.22
+		latitude	58.3076
+		longitude	-155.1114
+		elevation	0.76
+		channels &Arr{
+			EHE &Arr{
+				use	0
+				threshold	0.0
+			}
+			EHN &Arr{
+				use	0
+				threshold	0.0
+			}
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	KAIC &Arr{
+		distance	0.24
+		latitude	58.4850
+		longitude	-155.0458
+		elevation	0.73
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	KABR &Arr{
+		distance	0.25
+		latitude	58.1312
+		longitude	-154.9692
+		elevation	0.88
+		channels &Arr{
+			EHZ &Arr{
+				use	1
 				threshold	0.0
 			}
 		}

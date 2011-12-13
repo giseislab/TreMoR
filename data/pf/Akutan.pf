@@ -6,7 +6,7 @@ plots	1
 alarms	0
 stations &Arr{
 	AKV &Arr{
-		distance	1.68
+		distance	0.02
 		latitude	54.1262
 		longitude	-165.9627
 		elevation	0.86
@@ -18,7 +18,7 @@ stations &Arr{
 		}
 	}
 	AKLV &Arr{
-		distance	3.83
+		distance	0.03
 		latitude	54.1627
 		longitude	-165.9556
 		elevation	0.55
@@ -38,7 +38,7 @@ stations &Arr{
 		}
 	}
 	LVA &Arr{
-		distance	4.40
+		distance	0.04
 		latitude	54.1609
 		longitude	-166.0337
 		elevation	0.46
@@ -50,7 +50,7 @@ stations &Arr{
 		}
 	}
 	ZRO &Arr{
-		distance	4.64
+		distance	0.04
 		latitude	54.0916
 		longitude	-165.9780
 		elevation	0.45
@@ -62,7 +62,7 @@ stations &Arr{
 		}
 	}
 	AKMO &Arr{
-		distance	4.94
+		distance	0.04
 		latitude	54.0912
 		longitude	-166.0106
 		elevation	0.28
@@ -82,7 +82,7 @@ stations &Arr{
 		}
 	}
 	AKBB &Arr{
-		distance	5.21
+		distance	0.05
 		latitude	54.0984
 		longitude	-165.9318
 		elevation	0.31
@@ -102,7 +102,7 @@ stations &Arr{
 		}
 	}
 	AKRB &Arr{
-		distance	5.43
+		distance	0.05
 		latitude	54.1301
 		longitude	-166.0688
 		elevation	0.33

@@ -6,7 +6,7 @@ plots	1
 alarms	0
 stations &Arr{
 	VNSS &Arr{
-		distance	4.98
+		distance	0.04
 		latitude	56.2267
 		longitude	-159.4548
 		elevation	1.73
@@ -18,7 +18,7 @@ stations &Arr{
 		}
 	}
 	VNNF &Arr{
-		distance	10.66
+		distance	0.10
 		latitude	56.2837
 		longitude	-159.3160
 		elevation	1.15
@@ -30,7 +30,7 @@ stations &Arr{
 		}
 	}
 	VNWF &Arr{
-		distance	11.66
+		distance	0.10
 		latitude	56.1517
 		longitude	-159.5622
 		elevation	1.10
@@ -42,7 +42,7 @@ stations &Arr{
 		}
 	}
 	VNFG &Arr{
-		distance	13.81
+		distance	0.12
 		latitude	56.2857
 		longitude	-159.5511
 		elevation	1.07
@@ -54,7 +54,7 @@ stations &Arr{
 		}
 	}
 	VNHG &Arr{
-		distance	14.39
+		distance	0.13
 		latitude	56.2211
 		longitude	-159.1642
 		elevation	0.97
@@ -66,7 +66,7 @@ stations &Arr{
 		}
 	}
 	VNSW &Arr{
-		distance	17.35
+		distance	0.16
 		latitude	56.0720
 		longitude	-159.5585
 		elevation	0.72
@@ -78,7 +78,7 @@ stations &Arr{
 		}
 	}
 	VNKR &Arr{
-		distance	18.60
+		distance	0.17
 		latitude	56.0312
 		longitude	-159.3678
 		elevation	0.62

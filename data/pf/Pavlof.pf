@@ -6,7 +6,7 @@ plots	1
 alarms	0
 stations &Arr{
 	PN7A &Arr{
-		distance	6.66
+		distance	0.06
 		latitude	55.4337
 		longitude	-161.9952
 		elevation	0.84
@@ -22,7 +22,7 @@ stations &Arr{
 		}
 	}
 	PV6 &Arr{
-		distance	7.03
+		distance	0.06
 		latitude	55.4536
 		longitude	-161.9850
 		elevation	0.75
@@ -42,7 +42,7 @@ stations &Arr{
 		}
 	}
 	PVV &Arr{
-		distance	8.13
+		distance	0.07
 		latitude	55.3740
 		longitude	-161.7899
 		elevation	0.16
@@ -54,7 +54,7 @@ stations &Arr{
 		}
 	}
 	PS4A &Arr{
-		distance	8.22
+		distance	0.07
 		latitude	55.3469
 		longitude	-161.8539
 		elevation	0.32
@@ -66,7 +66,7 @@ stations &Arr{
 		}
 	}
 	PS1A &Arr{
-		distance	9.69
+		distance	0.09
 		latitude	55.4220
 		longitude	-161.7404
 		elevation	0.29
@@ -78,10 +78,22 @@ stations &Arr{
 		}
 	}
 	HAG &Arr{
-		distance	11.08
+		distance	0.10
 		latitude	55.3178
 		longitude	-161.9025
 		elevation	0.50
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	DOL &Arr{
+		distance	0.27
+		latitude	55.1493
+		longitude	-161.8614
+		elevation	0.44
 		channels &Arr{
 			EHZ &Arr{
 				use	1

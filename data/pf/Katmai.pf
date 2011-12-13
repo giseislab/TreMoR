@@ -6,7 +6,7 @@ plots	1
 alarms	0
 stations &Arr{
 	KAKN &Arr{
-		distance	6.61
+		distance	0.06
 		latitude	58.2970
 		longitude	-155.0611
 		elevation	1.05
@@ -26,7 +26,7 @@ stations &Arr{
 		}
 	}
 	KCG &Arr{
-		distance	9.77
+		distance	0.09
 		latitude	58.3076
 		longitude	-155.1114
 		elevation	0.76
@@ -46,7 +46,7 @@ stations &Arr{
 		}
 	}
 	KCE &Arr{
-		distance	14.03
+		distance	0.13
 		latitude	58.2433
 		longitude	-155.1833
 		elevation	0.78
@@ -58,7 +58,7 @@ stations &Arr{
 		}
 	}
 	KBM &Arr{
-		distance	14.53
+		distance	0.13
 		latitude	58.2750
 		longitude	-155.2017
 		elevation	0.73
@@ -70,7 +70,7 @@ stations &Arr{
 		}
 	}
 	KAWH &Arr{
-		distance	14.71
+		distance	0.13
 		latitude	58.3837
 		longitude	-154.7992
 		elevation	0.78
@@ -82,7 +82,7 @@ stations &Arr{
 		}
 	}
 	KABR &Arr{
-		distance	16.46
+		distance	0.15
 		latitude	58.1312
 		longitude	-154.9692
 		elevation	0.88
@@ -94,7 +94,7 @@ stations &Arr{
 		}
 	}
 	KABU &Arr{
-		distance	19.25
+		distance	0.17
 		latitude	58.2709
 		longitude	-155.2822
 		elevation	1.06

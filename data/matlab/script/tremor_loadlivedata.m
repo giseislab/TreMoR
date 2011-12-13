@@ -23,7 +23,8 @@ if isempty(VALID_DATASOURCES)
 	disp('No valid datasources yet');
 	return;
 end
-tremor_datascope2mat(subnets, tw, VALID_DATASOURCES);
+%tremor_datascope2mat(subnets, tw, VALID_DATASOURCES);
+tremor_winston2mat(subnets, tw);
 print_debug(sprintf('< %s at %s',mfilename, datestr(now,31)),1)
 
 function snew=randomizesubnets(s)

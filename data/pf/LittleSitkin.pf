@@ -6,7 +6,7 @@ plots	1
 alarms	0
 stations &Arr{
 	LSSA &Arr{
-		distance	1.58
+		distance	0.01
 		latitude	51.9496
 		longitude	178.5132
 		elevation	0.55
@@ -18,7 +18,7 @@ stations &Arr{
 		}
 	}
 	LSNW &Arr{
-		distance	2.32
+		distance	0.02
 		latitude	51.9705
 		longitude	178.5168
 		elevation	0.29
@@ -30,7 +30,7 @@ stations &Arr{
 		}
 	}
 	LSPA &Arr{
-		distance	2.62
+		distance	0.02
 		latitude	51.9569
 		longitude	178.5734
 		elevation	0.34
@@ -50,10 +50,46 @@ stations &Arr{
 		}
 	}
 	LSSE &Arr{
-		distance	3.18
+		distance	0.03
 		latitude	51.9332
 		longitude	178.5690
 		elevation	0.34
+		channels &Arr{
+			SHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	CETU &Arr{
+		distance	0.59
+		latitude	51.9661
+		longitude	179.4942
+		elevation	0.34
+		channels &Arr{
+			SHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	CESW &Arr{
+		distance	0.64
+		latitude	51.9010
+		longitude	179.5633
+		elevation	0.24
+		channels &Arr{
+			SHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	CEAP &Arr{
+		distance	0.64
+		latitude	52.0024
+		longitude	179.5778
+		elevation	0.24
 		channels &Arr{
 			SHZ &Arr{
 				use	1

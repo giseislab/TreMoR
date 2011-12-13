@@ -31,11 +31,12 @@ for c=1:length(PARAMS.subnetnames)
     fprintf(fout, 'alarms\t%d\n',0); 
     fprintf(fout, 'stations &Arr{\n'); 
     for k=1:length(subnets.stations)
+        subnets.stations(k)
         fprintf(fout, '\t%s &Arr{\n',subnets.stations(k).name);
         fprintf(fout, '\t\tdistance\t%.2f\n',subnets.stations(k).distance); 
-        fprintf(fout, '\t\tlatitude\t%.4f\n',subnets.stations(k).latitude);
-        fprintf(fout, '\t\tlongitude\t%.4f\n',subnets.stations(k).longitude);  
-        fprintf(fout, '\t\televation\t%.2f\n',subnets.stations(k).elevation);
+        fprintf(fout, '\t\tlatitude\t%.4f\n',subnets.stations(k).site.lat);
+        fprintf(fout, '\t\tlongitude\t%.4f\n',subnets.stations(k).site.lon);  
+        fprintf(fout, '\t\televation\t%.2f\n',subnets.stations(k).site.elev);
         fprintf(fout, '\t\tchannels &Arr{\n');
         for l=1:length(subnets.stations(k).channels)
             fprintf(fout, '\t\t\t%s &Arr{\n',subnets.stations(k).channels{l});

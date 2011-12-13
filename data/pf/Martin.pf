@@ -6,7 +6,7 @@ plots	1
 alarms	0
 stations &Arr{
 	ACH &Arr{
-		distance	4.95
+		distance	0.04
 		latitude	58.2107
 		longitude	-155.3260
 		elevation	0.96
@@ -26,7 +26,7 @@ stations &Arr{
 		}
 	}
 	ANCK &Arr{
-		distance	8.70
+		distance	0.08
 		latitude	58.1988
 		longitude	-155.4940
 		elevation	0.87
@@ -38,7 +38,7 @@ stations &Arr{
 		}
 	}
 	KABU &Arr{
-		distance	12.12
+		distance	0.11
 		latitude	58.2709
 		longitude	-155.2822
 		elevation	1.06
@@ -58,7 +58,7 @@ stations &Arr{
 		}
 	}
 	MGLS &Arr{
-		distance	12.13
+		distance	0.11
 		latitude	58.1343
 		longitude	-155.1608
 		elevation	0.47
@@ -70,7 +70,7 @@ stations &Arr{
 		}
 	}
 	KCE &Arr{
-		distance	13.08
+		distance	0.12
 		latitude	58.2433
 		longitude	-155.1833
 		elevation	0.78
@@ -82,7 +82,7 @@ stations &Arr{
 		}
 	}
 	CAHL &Arr{
-		distance	13.37
+		distance	0.12
 		latitude	58.0525
 		longitude	-155.3015
 		elevation	0.81
@@ -94,7 +94,7 @@ stations &Arr{
 		}
 	}
 	KBM &Arr{
-		distance	14.86
+		distance	0.13
 		latitude	58.2750
 		longitude	-155.2017
 		elevation	0.73

@@ -6,7 +6,7 @@ plots	1
 alarms	0
 stations &Arr{
 	KICM &Arr{
-		distance	2.34
+		distance	0.02
 		latitude	51.9189
 		longitude	-177.1953
 		elevation	0.18
@@ -18,7 +18,7 @@ stations &Arr{
 		}
 	}
 	KINC &Arr{
-		distance	2.51
+		distance	0.02
 		latitude	51.9314
 		longitude	-177.1276
 		elevation	0.20
@@ -30,7 +30,7 @@ stations &Arr{
 		}
 	}
 	KIKV &Arr{
-		distance	5.08
+		distance	0.05
 		latitude	51.8788
 		longitude	-177.1704
 		elevation	0.41
@@ -42,7 +42,7 @@ stations &Arr{
 		}
 	}
 	KIRH &Arr{
-		distance	5.45
+		distance	0.05
 		latitude	51.8996
 		longitude	-177.0935
 		elevation	0.31
@@ -54,7 +54,7 @@ stations &Arr{
 		}
 	}
 	KIWB &Arr{
-		distance	7.95
+		distance	0.07
 		latitude	51.8531
 		longitude	-177.1508
 		elevation	0.24
@@ -66,13 +66,69 @@ stations &Arr{
 		}
 	}
 	KIMD &Arr{
-		distance	18.76
+		distance	0.17
 		latitude	51.7616
 		longitude	-177.2349
 		elevation	0.18
 		channels &Arr{
 			EHZ &Arr{
 				use	1
+				threshold	0.0
+			}
+		}
+	}
+	ADK &Arr{
+		distance	0.30
+		latitude	51.8823
+		longitude	-176.6842
+		elevation	0.13
+		channels &Arr{
+			BHN &Arr{
+				use	0
+				threshold	0.0
+			}
+			SHN &Arr{
+				use	0
+				threshold	0.0
+			}
+			BHE &Arr{
+				use	0
+				threshold	0.0
+			}
+			SHE &Arr{
+				use	0
+				threshold	0.0
+			}
+			BHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+			SHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+			HHN &Arr{
+				use	0
+				threshold	0.0
+			}
+			HHE &Arr{
+				use	0
+				threshold	0.0
+			}
+			HHZ &Arr{
+				use	0
+				threshold	0.0
+			}
+			HNN &Arr{
+				use	0
+				threshold	0.0
+			}
+			HNE &Arr{
+				use	0
+				threshold	0.0
+			}
+			HNZ &Arr{
+				use	0
 				threshold	0.0
 			}
 		}

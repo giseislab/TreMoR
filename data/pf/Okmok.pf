@@ -6,7 +6,7 @@ plots	1
 alarms	0
 stations &Arr{
 	OKCF &Arr{
-		distance	1.98
+		distance	0.02
 		latitude	53.3958
 		longitude	-168.1362
 		elevation	0.69
@@ -18,7 +18,7 @@ stations &Arr{
 		}
 	}
 	OKCE &Arr{
-		distance	3.34
+		distance	0.03
 		latitude	53.4270
 		longitude	-168.1643
 		elevation	0.52
@@ -38,7 +38,7 @@ stations &Arr{
 		}
 	}
 	OKSO &Arr{
-		distance	4.41
+		distance	0.04
 		latitude	53.3575
 		longitude	-168.1599
 		elevation	0.46
@@ -58,7 +58,7 @@ stations &Arr{
 		}
 	}
 	OKWR &Arr{
-		distance	4.95
+		distance	0.04
 		latitude	53.4347
 		longitude	-168.2056
 		elevation	1.02
@@ -70,7 +70,7 @@ stations &Arr{
 		}
 	}
 	OKNC &Arr{
-		distance	7.24
+		distance	0.07
 		latitude	53.4570
 		longitude	-168.1237
 		elevation	0.42
@@ -90,7 +90,7 @@ stations &Arr{
 		}
 	}
 	OKTU &Arr{
-		distance	8.41
+		distance	0.08
 		latitude	53.3839
 		longitude	-168.0411
 		elevation	0.65
@@ -102,7 +102,7 @@ stations &Arr{
 		}
 	}
 	OKWE &Arr{
-		distance	9.68
+		distance	0.09
 		latitude	53.4721
 		longitude	-168.2398
 		elevation	0.45

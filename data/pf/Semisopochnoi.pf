@@ -6,7 +6,7 @@ plots	1
 alarms	0
 stations &Arr{
 	CERB &Arr{
-		distance	2.21
+		distance	0.02
 		latitude	51.9314
 		longitude	179.6297
 		elevation	0.30
@@ -26,7 +26,7 @@ stations &Arr{
 		}
 	}
 	CESW &Arr{
-		distance	3.89
+		distance	0.03
 		latitude	51.9010
 		longitude	179.5633
 		elevation	0.24
@@ -38,7 +38,7 @@ stations &Arr{
 		}
 	}
 	CEPE &Arr{
-		distance	5.42
+		distance	0.05
 		latitude	51.9658
 		longitude	179.6492
 		elevation	0.34
@@ -50,7 +50,7 @@ stations &Arr{
 		}
 	}
 	CERA &Arr{
-		distance	6.43
+		distance	0.06
 		latitude	51.9070
 		longitude	179.6846
 		elevation	0.30
@@ -62,7 +62,7 @@ stations &Arr{
 		}
 	}
 	CETU &Arr{
-		distance	8.22
+		distance	0.07
 		latitude	51.9661
 		longitude	179.4942
 		elevation	0.34
@@ -74,13 +74,33 @@ stations &Arr{
 		}
 	}
 	CEAP &Arr{
-		distance	8.30
+		distance	0.07
 		latitude	52.0024
 		longitude	179.5778
 		elevation	0.24
 		channels &Arr{
 			SHZ &Arr{
 				use	1
+				threshold	0.0
+			}
+		}
+	}
+	AMKA &Arr{
+		distance	0.58
+		latitude	51.3794
+		longitude	179.3037
+		elevation	0.12
+		channels &Arr{
+			BHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+			BHN &Arr{
+				use	0
+				threshold	0.0
+			}
+			BHE &Arr{
+				use	0
 				threshold	0.0
 			}
 		}

@@ -6,7 +6,7 @@ plots	1
 alarms	0
 stations &Arr{
 	ANON &Arr{
-		distance	4.38
+		distance	0.04
 		latitude	56.9198
 		longitude	-158.1716
 		elevation	0.45
@@ -26,7 +26,7 @@ stations &Arr{
 		}
 	}
 	ANPK &Arr{
-		distance	4.75
+		distance	0.04
 		latitude	56.8417
 		longitude	-158.1262
 		elevation	0.97
@@ -38,7 +38,7 @@ stations &Arr{
 		}
 	}
 	AZAC &Arr{
-		distance	4.87
+		distance	0.04
 		latitude	56.8954
 		longitude	-158.2307
 		elevation	1.06
@@ -50,7 +50,7 @@ stations &Arr{
 		}
 	}
 	ANNE &Arr{
-		distance	6.77
+		distance	0.06
 		latitude	56.9127
 		longitude	-158.0589
 		elevation	0.70
@@ -62,7 +62,7 @@ stations &Arr{
 		}
 	}
 	ANNW &Arr{
-		distance	10.12
+		distance	0.09
 		latitude	56.9664
 		longitude	-158.2149
 		elevation	0.82
@@ -74,10 +74,22 @@ stations &Arr{
 		}
 	}
 	ANPB &Arr{
-		distance	11.67
+		distance	0.10
 		latitude	56.8024
 		longitude	-158.2808
 		elevation	0.66
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	BPBC &Arr{
+		distance	0.33
+		latitude	56.5897
+		longitude	-158.4526
+		elevation	0.58
 		channels &Arr{
 			EHZ &Arr{
 				use	1

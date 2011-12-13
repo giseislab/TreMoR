@@ -6,7 +6,7 @@ plots	1
 alarms	0
 stations &Arr{
 	CP2 &Arr{
-		distance	3.91
+		distance	0.04
 		latitude	61.2642
 		longitude	-152.2418
 		elevation	1.98
@@ -18,7 +18,7 @@ stations &Arr{
 		}
 	}
 	CRP &Arr{
-		distance	6.34
+		distance	0.06
 		latitude	61.2670
 		longitude	-152.1555
 		elevation	1.62
@@ -38,7 +38,7 @@ stations &Arr{
 		}
 	}
 	SPCP &Arr{
-		distance	6.51
+		distance	0.06
 		latitude	61.2661
 		longitude	-152.1529
 		elevation	1.62
@@ -58,7 +58,7 @@ stations &Arr{
 		}
 	}
 	SPBG &Arr{
-		distance	7.58
+		distance	0.07
 		latitude	61.2597
 		longitude	-152.3699
 		elevation	1.09
@@ -78,7 +78,7 @@ stations &Arr{
 		}
 	}
 	BGL &Arr{
-		distance	8.05
+		distance	0.07
 		latitude	61.2669
 		longitude	-152.3890
 		elevation	1.13
@@ -90,7 +90,7 @@ stations &Arr{
 		}
 	}
 	SPCN &Arr{
-		distance	9.04
+		distance	0.08
 		latitude	61.2250
 		longitude	-152.1832
 		elevation	0.73
@@ -110,7 +110,7 @@ stations &Arr{
 		}
 	}
 	CKN &Arr{
-		distance	9.18
+		distance	0.08
 		latitude	61.2240
 		longitude	-152.1815
 		elevation	0.73

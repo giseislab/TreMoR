@@ -6,7 +6,7 @@ plots	1
 alarms	0
 stations &Arr{
 	MCIR &Arr{
-		distance	7.17
+		distance	0.06
 		latitude	53.9514
 		longitude	-166.8922
 		elevation	0.80
@@ -18,7 +18,7 @@ stations &Arr{
 		}
 	}
 	MSOM &Arr{
-		distance	8.22
+		distance	0.07
 		latitude	53.8163
 		longitude	-166.9364
 		elevation	0.01
@@ -30,7 +30,7 @@ stations &Arr{
 		}
 	}
 	MSW &Arr{
-		distance	9.52
+		distance	0.09
 		latitude	53.9155
 		longitude	-166.7864
 		elevation	0.42
@@ -47,10 +47,54 @@ stations &Arr{
 				use	1
 				threshold	0.0
 			}
+			BHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+			BHN &Arr{
+				use	0
+				threshold	0.0
+			}
+			BHE &Arr{
+				use	0
+				threshold	0.0
+			}
+		}
+	}
+	MSW &Arr{
+		distance	0.09
+		latitude	53.9155
+		longitude	-166.7864
+		elevation	0.42
+		channels &Arr{
+			EHE &Arr{
+				use	0
+				threshold	0.0
+			}
+			EHN &Arr{
+				use	0
+				threshold	0.0
+			}
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+			BHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+			BHN &Arr{
+				use	0
+				threshold	0.0
+			}
+			BHE &Arr{
+				use	0
+				threshold	0.0
+			}
 		}
 	}
 	MGOD &Arr{
-		distance	11.06
+		distance	0.10
 		latitude	53.7947
 		longitude	-166.8760
 		elevation	0.65
@@ -62,7 +106,7 @@ stations &Arr{
 		}
 	}
 	MREP &Arr{
-		distance	14.71
+		distance	0.13
 		latitude	53.8105
 		longitude	-166.7456
 		elevation	0.79
@@ -74,22 +118,10 @@ stations &Arr{
 		}
 	}
 	MNAT &Arr{
-		distance	15.83
+		distance	0.14
 		latitude	53.8838
 		longitude	-166.6836
 		elevation	0.40
-		channels &Arr{
-			EHZ &Arr{
-				use	1
-				threshold	0.0
-			}
-		}
-	}
-	MTBL &Arr{
-		distance	18.33
-		latitude	53.9689
-		longitude	-166.6793
-		elevation	0.81
 		channels &Arr{
 			EHZ &Arr{
 				use	1

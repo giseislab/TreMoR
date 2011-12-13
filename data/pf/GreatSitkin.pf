@@ -6,7 +6,7 @@ plots	1
 alarms	0
 stations &Arr{
 	GSTD &Arr{
-		distance	3.26
+		distance	0.03
 		latitude	52.0559
 		longitude	-176.1448
 		elevation	0.87
@@ -26,7 +26,7 @@ stations &Arr{
 		}
 	}
 	GSTR &Arr{
-		distance	4.06
+		distance	0.04
 		latitude	52.0943
 		longitude	-176.0591
 		elevation	0.54
@@ -38,7 +38,7 @@ stations &Arr{
 		}
 	}
 	GSSP &Arr{
-		distance	4.78
+		distance	0.04
 		latitude	52.0928
 		longitude	-176.1757
 		elevation	0.29
@@ -50,7 +50,7 @@ stations &Arr{
 		}
 	}
 	GSMY &Arr{
-		distance	5.26
+		distance	0.05
 		latitude	52.0432
 		longitude	-176.0563
 		elevation	0.42
@@ -62,7 +62,7 @@ stations &Arr{
 		}
 	}
 	GSCK &Arr{
-		distance	7.99
+		distance	0.07
 		latitude	52.0119
 		longitude	-176.1620
 		elevation	0.38
@@ -74,10 +74,22 @@ stations &Arr{
 		}
 	}
 	GSIG &Arr{
-		distance	16.19
+		distance	0.15
 		latitude	51.9864
 		longitude	-175.9250
 		elevation	0.41
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	ETKA &Arr{
+		distance	0.28
+		latitude	51.8619
+		longitude	-176.4059
+		elevation	0.29
 		channels &Arr{
 			EHZ &Arr{
 				use	1

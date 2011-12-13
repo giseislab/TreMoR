@@ -6,7 +6,7 @@ plots	1
 alarms	0
 stations &Arr{
 	KOKV &Arr{
-		distance	2.26
+		distance	0.02
 		latitude	52.3614
 		longitude	-174.1653
 		elevation	0.78
@@ -26,7 +26,7 @@ stations &Arr{
 		}
 	}
 	KONE &Arr{
-		distance	3.39
+		distance	0.03
 		latitude	52.3936
 		longitude	-174.1193
 		elevation	0.25
@@ -38,7 +38,7 @@ stations &Arr{
 		}
 	}
 	KONW &Arr{
-		distance	3.48
+		distance	0.03
 		latitude	52.3965
 		longitude	-174.2105
 		elevation	0.33
@@ -50,7 +50,7 @@ stations &Arr{
 		}
 	}
 	KOWE &Arr{
-		distance	6.06
+		distance	0.05
 		latitude	52.3657
 		longitude	-174.2507
 		elevation	0.53
@@ -62,7 +62,7 @@ stations &Arr{
 		}
 	}
 	KOKL &Arr{
-		distance	6.92
+		distance	0.06
 		latitude	52.3232
 		longitude	-174.2002
 		elevation	0.76
@@ -74,7 +74,7 @@ stations &Arr{
 		}
 	}
 	KOSE &Arr{
-		distance	8.88
+		distance	0.08
 		latitude	52.3458
 		longitude	-174.0485
 		elevation	0.62
@@ -86,7 +86,7 @@ stations &Arr{
 		}
 	}
 	KOFP &Arr{
-		distance	12.72
+		distance	0.11
 		latitude	52.2751
 		longitude	-174.0972
 		elevation	0.66

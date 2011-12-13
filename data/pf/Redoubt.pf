@@ -6,7 +6,7 @@ plots	1
 alarms	0
 stations &Arr{
 	RSO &Arr{
-		distance	2.62
+		distance	0.02
 		latitude	60.4622
 		longitude	-152.7538
 		elevation	1.92
@@ -18,7 +18,7 @@ stations &Arr{
 		}
 	}
 	REF &Arr{
-		distance	2.89
+		distance	0.03
 		latitude	60.4892
 		longitude	-152.6917
 		elevation	1.64
@@ -41,8 +41,28 @@ stations &Arr{
 			}
 		}
 	}
+	RDSO &Arr{
+		distance	0.03
+		latitude	60.4542
+		longitude	-152.7430
+		elevation	1.56
+		channels &Arr{
+			BHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+			BHN &Arr{
+				use	0
+				threshold	0.0
+			}
+			BHE &Arr{
+				use	0
+				threshold	0.0
+			}
+		}
+	}
 	RDN &Arr{
-		distance	4.22
+		distance	0.04
 		latitude	60.5230
 		longitude	-152.7379
 		elevation	1.40
@@ -54,7 +74,7 @@ stations &Arr{
 		}
 	}
 	RDWB &Arr{
-		distance	5.35
+		distance	0.05
 		latitude	60.4876
 		longitude	-152.8414
 		elevation	1.63
@@ -74,7 +94,7 @@ stations &Arr{
 		}
 	}
 	RED &Arr{
-		distance	7.42
+		distance	0.07
 		latitude	60.4199
 		longitude	-152.7718
 		elevation	1.06
@@ -95,14 +115,6 @@ stations &Arr{
 				use	1
 				threshold	0.0
 			}
-		}
-	}
-	RDJH &Arr{
-		distance	12.22
-		latitude	60.5911
-		longitude	-152.8036
-		elevation	1.41
-		channels &Arr{
 			BHZ &Arr{
 				use	1
 				threshold	0.0
@@ -117,21 +129,37 @@ stations &Arr{
 			}
 		}
 	}
-	DFR &Arr{
-		distance	12.28
-		latitude	60.5919
-		longitude	-152.6860
-		elevation	1.09
+	RED &Arr{
+		distance	0.07
+		latitude	60.4199
+		longitude	-152.7718
+		elevation	1.06
 		channels &Arr{
+			SLZ &Arr{
+				use	0
+				threshold	0.0
+			}
+			EHE &Arr{
+				use	0
+				threshold	0.0
+			}
+			EHN &Arr{
+				use	0
+				threshold	0.0
+			}
 			EHZ &Arr{
 				use	1
 				threshold	0.0
 			}
-			BDF &Arr{
+			BHZ &Arr{
 				use	1
 				threshold	0.0
 			}
-			BDL &Arr{
+			BHN &Arr{
+				use	0
+				threshold	0.0
+			}
+			BHE &Arr{
 				use	0
 				threshold	0.0
 			}
