@@ -35,6 +35,12 @@ for subnet_num=1:length(subnets)
 		disp(sprintf('Start time is %s UTC',datestr(snum)));
 		disp(sprintf('End time is %s UTC',datestr(enum)));
 
+		# 20111213: Create a zero size spectrogram image, so we know there was an attempt to run IceWeb on this timewindow
+                timestamp = datestr(enum, 30);
+                spdir = catpath(paths.WEBDIR, 'plots', 'sp', subnet, timestamp(1:4), timestamp(5:6), timestamp(7:8));
+                tenminspfile = catpath(spdir, [timestamp, '.png']);
+		system(sprintf("touch %s",tenminspfile)); 
+
 		% Get waveform data
 		secsRequested = (enum - snum) * 86400;
 		secsGot = 0.0;

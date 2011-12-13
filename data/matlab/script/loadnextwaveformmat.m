@@ -12,7 +12,8 @@ subnet='';
 	while isempty(d)
 		d = dir(sprintf('%s/*.mat',matdir));
 		if length(d)>0
-			filename = sprintf('%s/%s',matdir,d(1).name);
+			%filename = sprintf('%s/%s',matdir,d(1).name);
+			filename = sprintf('%s/%s',matdir,d(end).name);
 			try
 				pause(2); % pause just to give time for file to be saved properly
 				eval(['load ',filename]);

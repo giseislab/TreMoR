@@ -14,13 +14,17 @@ foreach $volcano (@volcanoes) {
 			chdir($month);
 			@days = glob("[0123]*");
 			foreach $day (@days) {
+				$epochtime = `epoch "$year/$month/$day" | awk '{print $1}'`;
+				$epochnow = `epoch now | awk '{print $1}'`;
+				$daysago = ($epochnow - $epochtime) / 86400; 
+				next if ($daysago > 3);
 				chdir($day);
 				@files = glob("2*");
 				$numfiles = $#files + 1;
 				$exists=0;
 				foreach $file (@files) {
 					$size = -s $file;
-					if ($size > 100000) {
+					if ($size > 5000) {
 						$exists++;
 					}
 				}
