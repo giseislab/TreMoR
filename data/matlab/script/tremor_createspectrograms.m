@@ -24,8 +24,9 @@ while 1,
 			errorFound=true;
 		end
 
-		if ~errorFound
-	
+		if errorFound
+			delete(filename);
+		else
 			% Output some information
 			disp(sprintf('\n***** New waveform *****'));
 			fprintf('file=%s\n',filename);
@@ -54,14 +55,13 @@ while 1,
 				%makeThumbnail(spthumbfile, timestamp);
 		    		makesgramthumbnail(tenminspfile);
 			end
-		end
 	
-		if ~isempty(filename)
-			if exist(filename,'file')
-				system(sprintf('mv -f %s done/',filename));
-				%delete(filename);
-			end
-		end 
+			if ~isempty(filename)
+				if exist(filename,'file')
+					system(sprintf('mv -f %s done/',filename));
+				end
+			end 
+		end
 	end
 	
 	% Pause briefly
