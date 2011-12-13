@@ -1,0 +1,39 @@
+#!/usr/bin/perl
+($YYYY, $MM, $DD) = @ARGV;
+$subdir = "$YYYY/$MM/$DD";
+chdir('www/plots/sp');
+@volcanoes = glob('*');
+foreach $volcano (@volcanoes) {
+	chdir($volcano);
+	print "$volcano: ";
+	@years = glob("2*");
+	foreach $year (@years) {
+		chdir($year);
+		@months = glob("[01]*");
+		foreach $month (@months) {
+			chdir($month);
+			@days = glob("[0123]*");
+			foreach $day (@days) {
+				chdir($day);
+				@files = glob("2*");
+				$numfiles = $#files + 1;
+				$exists=0;
+				foreach $file (@files) {
+					$size = -s $file;
+					if ($size > 100000) {
+						$exists++;
+					}
+				}
+				printf("\t%3d(%3d)",$numfiles, $exists);
+				chdir("..");
+			}
+			chdir("..");
+		}
+		chdir("..");
+	}
+	chdir("..");
+	print "\n";
+}
+
+	
+
