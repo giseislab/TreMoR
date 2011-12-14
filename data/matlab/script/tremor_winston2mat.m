@@ -35,11 +35,15 @@ for subnet_num=1:length(subnets)
 		disp(sprintf('Start time is %s UTC',datestr(snum)));
 		disp(sprintf('End time is %s UTC',datestr(enum)));
 
-		# 20111213: Create a zero size spectrogram image, so we know there was an attempt to run IceWeb on this timewindow
+		% 20111213: Create a zero size spectrogram image, so we know there was an attempt to run IceWeb on this timewindow
                 timestamp = datestr(enum, 30);
                 spdir = catpath(paths.WEBDIR, 'plots', 'sp', subnet, timestamp(1:4), timestamp(5:6), timestamp(7:8));
+		system(sprintf('mkdir -p %s',spdir));
                 tenminspfile = catpath(spdir, [timestamp, '.png']);
-		system(sprintf("touch %s",tenminspfile)); 
+		if ~exist(tenminspfile,'file')
+			system(sprintf('touch %s',tenminspfile)); 
+			disp(sprintf('touch %s',tenminspfile)); 
+		end
 
 		% Get waveform data
 		secsRequested = (enum - snum) * 86400;
@@ -51,7 +55,7 @@ for subnet_num=1:length(subnets)
 			%w = getwaveforms2(scnl, snum, enum, datasources);
 			%waveform_tracker(w, subnet, snum, enum);a % this function not ready & tested yet
 			if isempty(w)
-				disp('No waveform data found for this timewindow - quitting while loop');
+				disp('No waveform data found');
 				break;
 			else
 				%[wsnum, wenum] = waveform2timewindow(w);
@@ -59,7 +63,7 @@ for subnet_num=1:length(subnets)
 				secsGotLastTime = secsGot;
 				secsGot = (max(wenum) - min(wsnum)) * 86400;
 				if (secsGotLastTime >= secsGot) % quit the loop as doing no better
-					fprintf('Still only got %.1f seconds of data - quitting while loop\n',secsGot);	
+					fprintf('Still only got %.1f seconds of data - will not wait any longer\n',secsGot);	
 					break;
 				end
 				if (secsGot/secsRequested) < 0.9 && strcmp(PARAMS.mode, 'realtime') 
@@ -71,12 +75,18 @@ for subnet_num=1:length(subnets)
 
 		if ~isempty(w)
 			disp('Got some waveform data - will now run save2waveformmat');
+			for woc=1:numel(w)
+				disp(sprintf('waveform %d, stachan %s-%s, samples %d',woc,get(w(woc), 'station'), get(w(woc), 'channel'), length(get(w(woc), 'data')) ));
+			end
+
 			% Save waveform data
 			save2waveformmat(w, 'waveforms_raw', snum, enum, subnet);
 			% update state file
 			lastenum = enum;
 			eval(['save ',lastenumfile,' lastenum']);
 		end
+
+		disp(sprintf('***** Finished %s %s %s *****\n\n', subnet, datestr(snum,15), datestr(enum,15) ));
 	end
   %catch
 %	disp(sprintf('Failed for subnet %s',subnet));
