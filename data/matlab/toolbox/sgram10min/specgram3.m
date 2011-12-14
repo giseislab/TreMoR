@@ -71,6 +71,7 @@ for c=1:numw
 	set(ha(c), 'position', spectrogramPosition);
 	if spectrogramFraction < 1
 		plotTrace(tracePosition, get(demean(w(numw-c+1)),'data'), get(w(numw-c+1),'freq'), Xtickmarks, wt);
+		set(gca,'XLim', [wt.start wt.stop]); % added 20111214 to align trace with spectrogram when data missing (prevent trace being stretched out)
 	end
 end
 result = 1;
