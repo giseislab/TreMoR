@@ -7,7 +7,6 @@ axes('position',tracePosition);
 % trace time vector - bins are ~0.01 s apart (not 5 s as for spectrogram time)
 % not really worthwhile plotting more than 1000 points on the screen
 dnum = ((1:length(data))./freqSamp)/86400 + snum;
-timeDiffInMins = (dnum(end) - dnum(1)) * 1440;
 
 % plot seismogram
 try

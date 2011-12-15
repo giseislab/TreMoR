@@ -4,7 +4,7 @@ print_debug(sprintf('> %s',mfilename),2);
 warning on;
 
 [remove_calibs, remove_spikes, remove_trend, remove_response, interactive_mode, filterObj] = ...
-    process_options(varargin, 'remove_calibs', true, 'remove_spikes', true, 'remove_trend', true, 'remove_response', false, ...
+    process_options(varargin, 'remove_calibs', false, 'remove_spikes', false, 'remove_trend', false, 'remove_response', false, ...
     'interactive_mode', false, 'filterObj', filterobject('b',[0.5 15],2) );
 
 if remove_calibs
@@ -58,17 +58,29 @@ for c = 1: length(w)
     % high pass filter (and remove response if requested)
     filtered = false;
     if remove_response
-            try
-                resp = get(w, 'response');
+            %try
+                resp = get(w(c), 'response') % I think the getwaveforms2, which gets from antelope, appends response using addfield to waveform object
                 if ~isempty(resp)
-                    w(c) = response_apply(w(c), filterObj, 'structure', resp);
-                else
-                    w(c) = response_apply(w(c),filterObj,'antelope','dbmaster/master_stations');
+			if nanmean(resp.values) ~= 0 % if i look at subnets(15).stations(6).response, which is SSLN-BDF, it has a response, but all values are zero, so i would want to skip it
+                    		w(c) = response_apply(w(c), filterObj, 'structure', resp);
+				% Note: Assumes responses are preloaded into runtime.mat, subnets variable. To get responses directly from Antelope, use:
+                		% w(c) = response_apply(w(c),filterObj,'antelope','dbmaster/master_stations');
+                		filtered = true; % set this, so we don't apply butterworth filter again below
+			end
                 end
-                filtered = true;
-            catch
-                warning(sprintf('response_apply failed .\nTrying to bandpass instead.'));
-            end
+            %catch
+             %   warning(sprintf('response_apply failed .\nTrying to bandpass instead.'));
+            %end
+    else
+	% apply calib
+	if strcmp(get(w(c),'Units'), 'Counts')
+		fprintf('Apilying calib of %d\n',resp.calib);
+		resp = get(w, 'response');
+		if (resp.calib ~= 0)
+			w(c) = w(c) * resp.calib;
+		end
+	end
+	
     end
 
     if ~filtered

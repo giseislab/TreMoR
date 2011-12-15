@@ -50,7 +50,6 @@ our %paths;
 our($paths, $parameterspf, @subnets);
 our ($convert, $ALCHEMY); 
 our %imageFormat;
-our $STARTHOUR= 3;
 
 # read paths
 $paths{PFS} 		= $ARGV[0]; 
@@ -76,7 +75,7 @@ my $menuxml = &update_iceweb_menu;
 ########################################################
 
 sub update_iceweb_menu {
-	our (%paths, %imageFormat, @subnets, $STARTHOUR);
+	our (%paths, %imageFormat, @subnets);
 	my $menuhtml = $paths{INTERNALWEBPRODUCTS}."/iceweb_menu.html";
 
 	my $pffile;
@@ -112,9 +111,11 @@ sub update_iceweb_menu {
 	foreach $subnet (@subnets) {
 		print FHTML "$subnet: \n";
 		print FHTML "<a href=\"$baseurl/html/sgram10min.php?subnet=$subnet\">10min</a> \n";
-		print FHTML "<a href=\"$baseurl/html/mosaicMakerHoursAgo.php?subnet=".$subnet."&starthour=2&endhour=0\">mosaic</a>\n";
-		print FHTML "<a href=\"$DAILY/".$subnet."/currentday.gif\">today</a>\n";
-		print FHTML "<a href=\"$DAILY/".$subnet."/lastday.gif\">yesterday</a>\n";
+		#print FHTML "<a href=\"$baseurl/html/mosaicMaker.php?subnet=".$subnet."&starthour=2&endhour=0\">mosaic</a>\n";
+		print FHTML "<a href=\"$baseurl/html/mosaicMaker.php?subnet=".$subnet."&starthour=3&endhour=0\">3h</a>\n";
+		print FHTML "<a href=\"$baseurl/html/mosaicMaker.php?subnet=".$subnet."&starthour=12&endhour=0\">12h</a>\n";
+		#print FHTML "<a href=\"$DAILY/".$subnet."/currentday.gif\">today</a>\n";
+		#print FHTML "<a href=\"$DAILY/".$subnet."/lastday.gif\">yesterday</a>\n";
 		print FHTML "<br/>\n";
 	}
 
@@ -158,9 +159,10 @@ sub update_iceweb_menu {
 	foreach $subnet (@subnets) {
 		print FXML "\t\t<subnet name=\"$subnet\">\n";
 		print FXML "\t\t\t<link url=\"$baseurl/html/sgram10min.php?subnet=$subnet\" label=\"10min\" />\n";
-		print FXML "\t\t\t<link url=\"$baseurl/html/mosaicMakerHoursAgo.php?subnet=".$subnet."&amp;starthour=$STARTHOUR&amp;endhour=0\" label=\"mosaic\" />\n";
-		print FXML "\t\t\t<link url=\"$DAILY/".$subnet."/currentday.gif\" label=\"today\" />\n";
-		print FXML "\t\t\t<link url=\"$DAILY/".$subnet."/lastday.gif\" label=\"yesterday\"/>\n";
+		print FXML "\t\t\t<link url=\"$baseurl/html/mosaicMaker.php?subnet=".$subnet."&amp;starthour=3&amp;endhour=0\" label=\"3h\" />\n";
+		print FXML "\t\t\t<link url=\"$baseurl/html/mosaicMaker.php?subnet=".$subnet."&amp;starthour=12&amp;endhour=0\" label=\"12h\" />\n";
+		#print FXML "\t\t\t<link url=\"$DAILY/".$subnet."/currentday.gif\" label=\"today\" />\n";
+		#print FXML "\t\t\t<link url=\"$DAILY/".$subnet."/lastday.gif\" label=\"yesterday\"/>\n";
 		print FXML "\t\t</subnet>\n";
 	}
 	print FXML "\t</section>\n";

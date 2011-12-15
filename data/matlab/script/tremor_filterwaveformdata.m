@@ -5,50 +5,29 @@ load pf/runtime
 
 while 1,
 	[w, filename, snum, enum, subnet] = loadnextwaveformmat('waveforms_raw');
-
-        if isempty(w)
-                fprintf('.');
-        else
-
-                % Sanity checks
-                errorFound=false;
-                if ~strcmp(class(w),'waveform')
-                        errorFound=true;
-                end
-                if ~(snum>datenum(1989,1,1) && snum<utnow)
-                        errorFound=true;
-                end
-                if ~(enum>datenum(1989,1,1) && enum<utnow)
-                        errorFound=true;
-                end
-                if length(subnet)==0
-                        errorFound=true;
-                end
-
-                if ~errorFound
-                        % Output some information
-                        disp(sprintf('\n***** New waveform *****'));
-                        fprintf('file=%s\n',filename);
-                        disp(sprintf('Start time is %s UTC',datestr(snum)));
-                        disp(sprintf('End time is %s UTC',datestr(enum)));
         
-       	 		% Add response structures to waveform objects
-        
-        		% Remove calibs, despike, detrend and deconvolve waveform data
-        		w = waveform_clean(w, 'filterObj', PARAMS.filterObj);
+       	% Add response structures to waveform objects
 
-			% Save waveforms
-			save2waveformmat(w, 'waveforms_filtered', snum, enum, subnet);
-
+	subnets 
+	subnetnum = find(strcmp( {subnets.name}, subnet));
+	stations = {subnets(subnetnum).stations.name};
+	channels = {subnets(subnetnum).stations.channel};
+	for c=1:numel(w)
+		station = get(w(c), 'station');
+		channel = get(w(c), 'channel');
+		try
+			stachanindex = find(strcmp(stations, station) & strcmp(channels, channel));
+			w(c) = addfield(w(c), 'response', subnets(subnetnum).stations(stachanindex).response);
+		catch
+			fprintf('adding response failed for %s.%s\n',station,channel);
 		end
+	end
 
-                if ~isempty(filename)
-                        if exist(filename,'file')
-                                system(sprintf('mv -f %s done/',filename));
-                                %delete(filename);
-                        end
-                end
-        end
+      	% Remove calibs, despike, detrend and deconvolve waveform data
+      	w = waveform_clean(w, 'filterObj', PARAMS.filterObj, 'remove_spikes', 'true', 'remove_trend', 'true', 'remove_response', 'true');
+
+	% Save waveforms
+	save2waveformmat(w, 'waveforms_filtered', snum, enum, subnet);
 
         % Pause briefly
         pause(5);

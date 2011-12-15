@@ -15,7 +15,7 @@ end
 
 %if ~exist('s','var')
 %	s = spectralobject(512, 268, 10, [40 100]);
-	s = spectralobject(1024, 524, 12, [40 120]);
+	s = spectralobject(1024, 824, 12, [40 120]);
 %end
 if ~exist('spectrogramFraction','var')
 	spectrogramFraction = 1;
@@ -70,7 +70,7 @@ for c=1:numw
 	[spectrogramPosition, tracePosition] = calculateFramePositions(length(w), c, spectrogramFraction, 0.8, 0.8);
 	set(ha(c), 'position', spectrogramPosition);
 	if spectrogramFraction < 1
-		plotTrace(tracePosition, get(demean(w(numw-c+1)),'data'), get(w(numw-c+1),'freq'), Xtickmarks, wt);
+		plotTrace(tracePosition, get(w(numw-c+1),'data'), get(w(numw-c+1),'freq'), Xtickmarks, wt);
 		set(gca,'XLim', [wt.start wt.stop]); % added 20111214 to align trace with spectrogram when data missing (prevent trace being stretched out)
 	end
 end
