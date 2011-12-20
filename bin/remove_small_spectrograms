@@ -1,4 +1,7 @@
 #!/usr/bin/perl
+die unless($#ARGV==1);
+$DAYSAGO = $ARGV[0];
+$MINSIZE = $ARGV[1];
 chdir('www/plots/sp');
 @volcanoes = glob('*');
 foreach $volcano (@volcanoes) {
@@ -16,29 +19,35 @@ foreach $volcano (@volcanoes) {
 				$epochtime = `epoch "$year/$month/$day" | awk '{print $1}'`;
 				$epochnow = `epoch now | awk '{print $1}'`;
 				$daysago = ($epochnow - $epochtime) / 86400; 
-				next if ($daysago > 3);
+				next if ($daysago < $DAYSAGO);
+				print "Processing $volcano/$year/$month/$day\n";
 				chdir($day);
-				@files = glob("2*");
+				@files = glob("2*.png");
+
 				$numfiles = $#files + 1;
 				$complete=0;
 				$validpng = 0;
 				foreach $file (@files) {
 					$size = -s $file;
-					if ($size > 1000) {
-						$validpng++;
-					}
-					if ($size > 100000) {
-						$complete++;
+					if ($size < $MINSIZE) {
+						#print "unlink $file $size\n";
+						unlink($file);
+						$smallfile = "small_".$file;
+						#print "unlink $smallfile\n";
+						unlink($smallfile) if (-e $smallfile); 
 					}
 				}
-				printf("\t%3d|%3d|%3d",$numfiles, $validpng, $complete);
 				chdir("..");
+				rmdir($day);
 			}
 			chdir("..");
+			rmdir($month);
 		}
 		chdir("..");
+		rmdir($year);
 	}
 	chdir("..");
+	rmdir($subnet);
 	print "\n";
 }
 

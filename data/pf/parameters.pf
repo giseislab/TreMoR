@@ -2,7 +2,7 @@
 ############# LIST OF VOLCANO SUBNETS TO USE ##################
 ###############################################################
 subnetnames &Tbl{
-Wrangell
+#Wrangell
 Spurr
 Redoubt
 Iliamna
@@ -26,8 +26,8 @@ GreatSitkin
 Kanaga
 Tanaga
 Gareloi
-Semisopochnoi
-LittleSitkin
+#Semisopochnoi
+#LittleSitkin
 }
 
 ###############################################################

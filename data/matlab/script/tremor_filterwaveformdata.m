@@ -1,14 +1,14 @@
-function tremor_filterwaveformdata(varargin)
+function tremor_filterwaveformdata(waveformdir)
 global paths PARAMS
 print_debug(sprintf('> %s at %s',mfilename, datestr(now,31)),1)
 load pf/runtime
 
 while 1,
-	[w, filename, snum, enum, subnet] = loadnextwaveformmat('waveforms_raw');
+
+	tic;
+	[w, filename, snum, enum, subnet] = loadnextwaveformmat(waveformdir);
         
        	% Add response structures to waveform objects
-
-	subnets 
 	subnetnum = find(strcmp( {subnets.name}, subnet));
 	stations = {subnets(subnetnum).stations.name};
 	channels = {subnets(subnetnum).stations.channel};
@@ -24,13 +24,16 @@ while 1,
 	end
 
       	% Remove calibs, despike, detrend and deconvolve waveform data
-      	w = waveform_clean(w, 'filterObj', PARAMS.filterObj, 'remove_spikes', 'true', 'remove_trend', 'true', 'remove_response', 'true');
+      	w = waveform_clean(w, 'filterObj', PARAMS.filterObj, 'remove_spikes', 'true', 'remove_trend', 'true', 'remove_response', 'false'); % cannot remove full instrument response as Mike's response_apply is broken. But calib is used.
 
 	% Save waveforms
-	save2waveformmat(w, 'waveforms_filtered', snum, enum, subnet);
+	save2waveformmat(w, 'waveform_files/stage2_filtered', snum, enum, subnet);
+	delete(filename);
+
+	logbenchmark(mfilename, toc);
 
         % Pause briefly
-        pause(5);
+        pause(1);
 end    
 
 print_debug(sprintf('< %s at %s',mfilename, datestr(now,31)),1)

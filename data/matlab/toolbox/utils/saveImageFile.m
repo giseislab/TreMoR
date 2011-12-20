@@ -26,7 +26,7 @@ try
 		print_debug(sprintf('Saved image file %s',outpath),2);
 		result = 1;
 	else
-		print_debug(sprintf('Failed to save image file %s',outpath),0);
+		print_debug(sprintf('Image file %s was not created',outpath),0);
 	end
 catch
 	disp(sprintf('Could not save the image file %s',outpath));

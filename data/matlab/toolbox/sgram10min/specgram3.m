@@ -7,11 +7,15 @@ function result=specgram3(w, titlestr, s, spectrogramFraction)
 
 print_debug(sprintf('> %s',mfilename),2)
 result = 0;
-w = waveform_nonempty(w);
+%w = waveform_nonempty(w);
+%w = waveform_fillempty(w);
 numw = length(w);
 if numw==0
 	return;
 end
+%for cc=1:numw
+%	w(cc)
+%end
 
 %if ~exist('s','var')
 %	s = spectralobject(512, 268, 10, [40 100]);

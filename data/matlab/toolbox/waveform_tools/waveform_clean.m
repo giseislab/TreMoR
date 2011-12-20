@@ -57,8 +57,8 @@ for c = 1: length(w)
 
     % high pass filter (and remove response if requested)
     filtered = false;
-    if remove_response
-            %try
+    if remove_response == true
+            try
                 resp = get(w(c), 'response') % I think the getwaveforms2, which gets from antelope, appends response using addfield to waveform object
                 if ~isempty(resp)
 			if nanmean(resp.values) ~= 0 % if i look at subnets(15).stations(6).response, which is SSLN-BDF, it has a response, but all values are zero, so i would want to skip it
@@ -68,16 +68,17 @@ for c = 1: length(w)
                 		filtered = true; % set this, so we don't apply butterworth filter again below
 			end
                 end
-            %catch
-             %   warning(sprintf('response_apply failed .\nTrying to bandpass instead.'));
-            %end
+            catch
+                warning(sprintf('response_apply failed .\nTrying to bandpass instead.'));
+            end
     else
 	% apply calib
 	if strcmp(get(w(c),'Units'), 'Counts')
-		fprintf('Apilying calib of %d\n',resp.calib);
-		resp = get(w, 'response');
+		resp = get(w(c), 'response');
+		print_debug(sprintf('Applying calib of %d for %s.%s',resp.calib, get(w(c),'station'), get(w(c), 'channel')), 1);
 		if (resp.calib ~= 0)
 			w(c) = w(c) * resp.calib;
+			w(c) = set(w(c), 'units', resp.units);
 		end
 	end
 	

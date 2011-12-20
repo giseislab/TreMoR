@@ -18,8 +18,8 @@ matlab_pf       &Arr{ # Any variables given here will be available in Matlab wit
 # after matlab_paths added, temporary parameter file created, and Pf created as a pointer to it
 matlab_script   &Literal{ # This is the script that gets executed when Matlab starts,
 	startup_tremor;
-	debug(4);
-	tremor_createspectrograms('waveforms_sgram2');
+	debug(2);
+	tremor_createspectrograms('waveform_files/queue_sgram2');
 }
 matlab_timeout_sec	86400
 pf_revision_time	1152921082

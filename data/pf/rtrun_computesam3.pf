@@ -4,14 +4,12 @@ tremor_home	&env(TREMOR_HOME)
 matlab_antelope	&env(MATLAB_ANTELOPE)
 #matlab_interpreter	matlab -display chinook:4 -nodesktop -nojvm -nosplash # how to invoke Matlab
 #matlab_interpreter	matlab -maci -display :0 -nodesktop  -nosplash # how to invoke Matlab
-#matlab_interpreter	matlab -display :0 -nodesktop  -nosplash # how to invoke Matlab
-matlab_interpreter	matlab -nodesktop  -nosplash # how to invoke Matlab
+matlab_interpreter	matlab -display :0 -nodesktop  -nosplash # how to invoke Matlab
 matlab_paths	&Tbl{ # think of this like addpath in Matlab
     &matlab_antelope/antelope
     &matlab_antelope/scripts
     &matlab_antelope/user
     &tremor_home
-    '.'
 }
 matlab_pf_varname       Pf # This is the parameter file pointer 
 matlab_pf       &Arr{ # Any variables given here will be available in Matlab with varname = pfget(Pf, 'varname');
@@ -20,12 +18,7 @@ matlab_pf       &Arr{ # Any variables given here will be available in Matlab wit
 # after matlab_paths added, temporary parameter file created, and Pf created as a pointer to it
 matlab_script   &Literal{ # This is the script that gets executed when Matlab starts,
 	startup_tremor;
-	debug(2);
-	while 1
-		logbenchmark('loadwaveformdata', 0);
-		tremor_loadlivedata('snum', utnow-1/24, 'delaymins', 1);
-		pause(10);
-	end
+	tremor_computesam('waveform_files/queue_sam3');
 }
 matlab_timeout_sec	86400
 pf_revision_time	1152921082

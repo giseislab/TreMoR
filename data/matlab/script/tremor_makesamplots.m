@@ -8,6 +8,7 @@ for subnet_num=1:length(subnets)
 	disp(sprintf('\n****** Starting %s at %s *****',subnet , datestr(now)));
 	station = subnets(subnet_num).stations;
 	for plot_num=1:length(PARAMS.dayplots)
+		tic;
 		snum = enum - PARAMS.dayplots{plot_num};
 		IMGBASE = sprintf('%s_%.1f', subnet, PARAMS.dayplots{plot_num});
 		for measureNum = 1:length(PARAMS.measures)
@@ -17,6 +18,7 @@ for subnet_num=1:length(subnets)
 			saveImageFile(IMGDIR, IMGBASE, 90);
 			close;
 		end
+		logbenchmark(mfilename, toc);
 	end
 end
 print_debug(sprintf('< %s at %s',mfilename, datestr(now,31)),1)

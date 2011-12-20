@@ -1,20 +1,19 @@
 function [w, filename, snum, enum, subnet] = loadnextwaveformmat(matdir)
 
-% set null values
-w=[];
-filename='';
-snum=0;
-enum=0;
-subnet='';
 found = false;
-
-d = [];
 firsttime = 1;
+
 while ~found
 	d = dir(sprintf('%s/*.mat',matdir));
 	if length(d)>0
 		%filename = sprintf('%s/%s',matdir,d(1).name);
-		filename = sprintf('%s/%s',matdir,d(end).name);
+
+		% sort file times
+		[dummy, i] = sort([d.datenum]);
+		
+		% select the most recent file
+		filename = sprintf('%s/%s',matdir,d(i(end)).name); 
+
 		try
 			pause(2); % pause just to give time for file to be saved properly
 			eval(['load ',filename]);
@@ -48,7 +47,7 @@ while ~found
                 	fprintf('%s: Waiting for new waveformmat file.',mfilename);
                 	firsttime = 0;
             	end    
-		pause(5);
+		pause(1);
 		fprintf('.');
 	end
 end

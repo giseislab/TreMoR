@@ -4,6 +4,9 @@ print_debug(sprintf('> %s at %s',mfilename, datestr(now,31)),1)
 load pf/runtime
 
 while 1,
+
+	tic;
+
 	[w, filename, snum, enum, subnet] = loadnextwaveformmat(waveformsdir);
 
 	% Calculate and save true ground motion data (at the
@@ -40,15 +43,13 @@ while 1,
        		end
     	end
 
-	% Remove waveforms MAT file
-        if ~isempty(filename)
-        	if exist(filename,'file')
-                        delete(filename);
-                end
-        end
+        %save2waveformmat(w, 'waveform_files/stage3_samcomputed', snum, enum, subnet);
+        delete(filename);
+
+	logbenchmark(mfilename, toc);
 
 	% Pause briefly
-	pause(5);
+	pause(1);
 end    
 
 print_debug(sprintf('< %s at %s',mfilename, datestr(now,31)),1)
