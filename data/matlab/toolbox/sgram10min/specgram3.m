@@ -4,29 +4,45 @@ function result=specgram3(w, titlestr, s, spectrogramFraction)
 %
 % Example:
 %    specgram3(waveformWrapper2(subnet, timewindow), '', PARAMS.spectralobject)
+%
+% waveform should already have had zero-length waveform objects replaced by zero vectors 
 
 print_debug(sprintf('> %s',mfilename),2)
 result = 0;
-%w = waveform_nonempty(w);
-%w = waveform_fillempty(w);
+
 numw = length(w);
 if numw==0
 	return;
 end
-%for cc=1:numw
-%	w(cc)
-%end
-
 %if ~exist('s','var')
-%	s = spectralobject(512, 268, 10, [40 100]);
 	s = spectralobject(1024, 824, 12, [40 120]);
 %end
 if ~exist('spectrogramFraction','var')
 	spectrogramFraction = 1;
 end
 
+print_debug(sprintf('%d waveform objects',numel(w)),0);
+
 % draw spectrogram using Celso's 
+try
 	sg = specgram(s, w, 'xunit', 'date', 'colorbar', 'none', 'yscale', 'normal', 'colormap', 'jet'); % default for colormap is SPECTRAL_MAP
+catch
+	save specgram-fillempty-failed.mat w
+	print_debug('specgram failed on waveform vector. Trying again, using nonempty rather than fillempty',0);
+	w = waveform_nonempty(w);
+	if numel(w)>0
+		print_debug(sprintf('%d waveform objects after removing empty waveform objects',numel(w)),0);
+		try
+			sg = specgram(s, w, 'xunit', 'date', 'colorbar', 'none', 'yscale', 'normal', 'colormap', 'jet'); % default for colormap is SPECTRAL_MAP
+		catch
+			save specgram-nonempty-failed.mat w
+			disp('specgram3 crashed again');
+		end	
+	else
+		print_debug('specgram failed on waveform vector. Tried nonempty rather than fillempty, but looks like all waveform objects were empty, so skipping',0);
+		return;
+	end	
+end
 
 % Get axis handles
 ha = get(gcf, 'Children');

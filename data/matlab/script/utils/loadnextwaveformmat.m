@@ -1,5 +1,5 @@
 function [w, filename, snum, enum, subnet] = loadnextwaveformmat(matdir)
-
+global paths PARAMS
 found = false;
 firsttime = 1;
 
@@ -10,10 +10,19 @@ while ~found
 
 		% sort file times
 		[dummy, i] = sort([d.datenum]);
-		
-		% select the most recent file
-		filename = sprintf('%s/%s',matdir,d(i(end)).name); 
 
+		% get the most recently written MAT file
+		filename = sprintf('%s/%s',matdir,d(i(end)).name); 
+		filesize = d(i(end)).bytes;
+
+		% delete it if too small
+		if (filesize < 20000), 
+			disp(sprintf('%s is probably corrupt, as size is only %d bytes',filename,filesize));
+			delete(filename);
+			continue;
+		end
+
+		% select the most recent file
 		try
 			pause(2); % pause just to give time for file to be saved properly
 			eval(['load ',filename]);

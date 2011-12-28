@@ -50,11 +50,8 @@ for subnet_num=1:length(subnets)
 
 		% Output some information
 		disp(sprintf('\n***** Time Window *****'));
-
-		[bname,dname,bnameroot,bnameext] = basename(tenminspfile);
-		system(sprintf('mkdir -p %s',dname));
-		txtfile = catpath(dname, [bnameroot, '.txt']);
-		diary(txtfile);
+		diaryname = getSgramDiaryName(subnet, enum);
+		diary(diaryname);
 		disp(sprintf('%s at %s',subnet , datestr(now)));
 		disp(sprintf('Start time is %s UTC',datestr(snum)));
 		disp(sprintf('End time is %s UTC',datestr(enum)));
@@ -76,12 +73,13 @@ for subnet_num=1:length(subnets)
 					fprintf('Still only got %.1f seconds of data - will not wait any longer\n',secsGot);	
 					break;
 				end
-				if (secsGot/secsRequested) < minFraction && strcmp(PARAMS.mode, 'realtime') 
-					% Wait up to 5 seconds to get data again
-					pauseSecs = max([secsRequested - secsGot 5.0]);
-              				print_debug(sprintf('Pausing %.0f seconds for data to catch up', pauseSecs),1);
-					pause(pauseSecs); 
-				end
+				% Getting a strange error (see email about rtrun_matlab on 2011/12/20) - might be related to the pause statement
+				%if (secsGot/secsRequested) < minFraction && strcmp(PARAMS.mode, 'realtime') 
+				%	% Wait up to 5 seconds to get data again
+				%	pauseSecs = max([secsRequested - secsGot 5.0]);
+              			%	print_debug(sprintf('Pausing %.0f seconds for data to catch up', pauseSecs),1);
+				%	pause(pauseSecs); 
+				%end
 			end
 		end
 

@@ -1,0 +1,6 @@
+#!/bin/bash
+for fn in "tremor_winston2mat" "tremor_filterwaveformdata" "tremor_computesam" "tremor_createspectrograms" "tremor_soundfiles"; do
+	echo "$fn:"
+	#grep $fn logs/benchmark.txt | awk '{sum+=$4} END { print "Average = ",sum/NR}'
+	grep $fn logs/benchmark.txt | awk '{if(min==""){min=max=$4}; if($4>max) {max=$4}; if($4< min) {min=$4}; total+=$4; count+=1} END {print "Average = ",total/count, "min = ",min, "max = ", max}'
+done

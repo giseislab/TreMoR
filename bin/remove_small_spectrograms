@@ -1,55 +1,91 @@
 #!/usr/bin/perl
+use Cwd; 
+use File::chdir;
+#use File::Basename qw(filename);
 die unless($#ARGV==1);
 $DAYSAGO = $ARGV[0];
 $MINSIZE = $ARGV[1];
-chdir('www/plots/sp');
-@volcanoes = glob('*');
-foreach $volcano (@volcanoes) {
-	next unless (-d $volcano); # only get directories,  not colorbar.png
-	chdir($volcano);
-	print "$volcano: ";
+$topdir = "www/plots/sp"; 
+$CWD = $topdir;
+@subnetes = glob('*');
+foreach $subnet (@subnetes) {
+	next unless (-d $subnet); # only get directories,  not colorbar.png
+	push @CWD, $subnet;
+	print "\n\n** Processing $subnet **\n";
 	@years = glob("2*");
 	foreach $year (@years) {
-		chdir($year);
+		push @CWD, $year; 
+		print  @CWD;
 		@months = glob("[01]*");
 		foreach $month (@months) {
-			chdir($month);
+			push @CWD, $month; 
+			print  @CWD;
 			@days = glob("[0123]*");
 			foreach $day (@days) {
 				$epochtime = `epoch "$year/$month/$day" | awk '{print $1}'`;
 				$epochnow = `epoch now | awk '{print $1}'`;
 				$daysago = ($epochnow - $epochtime) / 86400; 
 				next if ($daysago < $DAYSAGO);
-				print "Processing $volcano/$year/$month/$day\n";
-				chdir($day);
-				@files = glob("2*.png");
+				print "\n\n** Processing $subnet/$year/$month/$day **\n";
+				push @CWD, $day; 
+				print $CWD;
+				if (-e "lock") {
+					print "This directory is locked - nothing can be deleted, presumably because the data are of value\n";
+				} else {
+					@files = glob("2*.png");
+					$numfiles = $#files + 1;
+					$complete=0;
+					$validpng = 0;
+					foreach $file (@files) {
+						$size = -s $file;
+						if ($size < $MINSIZE) {
+							$base = $file;
 
-				$numfiles = $#files + 1;
-				$complete=0;
-				$validpng = 0;
-				foreach $file (@files) {
-					$size = -s $file;
-					if ($size < $MINSIZE) {
-						#print "unlink $file $size\n";
-						unlink($file);
-						$smallfile = "small_".$file;
-						#print "unlink $smallfile\n";
-						unlink($smallfile) if (-e $smallfile); 
+							# Remove main spectrogram
+							print "\n* Processing $CWD/$file * : ";
+							&remove($file);
+
+							# Remove thumbnail spectrogram
+							$smallfile = "small_".$file;
+							if (-e $smallfile) {
+								&remove($smallfile);
+							}
+
+							$base =~ s/\.png//; 
+
+							# Remove sound files
+							@soundfiles = glob("$base*.wav");
+							foreach $soundfile (@soundfiles) {
+								&remove($soundfile);
+							}
+
+							# Remove diary file
+							$diaryfile = "$base.txt";
+							if (-e $diaryfile) {
+								&remove($diaryfile);
+							} 
+
+
+						}
 					}
 				}
-				chdir("..");
+				pop @CWD;
 				rmdir($day);
 			}
-			chdir("..");
+			pop @CWD;
 			rmdir($month);
 		}
-		chdir("..");
+		pop @CWD;
 		rmdir($year);
 	}
-	chdir("..");
+	pop @CWD;
 	rmdir($subnet);
 	print "\n";
 }
 
 	
-
+sub remove {
+	$file = $_[0];
+	print "$file ";	
+	unlink($file);
+}	

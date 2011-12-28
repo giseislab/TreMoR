@@ -19,6 +19,9 @@ if index > 0
 		disp('No valid datasources yet');
 		return;
 	end
+VALID_DATASOURCES
+subnets
+tw
 	tremor_datascope2mat(subnets, tw, VALID_DATASOURCES);
 else
 	disp('subnet not found')

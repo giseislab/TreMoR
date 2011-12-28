@@ -8,6 +8,10 @@ while 1,
 	tic;
 
 	[w, filename, snum, enum, subnet] = loadnextwaveformmat(waveformsdir);
+	w = waveform_nonempty(w); % eliminate empty and corrupt waveform objects
+
+	diaryname = getSgramDiaryName(subnet, enum);
+	diary(diaryname);
 
 	% Calculate and save true ground motion data (at the
 	% seismometer) to file (no reduced measurements)
@@ -47,6 +51,7 @@ while 1,
         delete(filename);
 
 	logbenchmark(mfilename, toc);
+	diary off
 
 	% Pause briefly
 	pause(1);

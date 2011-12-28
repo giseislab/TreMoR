@@ -73,13 +73,17 @@ for c = 1: length(w)
             end
     else
 	% apply calib
-	if strcmp(get(w(c),'Units'), 'Counts')
-		resp = get(w(c), 'response');
-		print_debug(sprintf('Applying calib of %d for %s.%s',resp.calib, get(w(c),'station'), get(w(c), 'channel')), 1);
-		if (resp.calib ~= 0)
-			w(c) = w(c) * resp.calib;
-			w(c) = set(w(c), 'units', resp.units);
+	try
+		if strcmp(get(w(c),'Units'), 'Counts')
+			resp = get(w(c), 'response');
+			print_debug(sprintf('Applying calib of %d for %s.%s',resp.calib, get(w(c),'station'), get(w(c), 'channel')), 1);
+			if (resp.calib ~= 0)
+				w(c) = w(c) * resp.calib;
+				w(c) = set(w(c), 'units', resp.units);
+			end
 		end
+	catch
+		print_debug('Failed to apply calib', 1);
 	end
 	
     end
@@ -91,7 +95,7 @@ for c = 1: length(w)
             end
     end       
     if ~filtered
-        warning('Cannot filter waveform');
+        print_debug('Cannot filter waveform',0);
     end
     
 end

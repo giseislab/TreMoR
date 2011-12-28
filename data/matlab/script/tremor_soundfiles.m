@@ -19,7 +19,7 @@ while 1,
 			m = 1;
 		end 
 		data = data / m;
-		wavwrite(data, get(w(c), 'freq') * 60, soundfilename);
+		wavwrite(data, get(w(c), 'freq') * 120, soundfilename);
 	end
    	delete(filename);
 	logbenchmark(mfilename, toc);

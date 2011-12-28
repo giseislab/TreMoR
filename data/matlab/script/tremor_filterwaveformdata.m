@@ -7,23 +7,31 @@ while 1,
 
 	tic;
 	[w, filename, snum, enum, subnet] = loadnextwaveformmat(waveformdir);
+	diaryname = getSgramDiaryName(subnet, enum);
+	diary(diaryname);
         
        	% Add response structures to waveform objects
+	disp('Adding response structures to waveform objects');
 	subnetnum = find(strcmp( {subnets.name}, subnet));
 	stations = {subnets(subnetnum).stations.name};
 	channels = {subnets(subnetnum).stations.channel};
 	for c=1:numel(w)
-		station = get(w(c), 'station');
-		channel = get(w(c), 'channel');
 		try
-			stachanindex = find(strcmp(stations, station) & strcmp(channels, channel));
-			w(c) = addfield(w(c), 'response', subnets(subnetnum).stations(stachanindex).response);
+			station = get(w(c), 'station');
+			channel = get(w(c), 'channel');
+			try
+				stachanindex = find(strcmp(stations, station) & strcmp(channels, channel));
+				w(c) = addfield(w(c), 'response', subnets(subnetnum).stations(stachanindex).response);
+			catch
+				fprintf('adding response failed for %s.%s\n',station,channel);
+			end
 		catch
-			fprintf('adding response failed for %s.%s\n',station,channel);
+			fprintf('could not get station and/or channel\n');
 		end
 	end
 
       	% Remove calibs, despike, detrend and deconvolve waveform data
+	disp('remove spikes, remove trend, calibrate and bandpass filter'); 
       	w = waveform_clean(w, 'filterObj', PARAMS.filterObj, 'remove_spikes', 'true', 'remove_trend', 'true', 'remove_response', 'false'); % cannot remove full instrument response as Mike's response_apply is broken. But calib is used.
 
 	% Save waveforms
@@ -31,6 +39,7 @@ while 1,
 	delete(filename);
 
 	logbenchmark(mfilename, toc);
+	diary off;
 
         % Pause briefly
         pause(1);
