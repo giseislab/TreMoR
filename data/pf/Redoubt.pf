@@ -6,9 +6,9 @@ plots	1
 alarms	0
 stations &Arr{
 	RSO &Arr{
-		distance	0.02
-		latitude	60.4622
-		longitude	-152.7538
+		distance	2.71
+		latitude	60.4616
+		longitude	-152.7560
 		elevation	1.92
 		channels &Arr{
 			EHZ &Arr{
@@ -18,9 +18,9 @@ stations &Arr{
 		}
 	}
 	REF &Arr{
-		distance	0.03
-		latitude	60.4892
-		longitude	-152.6917
+		distance	2.76
+		latitude	60.4888
+		longitude	-152.6940
 		elevation	1.64
 		channels &Arr{
 			SLZ &Arr{
@@ -42,8 +42,8 @@ stations &Arr{
 		}
 	}
 	RDSO &Arr{
-		distance	0.03
-		latitude	60.4542
+		distance	3.51
+		latitude	60.4536
 		longitude	-152.7430
 		elevation	1.56
 		channels &Arr{
@@ -62,9 +62,9 @@ stations &Arr{
 		}
 	}
 	RDN &Arr{
-		distance	0.04
-		latitude	60.5230
-		longitude	-152.7379
+		distance	4.14
+		latitude	60.5224
+		longitude	-152.7401
 		elevation	1.40
 		channels &Arr{
 			EHZ &Arr{
@@ -74,9 +74,9 @@ stations &Arr{
 		}
 	}
 	RDWB &Arr{
-		distance	0.05
-		latitude	60.4876
-		longitude	-152.8414
+		distance	5.48
+		latitude	60.4870
+		longitude	-152.8437
 		elevation	1.63
 		channels &Arr{
 			BHZ &Arr{
@@ -94,9 +94,9 @@ stations &Arr{
 		}
 	}
 	RED &Arr{
-		distance	0.07
-		latitude	60.4199
-		longitude	-152.7718
+		distance	7.48
+		latitude	60.4196
+		longitude	-152.7742
 		elevation	1.06
 		channels &Arr{
 			SLZ &Arr{
@@ -116,7 +116,7 @@ stations &Arr{
 				threshold	0.0
 			}
 			BHZ &Arr{
-				use	1
+				use	0
 				threshold	0.0
 			}
 			BHN &Arr{
@@ -129,30 +129,14 @@ stations &Arr{
 			}
 		}
 	}
-	RED &Arr{
-		distance	0.07
-		latitude	60.4199
-		longitude	-152.7718
-		elevation	1.06
+	RDDF &Arr{
+		distance	12.17
+		latitude	60.5912
+		longitude	-152.6883
+		elevation	1.13
 		channels &Arr{
-			SLZ &Arr{
-				use	0
-				threshold	0.0
-			}
-			EHE &Arr{
-				use	0
-				threshold	0.0
-			}
-			EHN &Arr{
-				use	0
-				threshold	0.0
-			}
-			EHZ &Arr{
-				use	1
-				threshold	0.0
-			}
 			BHZ &Arr{
-				use	1
+				use	0
 				threshold	0.0
 			}
 			BHN &Arr{
@@ -160,6 +144,94 @@ stations &Arr{
 				threshold	0.0
 			}
 			BHE &Arr{
+				use	0
+				threshold	0.0
+			}
+		}
+	}
+	DFR &Arr{
+		distance	12.18
+		latitude	60.5913
+		longitude	-152.6882
+		elevation	1.09
+		channels &Arr{
+			EHZ &Arr{
+				use	0
+				threshold	0.0
+			}
+			BDF &Arr{
+				use	0
+				threshold	0.0
+			}
+			BDL &Arr{
+				use	0
+				threshold	0.0
+			}
+		}
+	}
+	RDJH &Arr{
+		distance	12.19
+		latitude	60.5905
+		longitude	-152.8058
+		elevation	1.41
+		channels &Arr{
+			BHZ &Arr{
+				use	0
+				threshold	0.0
+			}
+			BHN &Arr{
+				use	0
+				threshold	0.0
+			}
+			BHE &Arr{
+				use	0
+				threshold	0.0
+			}
+		}
+	}
+	NCT &Arr{
+		distance	13.27
+		latitude	60.5621
+		longitude	-152.9293
+		elevation	1.12
+		channels &Arr{
+			EHZ &Arr{
+				use	0
+				threshold	0.0
+			}
+			BHZ &Arr{
+				use	0
+				threshold	0.0
+			}
+			BHN &Arr{
+				use	0
+				threshold	0.0
+			}
+			BHE &Arr{
+				use	0
+				threshold	0.0
+			}
+		}
+	}
+	RDDR &Arr{
+		distance	13.91
+		latitude	60.5843
+		longitude	-152.5887
+		elevation	0.91
+		channels &Arr{
+			EHZ &Arr{
+				use	0
+				threshold	0.0
+			}
+		}
+	}
+	RDT &Arr{
+		distance	20.81
+		latitude	60.5726
+		longitude	-152.4075
+		elevation	0.93
+		channels &Arr{
+			EHZ &Arr{
 				use	0
 				threshold	0.0
 			}

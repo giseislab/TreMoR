@@ -6,9 +6,9 @@ plots	1
 alarms	0
 stations &Arr{
 	PLK2 &Arr{
-		distance	0.03
-		latitude	57.7642
-		longitude	-156.3243
+		distance	2.83
+		latitude	57.7635
+		longitude	-156.3264
 		elevation	0.40
 		channels &Arr{
 			EHZ &Arr{
@@ -18,9 +18,9 @@ stations &Arr{
 		}
 	}
 	PLK3 &Arr{
-		distance	0.08
-		latitude	57.6887
-		longitude	-156.2674
+		distance	9.13
+		latitude	57.6880
+		longitude	-156.2695
 		elevation	0.49
 		channels &Arr{
 			EHE &Arr{
@@ -38,9 +38,9 @@ stations &Arr{
 		}
 	}
 	PLK4 &Arr{
-		distance	0.12
-		latitude	57.6321
-		longitude	-156.3577
+		distance	13.31
+		latitude	57.6314
+		longitude	-156.3598
 		elevation	1.03
 		channels &Arr{
 			EHZ &Arr{
@@ -50,9 +50,9 @@ stations &Arr{
 		}
 	}
 	PLK1 &Arr{
-		distance	0.14
-		latitude	57.8019
-		longitude	-156.6072
+		distance	15.36
+		latitude	57.8012
+		longitude	-156.6093
 		elevation	0.08
 		channels &Arr{
 			EHZ &Arr{
@@ -62,34 +62,10 @@ stations &Arr{
 		}
 	}
 	PLBL &Arr{
-		distance	0.25
-		latitude	57.6998
-		longitude	-156.8189
+		distance	27.51
+		latitude	57.6991
+		longitude	-156.8210
 		elevation	0.46
-		channels &Arr{
-			EHZ &Arr{
-				use	1
-				threshold	0.0
-			}
-		}
-	}
-	PLWL &Arr{
-		distance	0.29
-		latitude	58.0449
-		longitude	-156.3413
-		elevation	0.58
-		channels &Arr{
-			EHZ &Arr{
-				use	1
-				threshold	0.0
-			}
-		}
-	}
-	PLK5 &Arr{
-		distance	0.37
-		latitude	57.9977
-		longitude	-156.8777
-		elevation	0.05
 		channels &Arr{
 			EHZ &Arr{
 				use	1

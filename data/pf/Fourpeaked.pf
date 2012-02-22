@@ -6,9 +6,9 @@ plots	1
 alarms	0
 stations &Arr{
 	FOSS &Arr{
-		distance	0.03
-		latitude	58.7994
-		longitude	-153.6945
+		distance	3.43
+		latitude	58.7987
+		longitude	-153.6971
 		elevation	1.27
 		channels &Arr{
 			EHZ &Arr{
@@ -20,7 +20,7 @@ stations &Arr{
 				threshold	0.0
 			}
 			BDF &Arr{
-				use	1
+				use	0
 				threshold	0.0
 			}
 			BDL &Arr{
@@ -30,9 +30,9 @@ stations &Arr{
 		}
 	}
 	FOPK &Arr{
-		distance	0.10
-		latitude	58.7580
-		longitude	-153.4739
+		distance	11.48
+		latitude	58.7574
+		longitude	-153.4762
 		elevation	0.55
 		channels &Arr{
 			EHZ &Arr{
@@ -46,9 +46,9 @@ stations &Arr{
 		}
 	}
 	FONW &Arr{
-		distance	0.14
-		latitude	58.8348
-		longitude	-153.9184
+		distance	15.88
+		latitude	58.8341
+		longitude	-153.9204
 		elevation	0.91
 		channels &Arr{
 			EHZ &Arr{
@@ -60,7 +60,7 @@ stations &Arr{
 				threshold	0.0
 			}
 			BDF &Arr{
-				use	1
+				use	0
 				threshold	0.0
 			}
 			BDL &Arr{
@@ -70,54 +70,10 @@ stations &Arr{
 		}
 	}
 	CDD &Arr{
-		distance	0.16
-		latitude	58.9296
-		longitude	-153.6426
+		distance	17.71
+		latitude	58.9289
+		longitude	-153.6449
 		elevation	0.62
-		channels &Arr{
-			EHZ &Arr{
-				use	1
-				threshold	0.0
-			}
-		}
-	}
-	KAPH &Arr{
-		distance	0.39
-		latitude	58.5968
-		longitude	-154.3468
-		elevation	0.91
-		channels &Arr{
-			EHE &Arr{
-				use	0
-				threshold	0.0
-			}
-			EHN &Arr{
-				use	0
-				threshold	0.0
-			}
-			EHZ &Arr{
-				use	1
-				threshold	0.0
-			}
-		}
-	}
-	KAHG &Arr{
-		distance	0.53
-		latitude	58.4940
-		longitude	-154.5463
-		elevation	0.92
-		channels &Arr{
-			EHZ &Arr{
-				use	1
-				threshold	0.0
-			}
-		}
-	}
-	MMN &Arr{
-		distance	0.54
-		latitude	59.1849
-		longitude	-154.3394
-		elevation	0.46
 		channels &Arr{
 			EHZ &Arr{
 				use	1

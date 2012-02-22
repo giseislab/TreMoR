@@ -6,9 +6,9 @@ plots	1
 alarms	0
 stations &Arr{
 	CP2 &Arr{
-		distance	0.04
-		latitude	61.2642
-		longitude	-152.2418
+		distance	3.96
+		latitude	61.2636
+		longitude	-152.2441
 		elevation	1.98
 		channels &Arr{
 			EHZ &Arr{
@@ -18,9 +18,9 @@ stations &Arr{
 		}
 	}
 	CRP &Arr{
-		distance	0.06
-		latitude	61.2670
-		longitude	-152.1555
+		distance	6.28
+		latitude	61.2664
+		longitude	-152.1578
 		elevation	1.62
 		channels &Arr{
 			EHE &Arr{
@@ -38,9 +38,9 @@ stations &Arr{
 		}
 	}
 	SPCP &Arr{
-		distance	0.06
-		latitude	61.2661
-		longitude	-152.1529
+		distance	6.46
+		latitude	61.2655
+		longitude	-152.1550
 		elevation	1.62
 		channels &Arr{
 			BHZ &Arr{
@@ -58,9 +58,9 @@ stations &Arr{
 		}
 	}
 	SPBG &Arr{
-		distance	0.07
-		latitude	61.2597
-		longitude	-152.3699
+		distance	7.72
+		latitude	61.2591
+		longitude	-152.3722
 		elevation	1.09
 		channels &Arr{
 			BHZ &Arr{
@@ -78,9 +78,9 @@ stations &Arr{
 		}
 	}
 	BGL &Arr{
-		distance	0.07
-		latitude	61.2669
-		longitude	-152.3890
+		distance	8.19
+		latitude	61.2663
+		longitude	-152.3913
 		elevation	1.13
 		channels &Arr{
 			EHZ &Arr{
@@ -90,9 +90,9 @@ stations &Arr{
 		}
 	}
 	SPCN &Arr{
-		distance	0.08
-		latitude	61.2250
-		longitude	-152.1832
+		distance	9.06
+		latitude	61.2244
+		longitude	-152.1854
 		elevation	0.73
 		channels &Arr{
 			BHZ &Arr{
@@ -110,13 +110,157 @@ stations &Arr{
 		}
 	}
 	CKN &Arr{
-		distance	0.08
-		latitude	61.2240
-		longitude	-152.1815
+		distance	9.19
+		latitude	61.2234
+		longitude	-152.1838
 		elevation	0.73
 		channels &Arr{
 			EHZ &Arr{
-				use	1
+				use	0
+				threshold	0.0
+			}
+		}
+	}
+	SPCR &Arr{
+		distance	11.22
+		latitude	61.2003
+		longitude	-152.2091
+		elevation	0.98
+		channels &Arr{
+			BHZ &Arr{
+				use	0
+				threshold	0.0
+			}
+			BHN &Arr{
+				use	0
+				threshold	0.0
+			}
+			BHE &Arr{
+				use	0
+				threshold	0.0
+			}
+		}
+	}
+	CKT &Arr{
+		distance	11.24
+		latitude	61.2002
+		longitude	-152.2085
+		elevation	0.97
+		channels &Arr{
+			EHZ &Arr{
+				use	0
+				threshold	0.0
+			}
+		}
+	}
+	SPCG &Arr{
+		distance	12.37
+		latitude	61.2913
+		longitude	-152.0228
+		elevation	1.33
+		channels &Arr{
+			BHZ &Arr{
+				use	0
+				threshold	0.0
+			}
+			BHN &Arr{
+				use	0
+				threshold	0.0
+			}
+			BHE &Arr{
+				use	0
+				threshold	0.0
+			}
+		}
+	}
+	CKL &Arr{
+		distance	12.60
+		latitude	61.1934
+		longitude	-152.3401
+		elevation	1.28
+		channels &Arr{
+			EHZ &Arr{
+				use	0
+				threshold	0.0
+			}
+		}
+	}
+	NCG &Arr{
+		distance	12.64
+		latitude	61.4031
+		longitude	-152.1590
+		elevation	1.24
+		channels &Arr{
+			EHZ &Arr{
+				use	0
+				threshold	0.0
+			}
+		}
+	}
+	CGL &Arr{
+		distance	13.11
+		latitude	61.3071
+		longitude	-152.0090
+		elevation	1.08
+		channels &Arr{
+			EHZ &Arr{
+				use	0
+				threshold	0.0
+			}
+		}
+	}
+	SPWE &Arr{
+		distance	16.68
+		latitude	61.2728
+		longitude	-152.5614
+		elevation	1.33
+		channels &Arr{
+			EHZ &Arr{
+				use	0
+				threshold	0.0
+			}
+		}
+	}
+	SPU &Arr{
+		distance	16.82
+		latitude	61.1811
+		longitude	-152.0566
+		elevation	0.80
+		channels &Arr{
+			EHZ &Arr{
+				use	0
+				threshold	0.0
+			}
+		}
+	}
+	SPNN &Arr{
+		distance	25.01
+		latitude	61.3662
+		longitude	-152.7012
+		elevation	1.67
+		channels &Arr{
+			BHZ &Arr{
+				use	0
+				threshold	0.0
+			}
+			BHN &Arr{
+				use	0
+				threshold	0.0
+			}
+			BHE &Arr{
+				use	0
+				threshold	0.0
+			}
+		}
+	}
+	BKG &Arr{
+		distance	25.50
+		latitude	61.0696
+		longitude	-152.2650
+		elevation	1.01
+		channels &Arr{
+			EHZ &Arr{
+				use	0
 				threshold	0.0
 			}
 		}

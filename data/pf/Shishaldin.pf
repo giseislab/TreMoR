@@ -6,9 +6,9 @@ plots	1
 alarms	0
 stations &Arr{
 	SSLS &Arr{
-		distance	0.05
-		latitude	54.7120
-		longitude	-163.9988
+		distance	5.28
+		latitude	54.7111
+		longitude	-164.0008
 		elevation	0.82
 		channels &Arr{
 			EHE &Arr{
@@ -26,13 +26,13 @@ stations &Arr{
 		}
 	}
 	SSLN &Arr{
-		distance	0.06
-		latitude	54.8118
-		longitude	-163.9959
+		distance	6.41
+		latitude	54.8109
+		longitude	-163.9979
 		elevation	0.64
 		channels &Arr{
 			BDF &Arr{
-				use	1
+				use	0
 				threshold	0.0
 			}
 			EHZ &Arr{
@@ -42,9 +42,9 @@ stations &Arr{
 		}
 	}
 	SSLW &Arr{
-		distance	0.09
-		latitude	54.7718
-		longitude	-164.1214
+		distance	9.92
+		latitude	54.7709
+		longitude	-164.1234
 		elevation	0.64
 		channels &Arr{
 			EHZ &Arr{
@@ -54,9 +54,9 @@ stations &Arr{
 		}
 	}
 	SSBA &Arr{
-		distance	0.09
-		latitude	54.7727
-		longitude	-164.1245
+		distance	10.13
+		latitude	54.7718
+		longitude	-164.1265
 		elevation	0.77
 		channels &Arr{
 			BHZ &Arr{
@@ -74,9 +74,9 @@ stations &Arr{
 		}
 	}
 	ISNN &Arr{
-		distance	0.14
-		latitude	54.8323
-		longitude	-163.7784
+		distance	14.86
+		latitude	54.8314
+		longitude	-163.7804
 		elevation	0.47
 		channels &Arr{
 			EHZ &Arr{
@@ -86,9 +86,9 @@ stations &Arr{
 		}
 	}
 	ISLZ &Arr{
-		distance	0.15
-		latitude	54.7260
-		longitude	-163.7110
+		distance	16.91
+		latitude	54.7251
+		longitude	-163.7130
 		elevation	0.63
 		channels &Arr{
 			EHZ &Arr{
@@ -98,13 +98,25 @@ stations &Arr{
 		}
 	}
 	BRPK &Arr{
-		distance	0.17
-		latitude	54.6455
-		longitude	-163.7408
+		distance	19.16
+		latitude	54.6446
+		longitude	-163.7428
 		elevation	0.39
 		channels &Arr{
 			EHZ &Arr{
-				use	1
+				use	0
+				threshold	0.0
+			}
+		}
+	}
+	WTUG &Arr{
+		distance	28.54
+		latitude	54.8466
+		longitude	-164.3873
+		elevation	0.64
+		channels &Arr{
+			EHZ &Arr{
+				use	0
 				threshold	0.0
 			}
 		}

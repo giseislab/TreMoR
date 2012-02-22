@@ -32,11 +32,10 @@ while 1,
 
       	% Remove calibs, despike, detrend and deconvolve waveform data
 	disp('remove spikes, remove trend, calibrate and bandpass filter'); 
-      	w = waveform_clean(w, 'filterObj', PARAMS.filterObj, 'remove_spikes', 'true', 'remove_trend', 'true', 'remove_response', 'false'); % cannot remove full instrument response as Mike's response_apply is broken. But calib is used.
+      	w = waveform_clean(w, 'filter_waveforms', false, 'filterObj', PARAMS.filterObj, 'remove_spikes', 'true', 'remove_trend', 'true', 'remove_response', 'false'); % cannot remove full instrument response as Mike's response_apply is broken. But calib is used.
 
 	% Save waveforms
 	save2waveformmat(w, 'waveform_files/stage2_filtered', snum, enum, subnet);
-	delete(filename);
 
 	logbenchmark(mfilename, toc);
 	diary off;

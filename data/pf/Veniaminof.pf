@@ -6,9 +6,9 @@ plots	1
 alarms	0
 stations &Arr{
 	VNSS &Arr{
-		distance	0.04
-		latitude	56.2267
-		longitude	-159.4548
+		distance	5.03
+		latitude	56.2259
+		longitude	-159.4569
 		elevation	1.73
 		channels &Arr{
 			EHZ &Arr{
@@ -18,9 +18,9 @@ stations &Arr{
 		}
 	}
 	VNNF &Arr{
-		distance	0.10
-		latitude	56.2837
-		longitude	-159.3160
+		distance	10.53
+		latitude	56.2829
+		longitude	-159.3181
 		elevation	1.15
 		channels &Arr{
 			EHZ &Arr{
@@ -30,10 +30,10 @@ stations &Arr{
 		}
 	}
 	VNWF &Arr{
-		distance	0.10
-		latitude	56.1517
-		longitude	-159.5622
-		elevation	1.10
+		distance	11.82
+		latitude	56.1509
+		longitude	-159.5643
+		elevation	1.09
 		channels &Arr{
 			EHZ &Arr{
 				use	1
@@ -42,9 +42,9 @@ stations &Arr{
 		}
 	}
 	VNFG &Arr{
-		distance	0.12
-		latitude	56.2857
-		longitude	-159.5511
+		distance	13.84
+		latitude	56.2849
+		longitude	-159.5532
 		elevation	1.07
 		channels &Arr{
 			EHZ &Arr{
@@ -54,9 +54,9 @@ stations &Arr{
 		}
 	}
 	VNHG &Arr{
-		distance	0.13
-		latitude	56.2211
-		longitude	-159.1642
+		distance	14.25
+		latitude	56.2203
+		longitude	-159.1663
 		elevation	0.97
 		channels &Arr{
 			EHZ &Arr{
@@ -66,9 +66,9 @@ stations &Arr{
 		}
 	}
 	VNSW &Arr{
-		distance	0.16
-		latitude	56.0720
-		longitude	-159.5585
+		distance	17.50
+		latitude	56.0712
+		longitude	-159.5606
 		elevation	0.72
 		channels &Arr{
 			EHZ &Arr{
@@ -78,13 +78,25 @@ stations &Arr{
 		}
 	}
 	VNKR &Arr{
-		distance	0.17
-		latitude	56.0312
-		longitude	-159.3678
+		distance	18.68
+		latitude	56.0304
+		longitude	-159.3699
 		elevation	0.62
 		channels &Arr{
 			EHZ &Arr{
-				use	1
+				use	0
+				threshold	0.0
+			}
+		}
+	}
+	VNSG &Arr{
+		distance	20.59
+		latitude	56.1250
+		longitude	-159.0875
+		elevation	0.76
+		channels &Arr{
+			EHZ &Arr{
+				use	0
 				threshold	0.0
 			}
 		}

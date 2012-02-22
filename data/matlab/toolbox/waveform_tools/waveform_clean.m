@@ -3,9 +3,9 @@ function [w,filtered]=waveform_clean(w, varargin)
 print_debug(sprintf('> %s',mfilename),2);
 warning on;
 
-[remove_calibs, remove_spikes, remove_trend, remove_response, interactive_mode, filterObj] = ...
+[remove_calibs, remove_spikes, remove_trend, remove_response, interactive_mode, filter_waveforms, filterObj] = ...
     process_options(varargin, 'remove_calibs', false, 'remove_spikes', false, 'remove_trend', false, 'remove_response', false, ...
-    'interactive_mode', false, 'filterObj', filterobject('b',[0.5 15],2) );
+    'interactive_mode', false, 'filter_waveforms', true, 'filterObj', filterobject('b',[0.5 15],2) );
 
 if remove_calibs
     try
@@ -87,16 +87,20 @@ for c = 1: length(w)
 	end
 	
     end
+    if filter_waveforms == true
 
-    if ~filtered
-            try
-                w(c) = waveform_bandpass(w(c),filterObj); 
-                filtered = true; 
-            end
-    end       
-    if ~filtered
-        print_debug('Cannot filter waveform',0);
-    end
+   	 if ~filtered
+   	         try
+   	             w(c) = waveform_bandpass(w(c),filterObj); 
+   	             filtered = true; 
+		 catch
+			print_debug('Failed waveform_bandpass', 1);
+   	         end
+   	 end       
+   	 if ~filtered
+   	     print_debug('Cannot filter waveform',0);
+   	 end
+   end
     
 end
 

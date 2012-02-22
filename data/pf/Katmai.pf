@@ -6,9 +6,9 @@ plots	1
 alarms	0
 stations &Arr{
 	KAKN &Arr{
-		distance	0.06
-		latitude	58.2970
-		longitude	-155.0611
+		distance	6.71
+		latitude	58.2963
+		longitude	-155.0632
 		elevation	1.05
 		channels &Arr{
 			BHZ &Arr{
@@ -26,9 +26,9 @@ stations &Arr{
 		}
 	}
 	KCG &Arr{
-		distance	0.09
-		latitude	58.3076
-		longitude	-155.1114
+		distance	9.86
+		latitude	58.3069
+		longitude	-155.1135
 		elevation	0.76
 		channels &Arr{
 			EHE &Arr{
@@ -46,9 +46,21 @@ stations &Arr{
 		}
 	}
 	KCE &Arr{
-		distance	0.13
-		latitude	58.2433
-		longitude	-155.1833
+		distance	14.17
+		latitude	58.2426
+		longitude	-155.1854
+		elevation	0.78
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	KAWH &Arr{
+		distance	14.58
+		latitude	58.3830
+		longitude	-154.8013
 		elevation	0.78
 		channels &Arr{
 			EHZ &Arr{
@@ -58,9 +70,9 @@ stations &Arr{
 		}
 	}
 	KBM &Arr{
-		distance	0.13
-		latitude	58.2750
-		longitude	-155.2017
+		distance	14.66
+		latitude	58.2743
+		longitude	-155.2038
 		elevation	0.73
 		channels &Arr{
 			EHZ &Arr{
@@ -69,22 +81,10 @@ stations &Arr{
 			}
 		}
 	}
-	KAWH &Arr{
-		distance	0.13
-		latitude	58.3837
-		longitude	-154.7992
-		elevation	0.78
-		channels &Arr{
-			EHZ &Arr{
-				use	1
-				threshold	0.0
-			}
-		}
-	}
 	KABR &Arr{
-		distance	0.15
-		latitude	58.1312
-		longitude	-154.9692
+		distance	16.55
+		latitude	58.1305
+		longitude	-154.9713
 		elevation	0.88
 		channels &Arr{
 			EHZ &Arr{
@@ -94,13 +94,13 @@ stations &Arr{
 		}
 	}
 	KABU &Arr{
-		distance	0.17
-		latitude	58.2709
-		longitude	-155.2822
+		distance	19.38
+		latitude	58.2702
+		longitude	-155.2843
 		elevation	1.06
 		channels &Arr{
 			BHZ &Arr{
-				use	1
+				use	0
 				threshold	0.0
 			}
 			BHN &Arr{
@@ -108,6 +108,74 @@ stations &Arr{
 				threshold	0.0
 			}
 			BHE &Arr{
+				use	0
+				threshold	0.0
+			}
+		}
+	}
+	MGLS &Arr{
+		distance	20.30
+		latitude	58.1336
+		longitude	-155.1629
+		elevation	0.47
+		channels &Arr{
+			EHZ &Arr{
+				use	0
+				threshold	0.0
+			}
+		}
+	}
+	KVT &Arr{
+		distance	23.05
+		latitude	58.3810
+		longitude	-155.2971
+		elevation	0.46
+		channels &Arr{
+			EHZ &Arr{
+				use	0
+				threshold	0.0
+			}
+		}
+	}
+	ACH &Arr{
+		distance	23.24
+		latitude	58.2100
+		longitude	-155.3281
+		elevation	0.96
+		channels &Arr{
+			EHE &Arr{
+				use	0
+				threshold	0.0
+			}
+			EHN &Arr{
+				use	0
+				threshold	0.0
+			}
+			EHZ &Arr{
+				use	0
+				threshold	0.0
+			}
+		}
+	}
+	KAIC &Arr{
+		distance	23.48
+		latitude	58.4843
+		longitude	-155.0479
+		elevation	0.73
+		channels &Arr{
+			EHZ &Arr{
+				use	0
+				threshold	0.0
+			}
+		}
+	}
+	KARR &Arr{
+		distance	28.23
+		latitude	58.4971
+		longitude	-154.7054
+		elevation	0.61
+		channels &Arr{
+			EHZ &Arr{
 				use	0
 				threshold	0.0
 			}

@@ -6,34 +6,10 @@ plots	1
 alarms	0
 stations &Arr{
 	GAEA &Arr{
-		distance	0.03
-		latitude	51.7830
-		longitude	-178.7468
+		distance	3.35
+		latitude	51.7819
+		longitude	-178.7488
 		elevation	0.33
-		channels &Arr{
-			EHZ &Arr{
-				use	1
-				threshold	0.0
-			}
-		}
-	}
-	GALA &Arr{
-		distance	0.03
-		latitude	51.7617
-		longitude	-178.7715
-		elevation	0.32
-		channels &Arr{
-			EHZ &Arr{
-				use	1
-				threshold	0.0
-			}
-		}
-	}
-	GANO &Arr{
-		distance	0.03
-		latitude	51.8203
-		longitude	-178.8038
-		elevation	0.45
 		channels &Arr{
 			EHZ &Arr{
 				use	1
@@ -42,9 +18,9 @@ stations &Arr{
 		}
 	}
 	GANE &Arr{
-		distance	0.03
-		latitude	51.8189
-		longitude	-178.7767
+		distance	3.40
+		latitude	51.8178
+		longitude	-178.7787
 		elevation	0.33
 		channels &Arr{
 			EHZ &Arr{
@@ -53,10 +29,34 @@ stations &Arr{
 			}
 		}
 	}
+	GANO &Arr{
+		distance	3.40
+		latitude	51.8192
+		longitude	-178.8058
+		elevation	0.45
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
+	GALA &Arr{
+		distance	3.54
+		latitude	51.7606
+		longitude	-178.7735
+		elevation	0.32
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
 	GASW &Arr{
-		distance	0.04
-		latitude	51.7789
-		longitude	-178.8546
+		distance	4.36
+		latitude	51.7778
+		longitude	-178.8566
 		elevation	0.25
 		channels &Arr{
 			EHE &Arr{
@@ -74,22 +74,10 @@ stations &Arr{
 		}
 	}
 	GAKI &Arr{
-		distance	0.23
-		latitude	51.5545
-		longitude	-178.8121
+		distance	26.25
+		latitude	51.5534
+		longitude	-178.8140
 		elevation	0.10
-		channels &Arr{
-			EHZ &Arr{
-				use	1
-				threshold	0.0
-			}
-		}
-	}
-	TACS &Arr{
-		distance	0.41
-		latitude	51.8632
-		longitude	-178.1394
-		elevation	0.92
 		channels &Arr{
 			EHZ &Arr{
 				use	1

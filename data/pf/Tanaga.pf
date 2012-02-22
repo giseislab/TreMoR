@@ -6,9 +6,9 @@ plots	1
 alarms	0
 stations &Arr{
 	TACS &Arr{
-		distance	0.02
-		latitude	51.8632
-		longitude	-178.1394
+		distance	2.44
+		latitude	51.8621
+		longitude	-178.1414
 		elevation	0.92
 		channels &Arr{
 			EHZ &Arr{
@@ -18,9 +18,9 @@ stations &Arr{
 		}
 	}
 	TANO &Arr{
-		distance	0.03
-		latitude	51.9157
-		longitude	-178.1208
+		distance	3.67
+		latitude	51.9146
+		longitude	-178.1228
 		elevation	0.27
 		channels &Arr{
 			EHZ &Arr{
@@ -30,9 +30,9 @@ stations &Arr{
 		}
 	}
 	TASE &Arr{
-		distance	0.08
-		latitude	51.8350
-		longitude	-178.0370
+		distance	9.06
+		latitude	51.8339
+		longitude	-178.0390
 		elevation	0.68
 		channels &Arr{
 			EHZ &Arr{
@@ -42,9 +42,9 @@ stations &Arr{
 		}
 	}
 	TAFP &Arr{
-		distance	0.10
-		latitude	51.9001
-		longitude	-177.9833
+		distance	10.95
+		latitude	51.8990
+		longitude	-177.9853
 		elevation	0.44
 		channels &Arr{
 			EHE &Arr{
@@ -62,9 +62,9 @@ stations &Arr{
 		}
 	}
 	TAFL &Arr{
-		distance	0.20
-		latitude	51.7566
-		longitude	-177.8978
+		distance	21.99
+		latitude	51.7555
+		longitude	-177.8998
 		elevation	0.19
 		channels &Arr{
 			EHZ &Arr{
@@ -74,22 +74,10 @@ stations &Arr{
 		}
 	}
 	TAPA &Arr{
-		distance	0.22
-		latitude	51.8155
-		longitude	-177.8128
+		distance	23.84
+		latitude	51.8144
+		longitude	-177.8148
 		elevation	0.64
-		channels &Arr{
-			EHZ &Arr{
-				use	1
-				threshold	0.0
-			}
-		}
-	}
-	GAEA &Arr{
-		distance	0.39
-		latitude	51.7830
-		longitude	-178.7468
-		elevation	0.33
 		channels &Arr{
 			EHZ &Arr{
 				use	1

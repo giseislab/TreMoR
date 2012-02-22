@@ -4,7 +4,7 @@ function subnetpf2runtimemat();
 print_debug(sprintf('> %s', mfilename),5)
 
 [paths,PARAMS]=pf2PARAMS;
-
+calibs=[];
 for c=1:length(PARAMS.subnetnames)
     subnetname = PARAMS.subnetnames{c};
     subnets(c).name = subnetname;
@@ -43,6 +43,8 @@ for c=1:length(PARAMS.subnetnames)
                     subnets(c).stations(cc).latitude = pfget(pointerToStation,'latitude');
                     subnets(c).stations(cc).longitude = pfget(pointerToStation,'longitude');
                     subnets(c).stations(cc).response = response_get_from_db(sta, chan, now, PARAMS.f, paths.DBMASTER);
+		fprintf('%s: %f\n',subnets(c).stations(cc).name, subnets(c).stations(cc).response.calib);
+		calibs = [calibs subnets(c).stations(cc).response.calib];
                 end
             end
         end
@@ -53,14 +55,20 @@ for c=1:length(PARAMS.subnetnames)
         subnets(c).plots = pfget_num(pf, 'plots');
         subnets(c).alarms = pfget_num(pf, 'alarms');
 
-
-
+	% Now sort by distance
+	stationsStruct = subnets(c).stations;
+	[~,i]=sort([subnets(c).stations.distance]);
+	subnets(c).stations = stationsStruct(i);	
+	clear stationsStruct;
     else
         subnets(c) = [];
     end
 end
 
 save pf/runtime.mat subnets PARAMS paths
-
 print_debug(sprintf('< %s', mfilename),5)
-
+mean(calibs)
+std(calibs)
+min(calibs)
+max(calibs)
+median(calibs)

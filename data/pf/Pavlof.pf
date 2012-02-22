@@ -5,26 +5,10 @@ onemindata	1
 plots	1
 alarms	0
 stations &Arr{
-	PN7A &Arr{
-		distance	0.06
-		latitude	55.4337
-		longitude	-161.9952
-		elevation	0.84
-		channels &Arr{
-			BDF &Arr{
-				use	1
-				threshold	0.0
-			}
-			EHZ &Arr{
-				use	1
-				threshold	0.0
-			}
-		}
-	}
 	PV6 &Arr{
-		distance	0.06
-		latitude	55.4536
-		longitude	-161.9850
+		distance	4.29
+		latitude	55.4528
+		longitude	-161.9205
 		elevation	0.75
 		channels &Arr{
 			EHE &Arr{
@@ -41,11 +25,27 @@ stations &Arr{
 			}
 		}
 	}
+	PN7A &Arr{
+		distance	6.76
+		latitude	55.4329
+		longitude	-161.9973
+		elevation	0.84
+		channels &Arr{
+			BDF &Arr{
+				use	0
+				threshold	0.0
+			}
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
 	PVV &Arr{
-		distance	0.07
-		latitude	55.3740
-		longitude	-161.7899
-		elevation	0.16
+		distance	8.09
+		latitude	55.3732
+		longitude	-161.7919
+		elevation	0.17
 		channels &Arr{
 			EHZ &Arr{
 				use	1
@@ -54,9 +54,9 @@ stations &Arr{
 		}
 	}
 	PS4A &Arr{
-		distance	0.07
-		latitude	55.3469
-		longitude	-161.8539
+		distance	8.27
+		latitude	55.3460
+		longitude	-161.8567
 		elevation	0.32
 		channels &Arr{
 			EHZ &Arr{
@@ -66,10 +66,10 @@ stations &Arr{
 		}
 	}
 	PS1A &Arr{
-		distance	0.09
-		latitude	55.4220
-		longitude	-161.7404
-		elevation	0.29
+		distance	9.47
+		latitude	55.4201
+		longitude	-161.7437
+		elevation	0.28
 		channels &Arr{
 			EHZ &Arr{
 				use	1
@@ -78,10 +78,10 @@ stations &Arr{
 		}
 	}
 	HAG &Arr{
-		distance	0.10
-		latitude	55.3178
-		longitude	-161.9025
-		elevation	0.50
+		distance	11.17
+		latitude	55.3170
+		longitude	-161.9045
+		elevation	0.52
 		channels &Arr{
 			EHZ &Arr{
 				use	1
@@ -90,13 +90,13 @@ stations &Arr{
 		}
 	}
 	DOL &Arr{
-		distance	0.27
-		latitude	55.1493
-		longitude	-161.8614
+		distance	29.92
+		latitude	55.1488
+		longitude	-161.8638
 		elevation	0.44
 		channels &Arr{
 			EHZ &Arr{
-				use	1
+				use	0
 				threshold	0.0
 			}
 		}

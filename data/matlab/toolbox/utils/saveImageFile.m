@@ -3,6 +3,7 @@ function result = saveImageFile(arg1, arg2, arg3);
 % saveImageFile(IMGFULLFILEPATH, res);
 % res=200 for spectrograms
 global paths PARAMS; % we need to knwo the value of PARAMS.mode
+print_debug(sprintf('> %s',mfilename),2);
 result = 0;
 switch nargin
 	case 2,
@@ -31,13 +32,14 @@ try
 
 	% Did our image file actually get saved?
 	if exist(outpath, 'file')
-		print_debug(sprintf('Saved image file %s',outpath),2);
+		print_debug(sprintf('%s: Saved image file %s',datestr(utnow),outpath),2);
 		result = 1;
 	else
-		print_debug(sprintf('Image file %s was not created',outpath),0);
+		print_debug(sprintf('%s: Image file %s was not created',datestr(utnow),outpath),0);
 	end
 catch
-	disp(sprintf('Could not save the image file %s',outpath));
+	disp(sprintf('%s: Could not save the image file %s',datestr(utnow),outpath));
 end
 
+print_debug(sprintf('< %s',mfilename),2);
 

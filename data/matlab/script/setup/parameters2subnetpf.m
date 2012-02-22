@@ -1,6 +1,6 @@
 function parameters2subnetpf()
-km = 25.0; % km
-maxsta = 7;
+km = 30.0; % km
+maxsta = 6;
 [paths,PARAMS]=pf2PARAMS();
 for c=1:length(PARAMS.subnetnames)
     subnets.name = PARAMS.subnetnames{c};
@@ -9,6 +9,7 @@ for c=1:length(PARAMS.subnetnames)
     for k=1:length(subnets.stations)
         subnets.stations(k).channels = dbgetchannels(subnets.stations(k).name, paths.DBMASTER);
     end
+
     outfile = sprintf('pf/%s.pf',subnets.name);
     
     % The obvious approach, using dbpf, pfput and pfwrite does not work
@@ -30,8 +31,9 @@ for c=1:length(PARAMS.subnetnames)
     fprintf(fout, 'plots\t%d\n',1); 
     fprintf(fout, 'alarms\t%d\n',0); 
     fprintf(fout, 'stations &Arr{\n'); 
+    totalinuse = 0;
     for k=1:length(subnets.stations)
-        subnets.stations(k)
+        %subnets.stations(k)
         fprintf(fout, '\t%s &Arr{\n',subnets.stations(k).name);
         fprintf(fout, '\t\tdistance\t%.2f\n',subnets.stations(k).distance); 
         fprintf(fout, '\t\tlatitude\t%.4f\n',subnets.stations(k).site.lat);
@@ -41,11 +43,13 @@ for c=1:length(PARAMS.subnetnames)
         for l=1:length(subnets.stations(k).channels)
             fprintf(fout, '\t\t\t%s &Arr{\n',subnets.stations(k).channels{l});
             use=0;
-            if regexp(subnets.stations(k).channels{l}, 'BDF') 
+            %if regexp(subnets.stations(k).channels{l}, 'BDF') && totalinuse < maxsta 
+            %   use = 1;
+	    %	totalinuse = totalinuse + 1;
+            %end
+            if regexp(subnets.stations(k).channels{l}, '[BES]HZ')  & (totalinuse < maxsta)
                 use = 1;
-            end
-            if regexp(subnets.stations(k).channels{l}, '[BES]HZ')
-                use = 1;
+		totalinuse = totalinuse + 1;
             end
             fprintf(fout, '\t\t\t\tuse\t%d\n',use);
             fprintf(fout, '\t\t\t\tthreshold\t%3.1f\n',0.0);

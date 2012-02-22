@@ -6,10 +6,10 @@ plots	1
 alarms	0
 stations &Arr{
 	AUH &Arr{
-		distance	0.00
-		latitude	59.3638
-		longitude	-153.4430
-		elevation	0.90
+		distance	0.59
+		latitude	59.3632
+		longitude	-153.4454
+		elevation	0.89
 		channels &Arr{
 			EHZ &Arr{
 				use	1
@@ -18,9 +18,9 @@ stations &Arr{
 		}
 	}
 	AUP &Arr{
-		distance	0.01
-		latitude	59.3634
-		longitude	-153.4202
+		distance	0.70
+		latitude	59.3627
+		longitude	-153.4226
 		elevation	1.03
 		channels &Arr{
 			EHZ &Arr{
@@ -30,9 +30,9 @@ stations &Arr{
 		}
 	}
 	AUJK &Arr{
-		distance	0.02
-		latitude	59.3500
-		longitude	-153.4085
+		distance	2.02
+		latitude	59.3493
+		longitude	-153.4106
 		elevation	0.38
 		channels &Arr{
 			EHZ &Arr{
@@ -41,10 +41,34 @@ stations &Arr{
 			}
 		}
 	}
+	AUL &Arr{
+		distance	2.12
+		latitude	59.3816
+		longitude	-153.4379
+		elevation	0.36
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+			BHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+			BHN &Arr{
+				use	0
+				threshold	0.0
+			}
+			BHE &Arr{
+				use	0
+				threshold	0.0
+			}
+		}
+	}
 	AUW &Arr{
-		distance	0.02
-		latitude	59.3701
-		longitude	-153.4708
+		distance	2.28
+		latitude	59.3694
+		longitude	-153.4730
 		elevation	0.28
 		channels &Arr{
 			EHZ &Arr{
@@ -53,65 +77,61 @@ stations &Arr{
 			}
 		}
 	}
-	AUL &Arr{
-		distance	0.02
-		latitude	59.3823
-		longitude	-153.4403
-		elevation	0.35
-		channels &Arr{
-			EHZ &Arr{
-				use	1
-				threshold	0.0
-			}
-			BHZ &Arr{
-				use	1
-				threshold	0.0
-			}
-			BHN &Arr{
-				use	0
-				threshold	0.0
-			}
-			BHE &Arr{
-				use	0
-				threshold	0.0
-			}
-		}
-	}
-	AUL &Arr{
-		distance	0.02
-		latitude	59.3823
-		longitude	-153.4403
-		elevation	0.35
-		channels &Arr{
-			EHZ &Arr{
-				use	1
-				threshold	0.0
-			}
-			BHZ &Arr{
-				use	1
-				threshold	0.0
-			}
-			BHN &Arr{
-				use	0
-				threshold	0.0
-			}
-			BHE &Arr{
-				use	0
-				threshold	0.0
-			}
-		}
-	}
 	AUNW &Arr{
-		distance	0.03
-		latitude	59.3782
-		longitude	-153.4768
+		distance	2.99
+		latitude	59.3775
+		longitude	-153.4790
 		elevation	0.16
 		channels &Arr{
 			EHZ &Arr{
-				use	1
+				use	0
 				threshold	0.0
 			}
 			ELZ &Arr{
+				use	0
+				threshold	0.0
+			}
+		}
+	}
+	AUI &Arr{
+		distance	3.14
+		latitude	59.3345
+		longitude	-153.4299
+		elevation	0.29
+		channels &Arr{
+			EHE &Arr{
+				use	0
+				threshold	0.0
+			}
+			EHN &Arr{
+				use	0
+				threshold	0.0
+			}
+			EHZ &Arr{
+				use	0
+				threshold	0.0
+			}
+		}
+	}
+	AUE &Arr{
+		distance	3.65
+		latitude	59.3773
+		longitude	-153.3773
+		elevation	0.17
+		channels &Arr{
+			EHZ &Arr{
+				use	0
+				threshold	0.0
+			}
+			ELZ &Arr{
+				use	0
+				threshold	0.0
+			}
+			BDF &Arr{
+				use	0
+				threshold	0.0
+			}
+			BDL &Arr{
 				use	0
 				threshold	0.0
 			}

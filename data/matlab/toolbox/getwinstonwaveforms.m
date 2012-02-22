@@ -107,7 +107,6 @@ for i=1:numel(w)
 end
 print_debug(sprintf('- Got %d waveform objects\n', length(w)),1);
 print_debug(sprintf('< %s', mfilename),1)
-fprintf('\n\n\n\n');
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

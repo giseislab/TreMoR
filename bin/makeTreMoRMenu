@@ -102,9 +102,14 @@ sub update_iceweb_menu {
 
 	my ($subnet);
 	my $baseurl = $paths{INTERNALWEBPRODUCTSURL}; 
+	my $lastspfilemtime = `ls -l spectrograms/lastspectrogram.png`;
+	chomp($lastspfilemtime);
 
 	# Diagnostics page
-	print FHTML "<p><a href=\"diagnostics.html\">IceWeb Diagnostics</a></p>";
+	#print FHTML "<p><a href=\"diagnostics.html\">TreMoR Diagnostics</a></p>";
+	print FHTML "<p><a href=\"$baseurl/bronco_diagnostics.txt\">Bronco Diagnostics</a></p>";
+	print FHTML "<p><a href=\"$baseurl/plots/benchmarkmaplots.png\">Benchmark plots</a></p>";
+	print FHTML "<p>Latest spectrogram: $lastspfilemtime</p>";
 
 	# spectrogram menu
 	print FHTML "<p>Spectrograms</p>";

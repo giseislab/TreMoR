@@ -6,9 +6,9 @@ plots	1
 alarms	0
 stations &Arr{
 	MCIR &Arr{
-		distance	0.06
-		latitude	53.9514
-		longitude	-166.8922
+		distance	7.03
+		latitude	53.9505
+		longitude	-166.8942
 		elevation	0.80
 		channels &Arr{
 			EHZ &Arr{
@@ -18,10 +18,10 @@ stations &Arr{
 		}
 	}
 	MSOM &Arr{
-		distance	0.07
-		latitude	53.8163
-		longitude	-166.9364
-		elevation	0.01
+		distance	8.33
+		latitude	53.8154
+		longitude	-166.9385
+		elevation	0.15
 		channels &Arr{
 			EHZ &Arr{
 				use	1
@@ -30,41 +30,9 @@ stations &Arr{
 		}
 	}
 	MSW &Arr{
-		distance	0.09
-		latitude	53.9155
-		longitude	-166.7864
-		elevation	0.42
-		channels &Arr{
-			EHE &Arr{
-				use	0
-				threshold	0.0
-			}
-			EHN &Arr{
-				use	0
-				threshold	0.0
-			}
-			EHZ &Arr{
-				use	1
-				threshold	0.0
-			}
-			BHZ &Arr{
-				use	1
-				threshold	0.0
-			}
-			BHN &Arr{
-				use	0
-				threshold	0.0
-			}
-			BHE &Arr{
-				use	0
-				threshold	0.0
-			}
-		}
-	}
-	MSW &Arr{
-		distance	0.09
-		latitude	53.9155
-		longitude	-166.7864
+		distance	9.36
+		latitude	53.9145
+		longitude	-166.7884
 		elevation	0.42
 		channels &Arr{
 			EHE &Arr{
@@ -94,9 +62,9 @@ stations &Arr{
 		}
 	}
 	MGOD &Arr{
-		distance	0.10
-		latitude	53.7947
-		longitude	-166.8760
+		distance	11.12
+		latitude	53.7938
+		longitude	-166.8780
 		elevation	0.65
 		channels &Arr{
 			EHZ &Arr{
@@ -106,9 +74,9 @@ stations &Arr{
 		}
 	}
 	MREP &Arr{
-		distance	0.13
-		latitude	53.8105
-		longitude	-166.7456
+		distance	14.67
+		latitude	53.8096
+		longitude	-166.7476
 		elevation	0.79
 		channels &Arr{
 			EHZ &Arr{
@@ -118,13 +86,57 @@ stations &Arr{
 		}
 	}
 	MNAT &Arr{
-		distance	0.14
-		latitude	53.8838
-		longitude	-166.6836
+		distance	15.71
+		latitude	53.8829
+		longitude	-166.6856
 		elevation	0.40
 		channels &Arr{
 			EHZ &Arr{
-				use	1
+				use	0
+				threshold	0.0
+			}
+		}
+	}
+	MTBL &Arr{
+		distance	18.17
+		latitude	53.9680
+		longitude	-166.6813
+		elevation	0.81
+		channels &Arr{
+			EHZ &Arr{
+				use	0
+				threshold	0.0
+			}
+		}
+	}
+	UNV &Arr{
+		distance	28.04
+		latitude	53.8456
+		longitude	-166.5040
+		elevation	0.07
+		channels &Arr{
+			BHZ &Arr{
+				use	0
+				threshold	0.0
+			}
+			BHN &Arr{
+				use	0
+				threshold	0.0
+			}
+			BHE &Arr{
+				use	0
+				threshold	0.0
+			}
+			BNZ &Arr{
+				use	0
+				threshold	0.0
+			}
+			BNN &Arr{
+				use	0
+				threshold	0.0
+			}
+			BNE &Arr{
+				use	0
 				threshold	0.0
 			}
 		}

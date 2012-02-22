@@ -5,10 +5,22 @@ onemindata	1
 plots	1
 alarms	0
 stations &Arr{
+	KINC &Arr{
+		distance	2.34
+		latitude	51.9303
+		longitude	-177.1296
+		elevation	1.98
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
 	KICM &Arr{
-		distance	0.02
-		latitude	51.9189
-		longitude	-177.1953
+		distance	2.50
+		latitude	51.9178
+		longitude	-177.1973
 		elevation	0.18
 		channels &Arr{
 			EHZ &Arr{
@@ -17,22 +29,10 @@ stations &Arr{
 			}
 		}
 	}
-	KINC &Arr{
-		distance	0.02
-		latitude	51.9314
-		longitude	-177.1276
-		elevation	0.20
-		channels &Arr{
-			EHZ &Arr{
-				use	1
-				threshold	0.0
-			}
-		}
-	}
 	KIKV &Arr{
-		distance	0.05
-		latitude	51.8788
-		longitude	-177.1704
+		distance	5.22
+		latitude	51.8777
+		longitude	-177.1724
 		elevation	0.41
 		channels &Arr{
 			EHZ &Arr{
@@ -42,9 +42,9 @@ stations &Arr{
 		}
 	}
 	KIRH &Arr{
-		distance	0.05
-		latitude	51.8996
-		longitude	-177.0935
+		distance	5.40
+		latitude	51.8985
+		longitude	-177.0955
 		elevation	0.31
 		channels &Arr{
 			EHZ &Arr{
@@ -54,9 +54,9 @@ stations &Arr{
 		}
 	}
 	KIWB &Arr{
-		distance	0.07
-		latitude	51.8531
-		longitude	-177.1508
+		distance	8.05
+		latitude	51.8520
+		longitude	-177.1528
 		elevation	0.24
 		channels &Arr{
 			EHZ &Arr{
@@ -66,69 +66,13 @@ stations &Arr{
 		}
 	}
 	KIMD &Arr{
-		distance	0.17
-		latitude	51.7616
-		longitude	-177.2349
+		distance	18.91
+		latitude	51.7605
+		longitude	-177.2369
 		elevation	0.18
 		channels &Arr{
 			EHZ &Arr{
 				use	1
-				threshold	0.0
-			}
-		}
-	}
-	ADK &Arr{
-		distance	0.30
-		latitude	51.8823
-		longitude	-176.6842
-		elevation	0.13
-		channels &Arr{
-			BHN &Arr{
-				use	0
-				threshold	0.0
-			}
-			SHN &Arr{
-				use	0
-				threshold	0.0
-			}
-			BHE &Arr{
-				use	0
-				threshold	0.0
-			}
-			SHE &Arr{
-				use	0
-				threshold	0.0
-			}
-			BHZ &Arr{
-				use	1
-				threshold	0.0
-			}
-			SHZ &Arr{
-				use	1
-				threshold	0.0
-			}
-			HHN &Arr{
-				use	0
-				threshold	0.0
-			}
-			HHE &Arr{
-				use	0
-				threshold	0.0
-			}
-			HHZ &Arr{
-				use	0
-				threshold	0.0
-			}
-			HNN &Arr{
-				use	0
-				threshold	0.0
-			}
-			HNE &Arr{
-				use	0
-				threshold	0.0
-			}
-			HNZ &Arr{
-				use	0
 				threshold	0.0
 			}
 		}

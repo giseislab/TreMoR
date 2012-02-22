@@ -3,8 +3,9 @@ use Cwd;
 use File::chdir;
 #use File::Basename qw(filename);
 die unless($#ARGV==1);
-$DAYSAGO = $ARGV[0];
+$MINDAYSAGO = $ARGV[0];
 $MINSIZE = $ARGV[1];
+$MAXDAYSAGO = 99999; 
 $topdir = "www/plots/sp"; 
 $CWD = $topdir;
 @subnetes = glob('*');
@@ -15,25 +16,26 @@ foreach $subnet (@subnetes) {
 	@years = glob("2*");
 	foreach $year (@years) {
 		push @CWD, $year; 
-		print  @CWD;
+		#print "dir = $CWD\n";
 		@months = glob("[01]*");
 		foreach $month (@months) {
 			push @CWD, $month; 
-			print  @CWD;
+			#print "dir = $CWD\n";
 			@days = glob("[0123]*");
 			foreach $day (@days) {
 				$epochtime = `epoch "$year/$month/$day" | awk '{print $1}'`;
 				$epochnow = `epoch now | awk '{print $1}'`;
 				$daysago = ($epochnow - $epochtime) / 86400; 
-				next if ($daysago < $DAYSAGO);
+				next if ($daysago < $MINDAYSAGO || $daysago > $MAXDAYSAGO);
 				print "\n\n** Processing $subnet/$year/$month/$day **\n";
 				push @CWD, $day; 
-				print $CWD;
+				#print "dir = $CWD\n";
 				if (-e "lock") {
 					print "This directory is locked - nothing can be deleted, presumably because the data are of value\n";
 				} else {
 					@files = glob("2*.png");
 					$numfiles = $#files + 1;
+					print "There are $numfiles spectrograms in $CWD\n"; 
 					$complete=0;
 					$validpng = 0;
 					foreach $file (@files) {
@@ -68,17 +70,28 @@ foreach $subnet (@subnetes) {
 
 						}
 					}
+					if ($numfiles == 0) {
+						@files = glob("*.*");
+						foreach $file (@files) {
+							&remove($file);
+						}
+					}
+
 				}
 				pop @CWD;
+				#print "rmdir = $CWD/$day\n";
 				rmdir($day);
 			}
 			pop @CWD;
+			#print "rmdir = $CWD/$month\n";
 			rmdir($month);
 		}
 		pop @CWD;
+		#print "rmdir = $CWD/$year\n";
 		rmdir($year);
 	}
-	pop @CWD;
+	pop @CWD;	
+	#print "rmdir = $CWD/$subnet\n";
 	rmdir($subnet);
 	print "\n";
 }
@@ -86,6 +99,8 @@ foreach $subnet (@subnetes) {
 	
 sub remove {
 	$file = $_[0];
-	print "$file ";	
+	print "$file";	
+	#print " <any key to continue>";	
+	#<STDIN>;
 	unlink($file);
 }	

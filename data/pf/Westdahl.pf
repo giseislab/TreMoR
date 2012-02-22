@@ -6,9 +6,9 @@ plots	1
 alarms	0
 stations &Arr{
 	WESP &Arr{
-		distance	0.05
-		latitude	54.4935
-		longitude	-164.7213
+		distance	5.60
+		latitude	54.4926
+		longitude	-164.7233
 		elevation	0.94
 		channels &Arr{
 			EHZ &Arr{
@@ -26,9 +26,9 @@ stations &Arr{
 		}
 	}
 	WESE &Arr{
-		distance	0.06
-		latitude	54.4732
-		longitude	-164.5840
+		distance	6.38
+		latitude	54.4723
+		longitude	-164.5860
 		elevation	0.95
 		channels &Arr{
 			EHZ &Arr{
@@ -38,9 +38,9 @@ stations &Arr{
 		}
 	}
 	WESN &Arr{
-		distance	0.07
-		latitude	54.5724
-		longitude	-164.5784
+		distance	7.44
+		latitude	54.5715
+		longitude	-164.5804
 		elevation	0.55
 		channels &Arr{
 			EHZ &Arr{
@@ -50,9 +50,9 @@ stations &Arr{
 		}
 	}
 	WECS &Arr{
-		distance	0.08
-		latitude	54.5309
-		longitude	-164.7776
+		distance	8.64
+		latitude	54.5300
+		longitude	-164.7796
 		elevation	0.64
 		channels &Arr{
 			EHZ &Arr{
@@ -62,45 +62,13 @@ stations &Arr{
 		}
 	}
 	WEBT &Arr{
-		distance	0.10
-		latitude	54.5911
-		longitude	-164.7530
+		distance	10.68
+		latitude	54.5902
+		longitude	-164.7550
 		elevation	0.47
 		channels &Arr{
 			EHZ &Arr{
 				use	1
-				threshold	0.0
-			}
-		}
-	}
-	WTUG &Arr{
-		distance	0.36
-		latitude	54.8475
-		longitude	-164.3853
-		elevation	0.64
-		channels &Arr{
-			EHZ &Arr{
-				use	1
-				threshold	0.0
-			}
-		}
-	}
-	SSBA &Arr{
-		distance	0.40
-		latitude	54.7727
-		longitude	-164.1245
-		elevation	0.77
-		channels &Arr{
-			BHZ &Arr{
-				use	1
-				threshold	0.0
-			}
-			BHN &Arr{
-				use	0
-				threshold	0.0
-			}
-			BHE &Arr{
-				use	0
 				threshold	0.0
 			}
 		}

@@ -6,9 +6,9 @@ plots	1
 alarms	0
 stations &Arr{
 	KOKV &Arr{
-		distance	0.02
-		latitude	52.3614
-		longitude	-174.1653
+		distance	2.38
+		latitude	52.3603
+		longitude	-174.1673
 		elevation	0.78
 		channels &Arr{
 			EHE &Arr{
@@ -26,9 +26,9 @@ stations &Arr{
 		}
 	}
 	KONE &Arr{
-		distance	0.03
-		latitude	52.3936
-		longitude	-174.1193
+		distance	3.22
+		latitude	52.3925
+		longitude	-174.1213
 		elevation	0.25
 		channels &Arr{
 			EHZ &Arr{
@@ -38,9 +38,9 @@ stations &Arr{
 		}
 	}
 	KONW &Arr{
-		distance	0.03
-		latitude	52.3965
-		longitude	-174.2105
+		distance	3.55
+		latitude	52.3954
+		longitude	-174.2125
 		elevation	0.33
 		channels &Arr{
 			EHZ &Arr{
@@ -50,9 +50,9 @@ stations &Arr{
 		}
 	}
 	KOWE &Arr{
-		distance	0.05
-		latitude	52.3657
-		longitude	-174.2507
+		distance	6.23
+		latitude	52.3646
+		longitude	-174.2527
 		elevation	0.53
 		channels &Arr{
 			EHZ &Arr{
@@ -62,9 +62,9 @@ stations &Arr{
 		}
 	}
 	KOKL &Arr{
-		distance	0.06
+		distance	6.97
 		latitude	52.3232
-		longitude	-174.2002
+		longitude	-174.2022
 		elevation	0.76
 		channels &Arr{
 			EHZ &Arr{
@@ -74,9 +74,9 @@ stations &Arr{
 		}
 	}
 	KOSE &Arr{
-		distance	0.08
-		latitude	52.3458
-		longitude	-174.0485
+		distance	8.81
+		latitude	52.3447
+		longitude	-174.0505
 		elevation	0.62
 		channels &Arr{
 			EHZ &Arr{
@@ -86,13 +86,89 @@ stations &Arr{
 		}
 	}
 	KOFP &Arr{
-		distance	0.11
-		latitude	52.2751
-		longitude	-174.0972
+		distance	12.79
+		latitude	52.2740
+		longitude	-174.0992
 		elevation	0.66
 		channels &Arr{
 			EHZ &Arr{
-				use	1
+				use	0
+				threshold	0.0
+			}
+		}
+	}
+	ATKA &Arr{
+		distance	20.15
+		latitude	52.2016
+		longitude	-174.1975
+		elevation	0.06
+		channels &Arr{
+			BHZ &Arr{
+				use	0
+				threshold	0.0
+			}
+			BHN &Arr{
+				use	0
+				threshold	0.0
+			}
+			BHE &Arr{
+				use	0
+				threshold	0.0
+			}
+			LCE &Arr{
+				use	0
+				threshold	0.0
+			}
+			LCQ &Arr{
+				use	0
+				threshold	0.0
+			}
+			VCO &Arr{
+				use	0
+				threshold	0.0
+			}
+			VEA &Arr{
+				use	0
+				threshold	0.0
+			}
+			VEC &Arr{
+				use	0
+				threshold	0.0
+			}
+			VEP &Arr{
+				use	0
+				threshold	0.0
+			}
+			VKI &Arr{
+				use	0
+				threshold	0.0
+			}
+			VMU &Arr{
+				use	0
+				threshold	0.0
+			}
+			VMV &Arr{
+				use	0
+				threshold	0.0
+			}
+			VMW &Arr{
+				use	0
+				threshold	0.0
+			}
+			VPB &Arr{
+				use	0
+				threshold	0.0
+			}
+			BNZ &Arr{
+				use	0
+				threshold	0.0
+			}
+			BNN &Arr{
+				use	0
+				threshold	0.0
+			}
+			BNE &Arr{
+				use	0
 				threshold	0.0
 			}
 		}

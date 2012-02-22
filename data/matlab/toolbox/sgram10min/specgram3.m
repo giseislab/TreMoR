@@ -14,9 +14,9 @@ numw = length(w);
 if numw==0
 	return;
 end
-%if ~exist('s','var')
-	s = spectralobject(1024, 824, 12, [40 120]);
-%end
+if ~exist('s','var')
+	s = spectralobject(1024, 924, 10, [60 120]);
+end
 if ~exist('spectrogramFraction','var')
 	spectrogramFraction = 1;
 end
@@ -26,6 +26,7 @@ print_debug(sprintf('%d waveform objects',numel(w)),0);
 % draw spectrogram using Celso's 
 try
 	sg = specgram(s, w, 'xunit', 'date', 'colorbar', 'none', 'yscale', 'normal', 'colormap', 'jet'); % default for colormap is SPECTRAL_MAP
+
 catch
 	save specgram-fillempty-failed.mat w
 	print_debug('specgram failed on waveform vector. Trying again, using nonempty rather than fillempty',0);
@@ -92,6 +93,10 @@ for c=1:numw
 	if spectrogramFraction < 1
 		plotTrace(tracePosition, get(w(numw-c+1),'data'), get(w(numw-c+1),'freq'), Xtickmarks, wt);
 		set(gca,'XLim', [wt.start wt.stop]); % added 20111214 to align trace with spectrogram when data missing (prevent trace being stretched out)
+		thischan = get(w(c), 'channel');
+		if (regexp(thischan, 'BH.'))
+			set(gca, 'Color', [1 .5 .5]);
+		end
 	end
 end
 result = 1;

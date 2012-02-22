@@ -1,14 +1,13 @@
 function tremor_winston2mat(subnets, tw)
 global paths PARAMS
 WINSTON_DATASOURCE(1) = datasource('winston', 'churchill.giseis.alaska.edu', 16022);
-WINSTON_DATASOURCE(2) = datasource('winston', 'humpy.giseis.alaska.edu', 16022);
-WINSTON_DATASOURCE(3) = datasource('winston', 'pubavo1.wr.usgs.gov', 16022);
+%WINSTON_DATASOURCE(2) = datasource('winston', 'humpy.giseis.alaska.edu', 16022);
+%WINSTON_DATASOURCE(2) = datasource('winston', 'pubavo1.wr.usgs.gov', 16022);
 print_debug(sprintf('> %s',mfilename),1)
 
 %%%%%%%%%%%%%%%%% LOOP OVER SUBNETS / STATIONS
 % loop over all subnets
 for subnet_num=1:length(subnets)
-%  try % try this subnet
 	% which subnet?
 	subnet = subnets(subnet_num).name;
 
@@ -24,86 +23,58 @@ for subnet_num=1:length(subnets)
 
 		% Have we already process this timewindow?
 		tenminspfile = getSgram10minName(subnet,enum);
-		if strcmp(PARAMS.mode, 'realtime')
-			filenameToTry = sprintf('%s_%s.mat',subnet,datestr(snum,30));
-			try
-				mylist=ls(sprintf('waveform_files/*/%s',filenameToTry));
-				% go to next timewindow because the waveform MAT exists somewhere in the processing system
-				continue;
-			catch
-				% waveform MAT file not found
-				% need to check for spectrogram file too
-				if exist(tenminspfile,'file')
-					% if the spectrogram PNG has at least 100000 bytes, it is probably ok
-					% less, and it probably had a lot of missing data, or was not created at all
-					fileinfo = dir(tenminspfile);
-					if (fileinfo.bytes > 100000)
-						% go to next timewindow because the spectrogram PNG exists and looks big enough
-						continue;	
-					end
-				else
-					% 20111213: Create a zero size spectrogram image, so we know there was an attempt to run IceWeb on this timewindow
-					%system(sprintf('touch %s',tenminspfile)); 
-				end
-			end 
-		end
-
-		% Output some information
-		disp(sprintf('\n***** Time Window *****'));
 		diaryname = getSgramDiaryName(subnet, enum);
 		diary(diaryname);
-		disp(sprintf('%s at %s',subnet , datestr(now)));
-		disp(sprintf('Start time is %s UTC',datestr(snum)));
-		disp(sprintf('End time is %s UTC',datestr(enum)));
+		disp(sprintf('%s %s: Started',mfilename, datestr(utnow)));
+
+		if strcmp(PARAMS.mode, 'realtime')
+			% need to check for spectrogram file too
+			if exist(tenminspfile,'file')
+				% go to next timewindow because the spectrogram PNG exists
+				disp(sprintf('%s %s: Data already processed because spectrogram file %s already exists. Skipping',mfilename, datestr(utnow), tenminspfile));
+				diary off;
+				continue;	
+			else
+				% 20111213: Create a zero size spectrogram image, so we know there was an attempt to run IceWeb on this timewindow
+				system(sprintf('touch %s',tenminspfile)); 
+				disp(sprintf('%s %s: Created 0 length spectrogram file %s',mfilename, datestr(utnow), tenminspfile));
+			end
+		end
 
 		% Get waveform data
+		disp(sprintf('%s %s: Getting waveforms for %s from %s to %s at %s',mfilename, datestr(utnow), subnet , datestr(snum), datestr(enum)));
+		w = getwinstonwaveforms(scnl, snum, enum, WINSTON_DATASOURCE);
+
+		% Did we get any data - if not, delete spectrogram file so it will try again later, and quit loop.	
+		if isempty(w)
+			disp(sprintf('%s %s: No waveform data found - skipping',mfilename, datestr(utnow)));
+			delete(tenminspfile)
+			diary off;
+			break;
+		end
+
+		% Did we get enough data - if not, delete spectrogram file so it will try again later, and quit loop.
 		secsRequested = (enum - snum) * 86400;
-		secsGot = 0.0;
 		minFraction = 0.99;
- 		while (secsGot/secsRequested) < minFraction
-			w = getwinstonwaveforms(scnl, snum, enum, WINSTON_DATASOURCE);
-			if isempty(w)
-				disp('No waveform data found');
-				break;
-			else
-				[wsnum, wenum] = gettimerange(w);
-				secsGotLastTime = secsGot;
-				secsGot = (max(wenum) - min(wsnum)) * 86400;
-				if (secsGotLastTime >= secsGot) % quit the loop as doing no better
-					fprintf('Still only got %.1f seconds of data - will not wait any longer\n',secsGot);	
-					break;
-				end
-				% Getting a strange error (see email about rtrun_matlab on 2011/12/20) - might be related to the pause statement
-				%if (secsGot/secsRequested) < minFraction && strcmp(PARAMS.mode, 'realtime') 
-				%	% Wait up to 5 seconds to get data again
-				%	pauseSecs = max([secsRequested - secsGot 5.0]);
-              			%	print_debug(sprintf('Pausing %.0f seconds for data to catch up', pauseSecs),1);
-				%	pause(pauseSecs); 
-				%end
-			end
+		[wsnum, wenum] = gettimerange(w);
+		secsGot = (max(wenum) - min(wsnum)) * 86400;
+ 		if (secsGot/secsRequested) < minFraction
+			fprintf('%s %s: Only got %.1f seconds of data - skipping\n',mfilename,datestr(utnow),secsGot);	
+			disp('Insufficient waveform data found');
+			delete(tenminspfile)
+			diary off;
+			break;
 		end
 
-		if ~isempty(w)
-			for woc=1:numel(w)
-				disp(sprintf('waveform %d, stachan %s-%s, samples %d',woc,get(w(woc), 'station'), get(w(woc), 'channel'), length(get(w(woc), 'data')) ));
-			end
+		% Save waveform data
+		save2waveformmat(w, 'waveform_files/loaded', snum, enum, subnet);
 
-			% Save waveform data
-			save2waveformmat(w, 'waveform_files/stage1_loaded', snum, enum, subnet);
-
-			% update benchmark log
-			logbenchmark(mfilename, toc);
-		else
-			disp('No waveform data from any datasource');
-		end
-
-		diary off;
-
-		disp(sprintf('***** Finished %s %s %s *****\n\n', subnet, datestr(snum,15), datestr(enum,15) ));
+		% update benchmark log
+		logbenchmark(mfilename, toc);
+		
+		disp(sprintf('%s %s: Finished',mfilename, datestr(utnow)));
+		diary off
 
 	end
- % catch
-%	disp(sprintf('Failed for subnet %s - probably something wrong with your subnets structure',subnet));
- % end
 end
 print_debug(sprintf('< %s',mfilename),1)

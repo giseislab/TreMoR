@@ -21,7 +21,6 @@ while 1,
 		data = data / m;
 		wavwrite(data, get(w(c), 'freq') * 120, soundfilename);
 	end
-   	delete(filename);
 	logbenchmark(mfilename, toc);
 	
 	% Pause briefly

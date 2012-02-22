@@ -3,7 +3,7 @@ global paths PARAMS
 
 print_debug(sprintf('> %s at %s',mfilename, datestr(now,31)),1)
 warning off
-load pf/runtime
+load pf/tremor_runtime
 %subnets = randomizesubnets(subnets);
 
 % Process arguments
@@ -18,11 +18,11 @@ else
 end
 snum = enum - nummins/1440;
 
-VALID_DATASOURCES = get_datasource(snum, enum); % there have to be  wfdisc rows ending later than 2nd argument, else no valid datasources
-if isempty(VALID_DATASOURCES)
-	disp('No valid datasources yet');
-	return;
-end
+%VALID_DATASOURCES = get_datasource(snum, enum); % there have to be  wfdisc rows ending later than 2nd argument, else no valid datasources
+%if isempty(VALID_DATASOURCES)
+%	disp('No valid datasources yet');
+%	return;
+%end
 %tremor_datascope2mat(subnets, tw, VALID_DATASOURCES);
 
 % loop over timewindows backwards, thereby prioritizing most recent data

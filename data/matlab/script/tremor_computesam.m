@@ -20,7 +20,6 @@ while 1,
     		%stats = waveform2f(w);
 	catch	
 		disp('waveform2stats failed');
-    		%delete(filename);
 	end
 
     	for c = 1:length(stats)
@@ -48,7 +47,6 @@ while 1,
     	end
 
         %save2waveformmat(w, 'waveform_files/stage3_samcomputed', snum, enum, subnet);
-        delete(filename);
 
 	logbenchmark(mfilename, toc);
 	diary off

@@ -33,7 +33,7 @@ end
 end
 
 if (source.longitude == -999)
-	[source.longitude, source.latitude, minlon, maxlon, minlat, maxlat] = readavovolcs(subnet);
+	[source.longitude, source.latitude, minlon, maxlon, minlat, maxlat] = readavovolcs(subnet, '/avort/modrun/pf/avo_volcs.pf');
 end
 
 if (source.longitude == -999 || source.latitude == -999)

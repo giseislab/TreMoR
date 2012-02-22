@@ -33,13 +33,13 @@ Gareloi
 ###############################################################
 ############# MODULES                        ##################
 ###############################################################
-compute1mindata     1                       # not used
-plotspectrograms    1                       # not used
+#compute1mindata     1                       # not used
+#plotspectrograms    1                       # not used
 detectAlarms        1                       # used in iceweb2
-plot1mindata        1                       # not used
-makeHTML            0                       # not used
-sound               0
-print               1
+#plot1mindata        1                       # not used
+#makeHTML            0                       # not used
+#sound               0
+#print               1
 
 ###############################################################
 ############# PATHS                          ##################
@@ -48,6 +48,15 @@ DBMASTER        dbmaster/master_stations    # used in db2stationmetadata, db2sta
 PFS             pf                          # used in openPointerToSubnet, pf2PARAMS, icewebpaths
 ONEMINDATA      1mindata                    # used in loadwfmeas, make1minPlots, plotdr, plotoneminwrapper, save1min2file, save2bob, save2wfmeas
 WEBDIR          www                         # used in make1minPlots, iceweb2, icewebpaths
+spectrograms	spectrograms
+
+
+##############################################################
+########### WHERE TO GET WAVEFORM DATA #######################
+##############################################################
+DATASOURCE	winston
+SERVER	churchill.giseis.alaska.edu
+PORT	16022
 
 ###############################################################
 ############# WAVEFORM PROCESSING            ##################
@@ -60,10 +69,10 @@ npoles	2
 ############# SPECTROGRAMS                   ##################
 ###############################################################
 nfft		1024	# must be a power of 2
-overlap		524
-blue		40
+overlap		924
+blue		60
 red         120
-max_freq	12.0
+max_freq	10.0
 
 ###############################################################
 ############# DERIVED DATA MEASUREMENTS      ##################

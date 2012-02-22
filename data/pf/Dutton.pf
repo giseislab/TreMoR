@@ -6,9 +6,9 @@ plots	1
 alarms	0
 stations &Arr{
 	DTN &Arr{
-		distance	0.04
-		latitude	55.1457
-		longitude	-162.2570
+		distance	4.76
+		latitude	55.1448
+		longitude	-162.2590
 		elevation	0.40
 		channels &Arr{
 			EHZ &Arr{
@@ -18,9 +18,9 @@ stations &Arr{
 		}
 	}
 	DT1 &Arr{
-		distance	0.08
-		latitude	55.1071
-		longitude	-162.2781
+		distance	8.96
+		latitude	55.1062
+		longitude	-162.2801
 		elevation	0.20
 		channels &Arr{
 			EHZ &Arr{
@@ -30,9 +30,9 @@ stations &Arr{
 		}
 	}
 	DRR3 &Arr{
-		distance	0.22
-		latitude	54.9669
-		longitude	-162.2611
+		distance	24.55
+		latitude	54.9660
+		longitude	-162.2631
 		elevation	0.46
 		channels &Arr{
 			EHZ &Arr{
@@ -42,9 +42,9 @@ stations &Arr{
 		}
 	}
 	DOL &Arr{
-		distance	0.24
-		latitude	55.1493
-		longitude	-161.8614
+		distance	26.42
+		latitude	55.1488
+		longitude	-161.8638
 		elevation	0.44
 		channels &Arr{
 			EHZ &Arr{
@@ -54,34 +54,10 @@ stations &Arr{
 		}
 	}
 	HAG &Arr{
-		distance	0.25
-		latitude	55.3178
-		longitude	-161.9025
-		elevation	0.50
-		channels &Arr{
-			EHZ &Arr{
-				use	1
-				threshold	0.0
-			}
-		}
-	}
-	PS4A &Arr{
-		distance	0.29
-		latitude	55.3469
-		longitude	-161.8539
-		elevation	0.32
-		channels &Arr{
-			EHZ &Arr{
-				use	1
-				threshold	0.0
-			}
-		}
-	}
-	BLDY &Arr{
-		distance	0.29
-		latitude	55.1945
-		longitude	-162.7836
-		elevation	0.26
+		distance	27.56
+		latitude	55.3170
+		longitude	-161.9045
+		elevation	0.52
 		channels &Arr{
 			EHZ &Arr{
 				use	1

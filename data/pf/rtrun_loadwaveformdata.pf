@@ -23,9 +23,10 @@ matlab_script   &Literal{ # This is the script that gets executed when Matlab st
 %	libgt.set_debug(2);
 	while 1
 		logbenchmark('loadwaveformdata', 0);
-		tremor_loadlivedata('snum', utnow-1/24, 'delaymins', 1);
+		%tremor_loadlivedata('snum', utnow-1/24, 'delaymins', 1);
+		tremor_loadlivedata();
 		pause(10);
 	end
 }
-matlab_timeout_sec	86400
+matlab_timeout_sec	0
 pf_revision_time	1152921082

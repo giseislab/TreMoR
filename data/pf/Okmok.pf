@@ -6,9 +6,9 @@ plots	1
 alarms	0
 stations &Arr{
 	OKCF &Arr{
-		distance	0.02
-		latitude	53.3958
-		longitude	-168.1362
+		distance	1.86
+		latitude	53.3948
+		longitude	-168.1382
 		elevation	0.69
 		channels &Arr{
 			EHZ &Arr{
@@ -18,9 +18,9 @@ stations &Arr{
 		}
 	}
 	OKCE &Arr{
-		distance	0.03
-		latitude	53.4270
-		longitude	-168.1643
+		distance	3.22
+		latitude	53.4260
+		longitude	-168.1663
 		elevation	0.52
 		channels &Arr{
 			BHZ &Arr{
@@ -38,9 +38,9 @@ stations &Arr{
 		}
 	}
 	OKSO &Arr{
-		distance	0.04
-		latitude	53.3575
-		longitude	-168.1599
+		distance	4.51
+		latitude	53.3565
+		longitude	-168.1619
 		elevation	0.46
 		channels &Arr{
 			BHZ &Arr{
@@ -58,9 +58,9 @@ stations &Arr{
 		}
 	}
 	OKWR &Arr{
-		distance	0.04
-		latitude	53.4347
-		longitude	-168.2056
+		distance	4.92
+		latitude	53.4337
+		longitude	-168.2076
 		elevation	1.02
 		channels &Arr{
 			EHZ &Arr{
@@ -70,10 +70,10 @@ stations &Arr{
 		}
 	}
 	OKNC &Arr{
-		distance	0.07
-		latitude	53.4570
-		longitude	-168.1237
-		elevation	0.42
+		distance	7.07
+		latitude	53.4559
+		longitude	-168.1257
+		elevation	0.40
 		channels &Arr{
 			BHZ &Arr{
 				use	1
@@ -90,9 +90,9 @@ stations &Arr{
 		}
 	}
 	OKTU &Arr{
-		distance	0.08
-		latitude	53.3839
-		longitude	-168.0411
+		distance	8.30
+		latitude	53.3829
+		longitude	-168.0431
 		elevation	0.65
 		channels &Arr{
 			EHZ &Arr{
@@ -102,13 +102,93 @@ stations &Arr{
 		}
 	}
 	OKWE &Arr{
-		distance	0.09
-		latitude	53.4721
-		longitude	-168.2398
+		distance	9.65
+		latitude	53.4711
+		longitude	-168.2418
 		elevation	0.45
 		channels &Arr{
 			EHZ &Arr{
-				use	1
+				use	0
+				threshold	0.0
+			}
+		}
+	}
+	OKER &Arr{
+		distance	9.87
+		latitude	53.4536
+		longitude	-168.0513
+		elevation	0.96
+		channels &Arr{
+			EHZ &Arr{
+				use	0
+				threshold	0.0
+			}
+		}
+	}
+	OKAK &Arr{
+		distance	12.96
+		latitude	53.4113
+		longitude	-168.3600
+		elevation	0.17
+		channels &Arr{
+			EHZ &Arr{
+				use	0
+				threshold	0.0
+			}
+		}
+	}
+	OKRE &Arr{
+		distance	13.59
+		latitude	53.5192
+		longitude	-168.1661
+		elevation	0.42
+		channels &Arr{
+			EHZ &Arr{
+				use	0
+				threshold	0.0
+			}
+		}
+	}
+	OKFG &Arr{
+		distance	16.94
+		latitude	53.4107
+		longitude	-167.9115
+		elevation	0.20
+		channels &Arr{
+			BHZ &Arr{
+				use	0
+				threshold	0.0
+			}
+			BHN &Arr{
+				use	0
+				threshold	0.0
+			}
+			BHE &Arr{
+				use	0
+				threshold	0.0
+			}
+		}
+	}
+	OKSP &Arr{
+		distance	18.22
+		latitude	53.2516
+		longitude	-168.2925
+		elevation	0.61
+		channels &Arr{
+			EHZ &Arr{
+				use	0
+				threshold	0.0
+			}
+		}
+	}
+	OKID &Arr{
+		distance	24.67
+		latitude	53.4764
+		longitude	-167.8182
+		elevation	0.44
+		channels &Arr{
+			EHZ &Arr{
+				use	0
 				threshold	0.0
 			}
 		}

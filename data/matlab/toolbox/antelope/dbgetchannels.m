@@ -1,6 +1,6 @@
 function channels=dbgetchannels(sta, dbstations)
 global paths
-print_debug(sprintf('> %s', mfilename),1)
+print_debug(sprintf('> %s', mfilename),4)
 db = dbopen(dbstations, 'r');
 db = dblookup_table(db, 'sitechan');
 db2 = dbsubset(db, sprintf('offdate == NULL  && sta == "%s"',sta));
@@ -15,3 +15,5 @@ if ~iscell(channels)
 end
 
 dbclose(db);
+print_debug(sprintf('< %s', mfilename),4)
+
