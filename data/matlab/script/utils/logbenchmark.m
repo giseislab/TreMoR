@@ -2,8 +2,10 @@ function logbenchmark(modulename, numsecs)
 modulename = regexprep(modulename,'[^\w'']','_');
 benchmarklock = sprintf('logs/benchmark_%s.lock',modulename);
 benchmarkfile = sprintf('logs/benchmark_%s.txt',modulename);
-while exist(benchmarklock, 'file')
-	pause(0.01);
+timewaited=0;
+while (exist(benchmarklock, 'file') & timewaited < 2.0)
+	pause(0.1);
+	timewaited = timewaited + 0.1;
 end
 system(sprintf('touch %s',benchmarklock));
 fbench = fopen(benchmarkfile, 'a');

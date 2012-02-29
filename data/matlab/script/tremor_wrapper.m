@@ -70,22 +70,22 @@ while 1,
 	%%%%%%%%%%%% COMPUTE / PLOT SPECTROGRAMS %%%%%%%%%%%		
 	tic;
 	tenminspfile = getSgram10minName(subnet, enum);
-	specgram3(w, sprintf('%s %s - %s UTC', subnet, datestr(snum,31), datestr(enum,13)), PARAMS.spectralobject , 0.75);
+	%specgram3(w, sprintf('%s %s - %s UTC', subnet, datestr(snum,31), datestr(enum,13)), PARAMS.spectralobject , 0.75);
+	specgram3(w, '', PARAMS.spectralobject , 0.75);
 	logbenchmark('computing & plotting spectrograms', toc);
 	disp(sprintf('%s %s: computing & plotting spectrograms (%.1f s)', mfilename, datestr(utnow), toc));
 
 	%%%%%%%%%%%% SAVE TO IMAGE FILE AND CREATE THUMBNAIL %%%%%%%%%%%
 	orient tall;
 	tic;
-	if saveImageFile(tenminspfile, 200)
+	if saveImageFile(tenminspfile, 72)
+
 		fileinfo = dir(tenminspfile);
 		print_debug(sprintf('%s %s: spectrogram PNG size is %d',mfilename, datestr(utnow), fileinfo.bytes),0);	
 
-		% Create a thumbnail spectrogram
-		[pathstr, name, ext, vern]=fileparts(tenminspfile);
-		thumbfile=sprintf('%s/thumb_%s%s',pathstr, name, ext);
-		makeThumbnail(thumbfile);
-    		makesgramthumbnail(tenminspfile);
+		% make thumbnails
+		makespectrogramthumbnails(tenminspfile);
+
 		try
 			system('touch spectrograms/lastspectrogram.png');
 		end

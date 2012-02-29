@@ -71,9 +71,9 @@ for c=1:numw
 	ht = get(ha(c), 'Title');
 	set(ht, 'String', '');
 end
-if exist('titlestr','var')
-	set(ht,'String',titlestr,'Color',[0 0 0],'FontSize',[14], 'FontWeight',['bold']');
-end
+%if exist('titlestr','var')
+%	set(ht,'String',titlestr,'Color',[0 0 0],'FontSize',[14], 'FontWeight',['bold']');
+%end
 
 % Set appropriate date ticks
 [wsnum, wenum]=gettimerange(w);
@@ -88,7 +88,8 @@ set(ha,'XLim', [wt.start wt.stop]);
 
 % Reset axes position & squeeze in the trace panels
 for c=1:numw
-	[spectrogramPosition, tracePosition] = calculateFramePositions(length(w), c, spectrogramFraction, 0.8, 0.8);
+	%[spectrogramPosition, tracePosition] = calculateFramePositions(length(w), c, spectrogramFraction, 0.8, 0.8);
+	[spectrogramPosition, tracePosition] = calculateFramePositions(length(w), c, spectrogramFraction, 0.88, 0.95);
 	set(ha(c), 'position', spectrogramPosition);
 	if spectrogramFraction < 1
 		plotTrace(tracePosition, get(w(numw-c+1),'data'), get(w(numw-c+1),'freq'), Xtickmarks, wt);
