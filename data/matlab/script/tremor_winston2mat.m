@@ -53,17 +53,22 @@ for subnet_num=1:length(subnets)
 			break;
 		end
 
-		% Did we get enough data - if not, delete spectrogram file so it will try again later, and quit loop.
-		secsRequested = (enum - snum) * 86400;
-		minFraction = 0.99;
-		[wsnum, wenum] = gettimerange(w);
-		secsGot = (max(wenum) - min(wsnum)) * 86400;
- 		if (secsGot/secsRequested) < minFraction
-			fprintf('%s %s: Only got %.1f seconds of data - skipping\n',mfilename,datestr(utnow),secsGot);	
-			disp('Insufficient waveform data found');
-			delete(tenminspfile)
-			diary off;
-			break;
+		% If we are requesting real-time data, wait for data to backfill because there may be latency.
+		% Otherwise, ignore this condition.
+		if (utnow - snum) < (10/1440) % real-time data were requested
+			 
+			% Did we get enough data - if not, delete spectrogram file so it will try again later, and quit loop.
+			secsRequested = (enum - snum) * 86400;
+			minFraction = 0.99;
+			[wsnum, wenum] = gettimerange(w);
+			secsGot = (max(wenum) - min(wsnum)) * 86400;
+ 			if (secsGot/secsRequested) < minFraction
+				fprintf('%s %s: Only got %.1f seconds of data - skipping\n',mfilename,datestr(utnow),secsGot);	
+				disp('Insufficient waveform data found');
+				delete(tenminspfile)
+				diary off;
+				break;
+			end
 		end
 
 		% Save waveform data
