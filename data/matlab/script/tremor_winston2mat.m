@@ -2,7 +2,7 @@ function tremor_winston2mat(subnets, tw)
 global paths PARAMS
 WINSTON_DATASOURCE(1) = datasource('winston', 'churchill.giseis.alaska.edu', 16022);
 %WINSTON_DATASOURCE(2) = datasource('winston', 'humpy.giseis.alaska.edu', 16022);
-%WINSTON_DATASOURCE(2) = datasource('winston', 'pubavo1.wr.usgs.gov', 16022);
+WINSTON_DATASOURCE(2) = datasource('winston', 'pubavo1.wr.usgs.gov', 16022);
 print_debug(sprintf('> %s',mfilename),1)
 
 %%%%%%%%%%%%%%%%% LOOP OVER SUBNETS / STATIONS

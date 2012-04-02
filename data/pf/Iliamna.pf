@@ -5,6 +5,18 @@ onemindata	1
 plots	1
 alarms	0
 stations &Arr{
+	ILI &Arr{
+		distance	9.08
+		latitude	60.0807
+		longitude	-152.9606
+		elevation	0.77
+		channels &Arr{
+			EHZ &Arr{
+				use	1
+				threshold	0.0
+			}
+		}
+	}
 	IVS &Arr{
 		distance	2.64
 		latitude	60.0086
@@ -66,18 +78,6 @@ stations &Arr{
 		latitude	59.9570
 		longitude	-153.0703
 		elevation	1.12
-		channels &Arr{
-			EHZ &Arr{
-				use	1
-				threshold	0.0
-			}
-		}
-	}
-	ILI &Arr{
-		distance	9.08
-		latitude	60.0807
-		longitude	-152.9606
-		elevation	0.77
 		channels &Arr{
 			EHZ &Arr{
 				use	1
