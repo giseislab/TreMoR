@@ -79,8 +79,8 @@ if ~finished
 				try	
 					if length(scnltoget)>0
 						print_debug(sprintf('- Attempting to load waveform data for %s-%s at %s from %s',get(scnl(c),'station'),get(scnl(c),'channel'),datestr(snum,31),servername),0);
-						print_waveform_call(snum, enum, scnltoget, ds(dsi))
-        	 				w_new = waveform(ds(dsi), scnltoget, snum, enum); 
+						print_waveform_call(snum, enum, scnltoget(c), ds(dsi))
+        	 				w_new = waveform(ds(dsi), scnltoget(c), snum, enum); 
 					else
 						continue;
 					end
@@ -144,7 +144,7 @@ disp('Waveform call:')
 fprintf('\tsnum = %f (%s)\n',snum,datestr(snum));
 fprintf('\tenum = %f (%s)\n',enum,datestr(enum));
 for c=1:length(scnl)
-	fprintf('\tscnl(%d) = scnlobject('''%s''', '''%s''', '''%s''', '''%s''');\n',c, get(scnl(c), 'station'), get(scnl(c), 'channel'), get(scnl(c), 'network'), get(scnl(c), 'location'));
+	fprintf('\tscnl(%d) = scnlobject(''%s'', ''%s'', ''%s'', ''%s'');\n',c, get(scnl(c), 'station'), get(scnl(c), 'channel'), get(scnl(c), 'network'), get(scnl(c), 'location'));
 end
-fprintf('\tds = datasource('''%s''', '''%s''', %d);\n', get(ds, 'type'), get(ds, 'server'), get(ds, 'port'));
+fprintf('\tds = datasource(''%s'', ''%s'', %d);\n', get(ds, 'type'), get(ds, 'server'), get(ds, 'port'));
 fprintf('\tw = waveform(ds, scnl, %f, %f)\n', snum, enum);

@@ -1,8 +1,7 @@
-function tremor_winston2mat(subnets, tw)
+function tremor_antelope2mat(subnets, tw)
 global paths PARAMS
-WINSTON_DATASOURCE(1) = datasource('winston', 'churchill.giseis.alaska.edu', 16022);
-%WINSTON_DATASOURCE(2) = datasource('winston', 'humpy.giseis.alaska.edu', 16022);
-WINSTON_DATASOURCE(2) = datasource('winston', 'pubavo1.wr.usgs.gov', 16022);
+ANTELOPE_DATASOURCE(1) = datasource('antelope', ...
+       '/avort/devrun/db/archive');
 print_debug(sprintf('> %s',mfilename),1)
 
 %%%%%%%%%%%%%%%%% LOOP OVER SUBNETS / STATIONS
@@ -43,7 +42,7 @@ for subnet_num=1:length(subnets)
 
 		% Get waveform data
 		disp(sprintf('%s %s: Getting waveforms for %s from %s to %s at %s',mfilename, datestr(utnow), subnet , datestr(snum), datestr(enum)));
-		w = getwinstonwaveforms(scnl, snum, enum, WINSTON_DATASOURCE);
+		w = getantelopewaveforms(scnl, snum, enum, ANTELOPE_DATASOURCE);
 
 		% Did we get any data - if not, delete spectrogram file so it will try again later, and quit loop.	
 		if isempty(w)
@@ -64,7 +63,7 @@ for subnet_num=1:length(subnets)
 			secsGot = (max(wenum) - min(wsnum)) * 86400;
  			if (secsGot/secsRequested) < minFraction
 				fprintf('%s %s: Only got %.1f seconds of data - skipping\n',mfilename,datestr(utnow),secsGot);	
-				disp('Insufficient waveform data found');
+				disp('Insufficient waveform data found - deleting blank spectrogram file');
 				delete(tenminspfile)
 				diary off;
 				break;
@@ -73,6 +72,7 @@ for subnet_num=1:length(subnets)
 
 		% Save waveform data
 		save2waveformmat(w, 'waveform_files/loaded', snum, enum, subnet);
+		%save2waveformmat(w, 'waveform_files/loaded', snum, enum, subnet, 'copy', 'waveform_files_copy');
 
 		% update benchmark log
 		logbenchmark(mfilename, toc);
