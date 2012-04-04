@@ -3,33 +3,36 @@
 ######################################################
 
 Processes &Tbl{
-rtrun_tremor			nice rtrun_matlab -p rtrun_tremor -v
-rtrun_loadwaveformdata	nice rtrun_matlab -p rtrun_loadwaveformdata -v
-rtrun_filterwaveformdata	nice  rtrun_matlab -p rtrun_filterwaveformdata -v
-rtrun_createspectrograms	nice rtrun_matlab -p rtrun_createspectrograms -v
-rtrun_createspectrograms2	nice rtrun_matlab -p rtrun_createspectrograms -v
-rtrun_createspectrograms3	nice rtrun_matlab -p rtrun_createspectrograms -v
-rtrun_createspectrograms4	nice rtrun_matlab -p rtrun_createspectrograms -v
-rtrun_computesamdata	nice rtrun_matlab -p rtrun_computesam -v
+rtrun_loadwaveformdata	nice  rtrun_matlab -p rtrun_loadwaveformdata -v -l lockfiles/rtrun_loadwaveformdata.lock
+rtrun_loadmissingdata	nice  rtrun_matlab -p rtrun_loadmissingdata -v -l lockfiles/rtrun_loadmissingdata.lock
+rtrun_dealloaded2filter	nice rtrun_matlab -p rtrun_dealloaded2filter -v -l lockfiles/rtrun_dealloaded2filter.lock
+rtrun_tremorwrapper	nice  rtrun_matlab -p rtrun_tremorwrapper -v -l lockfiles/rtrun_tremorwrapper.lock
+rtrun_tremorwrapper2	nice rtrun_matlab -p rtrun_tremorwrapper2 -v -l lockfiles/rtrun_tremorwrapper2.lock
+rtrun_tremorwrapper3	nice  rtrun_matlab -p rtrun_tremorwrapper3 -v -l lockfiles/rtrun_tremorwrapper3.lock
+rtrun_tremorwrapper4	nice  rtrun_matlab -p rtrun_tremorwrapper4 -v -l lockfiles/rtrun_tremorwrapper4.lock
+rtrun_tremorwrapper5	nice rtrun_matlab -p rtrun_tremorwrapper5 -v -l lockfiles/rtrun_tremorwrapper5.lock
 }
 
 Run     &Arr{
-rtrun_tremor	no
-rtrun_loadwaveformdata	yes
-rtrun_filterwaveformdata	yes
-rtrun_createspectrograms	yes
-rtrun_createspectrograms2	yes
-rtrun_createspectrograms3	yes
-rtrun_createspectrograms4	yes
-rtrun_computesamdata	yes
+rtrun_loadwaveformdata	no
+rtrun_loadmissingdata	no
+rtrun_dealloaded2filter	yes
+rtrun_tremorwrapper	yes
+rtrun_tremorwrapper2	yes
+rtrun_tremorwrapper3	yes
+rtrun_tremorwrapper4	yes
+rtrun_tremorwrapper5	yes
 }
 
 Pf_restart      &Tbl{
-rtrun_tremor
-rtrun_loadwaveformdata
-rtrun_filterwaveformdata
-rtrun_createspectrograms
-rtrun_computesamdata
+rtrun_loadwaveformdata	
+rtrun_loadmissingdata	
+rtrun_dealloaded2filter		
+rtrun_tremorwrapper	
+rtrun_tremorwrapper2	
+rtrun_tremorwrapper3	
+rtrun_tremorwrapper4	
+rtrun_tremorwrapper5	
 }
 
 Defines &Arr{
@@ -63,14 +66,16 @@ HTTP			http://giseis.alaska.edu/AVO/internal/avoseis/dev/
 HOST	PRESERVE
 TREMOR_HOME	PRESERVE
 MATLAB_ANTELOPE	PRESERVE
+INTERNALWEBPRODUCTS	PRESERVE
+INTERNALWEBPRODUCTSURL	PRESERVE
 }
 
 # Start/restart parameters
 Start_period                     10      
 Minimum_period_between_starts   10      
-Failure_threshold       300     # 5 minutes
-Failure_repetitions     5       
-Failure_retry_period    3600    # 1 hour
+Failure_threshold       60     #  seconds
+Failure_repetitions     1440       
+Failure_retry_period    86400    #  1 day
 
 Shutdown_order &Tbl{
 }
@@ -96,38 +101,48 @@ max_cron_gap    3600
 
 crontab &Arr{
 #  task    UTC/LOCAL Min Hr Day Month DayOfWeek  Command
-
 # TreMor2 cronjobs
-#makeTreMoRMenu UTC 4,14,24,34,44,54 * * * * nice bin/makeTreMoRMenu  pf
-# This will not work because now need to search subnet/yyyy/mm/dd
-## remove_old_spectrograms UTC 57 * * * * nice remove_after 3 $TreMoR2_WEBPLOTS/sp/*/2*/*/* *.png
-## remove_old_soundfiles UTC 27 * * * * nice remove_after 7 $TreMoR2_WEBPLOTS/sound *.wav
+makeTreMoRMenu UTC 0 * * * * nice bin/makeTreMoRMenu  pf
 # TreMor_diagnostics UTC 4,14,24,34,44,54 * * * * nice bin/TreMor_diagnostics.pl pf # move to regular rtexec.pf, just in case this gets switched off accidentally
-rtrun_makesamplots UTC 1 * * * *	nice rtrun_matlab -p rtrun_makesamplots -v
-rtrun_runalarm UTC 0,20,40 * * * *	nice rtrun_matlab -p rtrun_runalarm -v
+## rtrun_makesamplots UTC 1 * * * * nice rtrun_matlab -p rtrun_makesamplots -v
+## rtrun_runalarm UTC 0,20,40 * * * * nice rtrun_matlab -p rtrun_runalarm -v
+rtrun_runbenchmarkplots UTC 0,20,40 * * * * nice rtrun_matlab -p rtrun_benchmarkplots -v
+bronco_diagnostics UTC 0,20,40 * * * * nice bin/system_diagnostics.tcsh > www/bronco_diagnostics.txt
+# remove any spectrograms older than 9 days and smaller than 1000000 bytes (1MB) - this should be all of them!
+## remove_old_spectrograms UTC 0,20,40 * * * * bin/remove_small_spectrograms 365 999999999
+itsrunning UTC * * * * * epoch now
+subnets2kiska LOCAL 50 17 * * * rsync pf/parameters.pf www/pf/parameters.pf
+# keep all log files small
+cleanlogs list 59 * * * * truncate_log -m 50 -r logs/*
+# kill all MATLAB processes once a day, because rtrun_matlab creates zombies, probably when a script crashes, and can lead to multiple MATLAB jobs for the same task. These are probably what ultimately consumes all disk memory and causes bronco to become unresponsive at terminal and to ssh. Here we use killall -9 MATLAB and rm -f /tmp/rtrun_matlab*
+killallmatlabjobs list 37 7,19 * * * bin/killmatlabjobs.sh
 }
 
 Time_to_die     30
 
 Limit   &Arr{
 cputime         unlimited
+#cputime         100
 filesize        unlimited
+#filesize        10 # assuming this in Mbytes
 descriptors     unlimited       # large for orb2db
 stacksize       8388608         # unlimited is too big: can't have larger orbs
 datasize        unlimited
 coredumpsize    unlimited       # so that we may get a core dump
+#coredumpsize    0       # assuming this prevents core dump
 vmemoryuse      unlimited
+#vmemoryuse      10 #assuming this is megatbytes
 }
 
 umask	002
 
 Database        rtsys/rtsys
 
-email_incident_reports  incidents@brtt.com
+email_incident_reports  gthompson@alaska.edu
 
 include_corefile        no
 
-Chatter_limit   7200    # minimum gap between messages
+Chatter_limit   7200    # minimum gap between messages= 2hours
 Min_vmfree        50    # Mbytes
 
 
