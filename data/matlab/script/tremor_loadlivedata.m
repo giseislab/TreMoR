@@ -29,7 +29,7 @@ snum = enum - nummins/1440;
 for count = length(tw.start) : -1 : 1
 	thistw.start = tw.start(count);	
 	thistw.stop = tw.stop(count);	
-	tremor_winston2mat(subnets, thistw);
+	tremor_datasource2mat(subnets, thistw);
 end
 
 

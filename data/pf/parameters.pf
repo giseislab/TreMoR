@@ -54,9 +54,11 @@ spectrograms	spectrograms
 ##############################################################
 ########### WHERE TO GET WAVEFORM DATA #######################
 ##############################################################
-DATASOURCE	winston
-SERVER	churchill.giseis.alaska.edu
-PORT	16022
+datasources &Tbl{
+# type...path...port
+antelope /avort/devrun/db/archive 0
+winston	churchill.giseis.alaska.edu 16022
+}
 
 ###############################################################
 ############# WAVEFORM PROCESSING            ##################

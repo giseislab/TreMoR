@@ -1,4 +1,4 @@
-function parameters2subnetpf()
+function parameters2config()
 km = 30.0; % km
 maxchans = 30;
 [paths,PARAMS]=pf2PARAMS();

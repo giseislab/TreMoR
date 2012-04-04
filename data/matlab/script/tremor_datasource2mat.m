@@ -1,7 +1,13 @@
-function tremor_antelope2mat(subnets, tw)
+function tremor_datasource2mat(subnets, tw)
 global paths PARAMS
-ANTELOPE_DATASOURCE(1) = datasource('antelope', ...
-       '/avort/devrun/db/archive');
+for c=1:numel(PARAMS.datasource)
+PARAMS.datasource(c)
+	if strcmp(PARAMS.datasource(c).type, 'antelope')
+		gismo_datasource(c) = datasource(PARAMS.datasource(c).type, PARAMS.datasource(c).path);
+	else
+		gismo_datasource(c) = datasource(PARAMS.datasource(c).type, PARAMS.datasource(c).path, str2num(PARAMS.datasource(c).port));
+	end
+end
 print_debug(sprintf('> %s',mfilename),1)
 
 %%%%%%%%%%%%%%%%% LOOP OVER SUBNETS / STATIONS
@@ -12,6 +18,7 @@ for subnet_num=1:length(subnets)
 
 	% get IceWeb stations
 	station = subnets(subnet_num).stations;
+	%station = subnets(subnet_num).stations(1);
     	scnl = station2scnl(station, 'AV');
 
 	% loop over all elements of tw
@@ -42,7 +49,7 @@ for subnet_num=1:length(subnets)
 
 		% Get waveform data
 		disp(sprintf('%s %s: Getting waveforms for %s from %s to %s at %s',mfilename, datestr(utnow), subnet , datestr(snum), datestr(enum)));
-		w = getantelopewaveforms(scnl, snum, enum, ANTELOPE_DATASOURCE);
+		w = waveform_wrapper(scnl, snum, enum, gismo_datasource);
 
 		% Did we get any data - if not, delete spectrogram file so it will try again later, and quit loop.	
 		if isempty(w)

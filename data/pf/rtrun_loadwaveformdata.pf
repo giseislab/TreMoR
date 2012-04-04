@@ -20,7 +20,7 @@ matlab_pf       &Arr{ # Any variables given here will be available in Matlab wit
 # after matlab_paths added, temporary parameter file created, and Pf created as a pointer to it
 matlab_script   &Literal{ # This is the script that gets executed when Matlab starts,
 	startup_tremor;
-%	libgt.set_debug(2);
+	libgt.set_debug(12);
 	while 1
 		logbenchmark('loadwaveformdata', 0);
 		tremor_loadlivedata('delaymins',11);

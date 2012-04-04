@@ -1,11 +1,11 @@
-function w=getwaveforms(scnl, snum, enum, ds);
-% GETWAVEFORMS returns a waveform object (or vector of waveform objects)
+function w=waveform_wrapper(scnl, snum, enum, ds);
+% WAVEFORM_WRAPPER returns a waveform object (or vector of waveform objects)
 % corresponding to the scnlobject and datenums passed as parameters. 
-% W = getWaveforms(SCNLOBJECT, SNUM, ENUM, DS)
+% W = waveform_wrapper(SCNLOBJECT, SNUM, ENUM, DS)
 % For help on building a SCNLOBJECT structure type 'help scnlobject'.
 % For help on the WAVEFORM class, type 'help waveform'.
 %
-%	w = getwaveforms(scnl, snum, enum, fraction);
+%	w = waveform_wrapper(scnl, snum, enum, fraction);
 %
 % Glenn Thompson, 2008
 %
@@ -146,5 +146,12 @@ fprintf('\tenum = %f (%s)\n',enum,datestr(enum));
 for c=1:length(scnl)
 	fprintf('\tscnl(%d) = scnlobject(''%s'', ''%s'', ''%s'', ''%s'');\n',c, get(scnl(c), 'station'), get(scnl(c), 'channel'), get(scnl(c), 'network'), get(scnl(c), 'location'));
 end
-fprintf('\tds = datasource(''%s'', ''%s'', %d);\n', get(ds, 'type'), get(ds, 'server'), get(ds, 'port'));
+if (strcmp(get(ds, 'type'), 'winston'))
+	get(ds, 'server'), get(ds, 'port');
+	fprintf('\tds = datasource(''winston'', ''%s'', %d);\n', get(ds, 'server'), get(ds, 'port'));
+end
+if (strcmp(get(ds, 'type'), 'antelope'))
+	filenames = getfilename(ds, scnl(1), snum);
+	fprintf('\tds = datasource(''antelope'', ''%s'');\n', filenames{1});
+end
 fprintf('\tw = waveform(ds, scnl, %f, %f)\n', snum, enum);
