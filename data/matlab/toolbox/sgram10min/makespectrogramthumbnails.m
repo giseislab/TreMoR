@@ -1,11 +1,13 @@
 function makespectrogramthumbnails(tenminspfile)
+printfunctionstack('>');
+%print_debug('> makespectrogramthumbnails', 2);
 
 % figure 1 should be a large spectrogram with traces, cropped nicely. Now remove labels and maximise panels.
 removelabels;
 
 % we need a name for the labelless large spectrogram
 [tmppath, tmpbase, tmpext] = fileparts(tenminspfile);
-tmpfile = sprintf('%s/%s_labelless%s',tmppath,tmpbase,tmpext)
+tmpfile = sprintf('%s/%s_labelless%s',tmppath,tmpbase,tmpext);
 
 % print large labelless PNG
 saveImagefile(tmpfile, 72);
@@ -50,6 +52,9 @@ close;
 %thumbfile = sprintf('%s/thumb_%s%s',tmppath, tmpbase, tmpext);
 %makeThumbnail(thumbfile); % traceless, printed
 %makesgramthumbnail(tenminspfile); % traceful, imwritten
+
+%print_debug('< makespectrogramthumbnails', 2);
+printfunctionstack('<');
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

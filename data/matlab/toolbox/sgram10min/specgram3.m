@@ -7,7 +7,8 @@ function result=specgram3(w, titlestr, s, spectrogramFraction)
 %
 % waveform should already have had zero-length waveform objects replaced by zero vectors 
 
-print_debug(sprintf('> %s',mfilename),2)
+%print_debug(sprintf('> %s',mfilename),2)
+printfunctionstack('>');
 result = 0;
 
 numw = length(w);
@@ -101,7 +102,8 @@ for c=1:numw
 	end
 end
 result = 1;
-print_debug(sprintf('< %s',mfilename),2);
+%print_debug(sprintf('< %s',mfilename),2);
+printfunctionstack('<');
 
 
 

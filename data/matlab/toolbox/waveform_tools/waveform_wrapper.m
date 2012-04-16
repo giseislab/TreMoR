@@ -10,7 +10,8 @@ function w=waveform_wrapper(scnl, snum, enum, ds);
 % Glenn Thompson, 2008
 %
 
-print_debug(sprintf('> %s', mfilename),1)
+%print_debug(sprintf('> %s', mfilename),1)
+printfunctionstack('>');
 
 % get datasource
 if isempty(ds)
@@ -38,16 +39,29 @@ end
 print_debug('- ALL STATIONS MODE',2);
 finished = false;
 for dsi=1:length(ds)
+
+	% for informational purposes only, record where we get data from
+	datapath='';
+	if strcmp(get(ds(dsi), 'type'), 'antelope')
+		datapath = getfilename(ds(dsi), scnl(1), snum);
+	else
+		datapath = get(ds(dsi), 'server');
+	end
+	if strcmp(class(datapath), 'cell')
+		datapath = datapath{1};
+	end
+
 	scnltoget = scnl(scnlgot==0);
 	if (length(scnltoget)==0)
 		print_debug('- Got data for all scnls',2);
 		finished = true;
 		break;
+	else
+		print_debug(sprintf('- There are still %d scnls to get waveform objects for', length(scnltoget)), 2);
 	end
-	servername = get(ds(dsi),'server');	
 %	try	
 		if length(scnltoget)>0
-			print_debug(sprintf('- Attempting to load waveform data for %d remaining stations (of %d total) at %s from %s',length(scnltoget),numscnls,datestr(snum,31),servername),0);
+			print_debug(sprintf('- Attempting to load waveform data for %d remaining stations (of %d total) from %s to %s',length(scnltoget),numscnls,datestr(snum,31),datestr(enum,31)),0);
 			print_waveform_call(snum, enum, scnltoget, ds(dsi))
                        	w_new = waveform(ds(dsi), scnltoget, snum, enum); 
 		else
@@ -58,7 +72,7 @@ for dsi=1:length(ds)
 %		w_new = [];
 %	end
 	if ~isempty(w_new)
-		[w, scnlgot] = deal_waveforms(w, w_new, scnlgot, servername);
+		[w, scnlgot] = deal_waveforms(w, w_new, scnlgot, 'all', datapath);
 	end
 end	
 
@@ -66,19 +80,31 @@ end
 if ~finished 
 	print_debug('- SINGLE CHANNEL MODE',2);
 	for dsi=1:length(ds)
+
+		% for informational purposes only, record where we get data from
+		datapath='';
+		if strcmp(get(ds(dsi), 'type'), 'antelope')
+			datapath = getfilename(ds(dsi), scnl(1), snum);
+		else
+			datapath = get(ds(dsi), 'server');
+		end
+		if strcmp(class(datapath), 'cell')
+			datapath = datapath{1};
+		end
+
 		scnltoget = scnl(scnlgot==0);
 		if (length(scnltoget)==0)
 			print_debug('- Got data for all scnls',2);
 			finished = true;
 			break;
+		else
+			print_debug(sprintf('- There are still %d scnls to get waveform objects for', length(scnltoget)), 2);
 		end
-		
-		servername = get(ds(dsi),'server');	
 		for c=1:numscnls	
 			if scnlgot(c)==0
 				try	
 					if length(scnltoget)>0
-						print_debug(sprintf('- Attempting to load waveform data for %s-%s at %s from %s',get(scnl(c),'station'),get(scnl(c),'channel'),datestr(snum,31),servername),0);
+						print_debug(sprintf('- Attempting to load waveform data for %s-%s from %s to %s',get(scnl(c),'station'),get(scnl(c),'channel'),datestr(snum,31),datestr(enum,31)),0);
 						print_waveform_call(snum, enum, scnltoget(c), ds(dsi))
         	 				w_new = waveform(ds(dsi), scnltoget(c), snum, enum); 
 					else
@@ -89,7 +115,7 @@ if ~finished
 					w_new = [];
 				end
 				if ~isempty(w_new)
-					[w, scnlgot] = deal_waveforms(w, w_new, scnlgot, get(ds(dsi), 'server') );
+					[w, scnlgot] = deal_waveforms(w, w_new, scnlgot, 'single', datapath);
 				end
 			end	
 		end
@@ -108,11 +134,12 @@ for i=1:numel(w)
 	print_debug(sprintf('- waveform %d: got %d samples for %s-%s from %s in mode %s',i,dl0,sta0,chan0,ds0,mode0),2);
 end
 print_debug(sprintf('- Got %d waveform objects\n', length(w)),1);
-print_debug(sprintf('< %s', mfilename),1)
+%print_debug(sprintf('< %s', mfilename),1)
+printfunctionstack('<');
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function [w,scnlgot] = deal_waveforms(w, w_new, scnlgot, servername)
+function [w,scnlgot] = deal_waveforms(w, w_new, scnlgot, mode, datapath)
 % take arrays of waveforms we just got, and waveforms we already have 
 for i=1:numel(w)
 	sta = get(w(i), 'station');
@@ -120,19 +147,20 @@ for i=1:numel(w)
 	for j = 1:numel(w_new)
 		sta_new = get(w_new(j), 'station');
 		chan_new = get(w_new(j), 'channel');
-		nsamp = length(get(w_new(j), 'data'));
+		nsamp = get(w_new(j), 'data_length');
 		freq = get(w_new(j), 'freq');
 		nsamp_expected = freq * 600;
 		if (strcmp(sta_new, sta) & strcmp(chan_new, chan))
 			% w_new(j) corresponds to scnl(i)
-			nsamp_before = length(get(w(i), 'data'));
+			nsamp_before = get(w(i), 'data_length');
 			if (nsamp > nsamp_before) 
-				w(i) = addfield(w_new(j), 'ds', servername);
-				w(i) = addfield(w(i), 'mode', 'all');
-				if (nsamp == nsamp_expected)
+				w(i) = addfield(w_new(j), 'mode', mode);
+				w(i) = addfield(w(i), 'ds', datapath);
+				if (nsamp > 0.99 * nsamp_expected)
 					scnlgot(i)=1;
 				end
 			end
+			break;
 		end
 	end
 end
@@ -141,13 +169,10 @@ end
 
 function print_waveform_call(snum, enum, scnl, ds)
 disp('Waveform call:')
-fprintf('\tsnum = %f (%s)\n',snum,datestr(snum));
-fprintf('\tenum = %f (%s)\n',enum,datestr(enum));
 for c=1:length(scnl)
 	fprintf('\tscnl(%d) = scnlobject(''%s'', ''%s'', ''%s'', ''%s'');\n',c, get(scnl(c), 'station'), get(scnl(c), 'channel'), get(scnl(c), 'network'), get(scnl(c), 'location'));
 end
 if (strcmp(get(ds, 'type'), 'winston'))
-	get(ds, 'server'), get(ds, 'port');
 	fprintf('\tds = datasource(''winston'', ''%s'', %d);\n', get(ds, 'server'), get(ds, 'port'));
 end
 if (strcmp(get(ds, 'type'), 'antelope'))
