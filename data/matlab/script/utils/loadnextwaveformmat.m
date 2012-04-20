@@ -24,13 +24,14 @@ while ~found
 
 		% also list the size of the ten inute spectrogram file - will be zero  bytes unless this timewindow was previously processed
 		tenminspfile = waveformfilename2sgram10minname(filename);
+		tenminspfileptr = [];
 		if exist(tenminspfile, 'file')
 			tenminspfileptr = dir(tenminspfile);
 			disp(sprintf('%s %s: Size of %s is %d bytes', mfilename, datestr(utnow), tenminspfileptr(1).name, tenminspfileptr(1).bytes));
 		end
 
 		% delete the waveform MAT file it if too small
-		if (filesize < 76000), 
+		if (filesize < 20000), % was 76000, but then had some Katmai data with 46000 bytes - mostly dead channels
 			disp(sprintf('%s %s: Waveform.mat file is too small - deleting', mfilename, datestr(utnow)));
 			delete(filename);
 			% need to delete zero length spectrogram file too - else this ten minutes will never be filled in 
@@ -73,7 +74,7 @@ while ~found
        	         	disp(cmd);
                 	eval(cmd);
 		end
-		delete(tmpfile);
+
 
            	% Sanity checks
                	errorFound=false;
@@ -121,6 +122,7 @@ while ~found
 			found = true;
 			disp('*** file looks good - all variables validate');
 			summariseWaveformMat(filename, snum, enum, subnet);
+			delete(tmpfile);
 		else
 			disp('*** file looks bad - skipping');
 			% need to delete zero length spectrogram file too - else this ten minutes will never be filled in 
@@ -130,6 +132,7 @@ while ~found
 					delete(tenminspfile);
 				end
 			end
+			system(sprintf('mv %s %s',tmpfile, 'badWaveformMAT/'));
 			% in this case, found==false and waveform file has been blown away, so function should just load next one
 		end
 		printfunctionstack('<');
