@@ -8,7 +8,7 @@ for c=1:length(scnl)
 	mseedfiles(c).exists=[];
 	try
 		print_debug('Calling getfilename',5);
-		dbname = getfilename(ds, scnl(c), snum); 
+		dbname = getfilename(ds, scnl(c), snum)
 	catch
 		disp('getfilename failed');
 		continue;
