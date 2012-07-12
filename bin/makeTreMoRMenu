@@ -222,14 +222,16 @@ sub read_dayplots {
 	my @drplots;
 	my $subnet = $_[0];
 	my $pf=$paths{PFS}."/$subnet.pf";
-	my $ref=pfget($pf,"day_plots");
-	if (defined($ref)) {
-		@drplots=@$ref;
-	}
-	else
-	{
-		my $ref=pfget($parameterspf,"dayplots");
-		@drplots=@$ref;
+	if (-e $pf) {
+		my $ref=pfget($pf,"day_plots");
+		if (defined($ref)) {
+			@drplots=@$ref;
+		}
+		else
+		{
+			my $ref=pfget($parameterspf,"dayplots");
+			@drplots=@$ref;
+		}
 	}
 
 	return @drplots;

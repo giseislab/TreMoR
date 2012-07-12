@@ -1,0 +1,23 @@
+antelope        &env(ANTELOPE)  # global variable, but not sure if this is exposed in Matlab
+tremor_home     &env(TREMOR_HOME)
+matlab_antelope &env(MATLAB_ANTELOPE)
+#matlab_interpreter	matlab -nosplash -nodesktop -nojvm -nodisplay
+#matlab_interpreter     matlab -maci -display :0 -nodesktop  -nosplash # how to invoke Matlab
+#matlab_interpreter      matlab -display :0 -nodesktop  -nosplash # how to invoke Matlab
+matlab_interpreter      matlab -nodisplay -nodesktop  -nosplash # how to invoke Matlab
+matlab_paths    &Tbl{ # think of this like addpath in Matlab
+    &matlab_antelope/antelope
+    &matlab_antelope/scripts
+    &matlab_antelope/user
+    &tremor_home
+    '.'
+}
+matlab_pf_varname       Pf # This is the parameter file pointer
+matlab_pf       &Arr{ # Any variables given here will be available in Matlab with varname = pfget(Pf, 'varname');
+      dbname      /opt/antelope/data/db/demo/demo
+}
+matlab_script	&Literal{
+	testthumbnails;
+}
+matlab_timeout_sec      5400
+pf_revision_time	1288220919

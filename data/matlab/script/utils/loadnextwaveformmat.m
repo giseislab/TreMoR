@@ -73,49 +73,50 @@ while ~found
 	                cmd = sprintf('load %s',tmpfile);
        	         	disp(cmd);
                 	eval(cmd);
-		end
 
-
-           	% Sanity checks
-               	errorFound=false;
-		if exist('w', 'var')
-               		if ~strcmp(class(w),'waveform')
-               		        errorFound=true;
-				disp('w is not a waveform object')
-               		end
-		else
-               	        errorFound=true;
-			disp('w not found')
-		end
+           		% Sanity checks
+               		errorFound=false;
+			if exist('w', 'var')
+               			if ~strcmp(class(w),'waveform')
+               		        	errorFound=true;
+					disp('w is not a waveform object')
+               			end
+			else
+               	        	errorFound=true;
+				disp('w not found')
+			end
 		
-		if exist('snum', 'var')
-               		if ~(snum>datenum(1989,1,1) && snum<utnow)
-               		        errorFound=true;
-				disp('snum out of range')
-               		end
-		else
-               	        errorFound=true;
-			disp('snum not found')
-		end
+			if exist('snum', 'var')
+               			if ~(snum>datenum(1989,1,1) && snum<utnow)
+               		        	errorFound=true;
+					disp('snum out of range')
+               			end
+			else
+               	        	errorFound=true;
+				disp('snum not found')
+			end
 
-		if exist('enum', 'var')
-               		if ~(enum>datenum(1989,1,1) && enum<utnow)
-               		        errorFound=true;
-				disp('enum out of range')
-               		end
-		else
-               	        errorFound=true;
-			disp('enum not found')
-		end
+			if exist('enum', 'var')
+               			if ~(enum>datenum(1989,1,1) && enum<utnow)
+               		        	errorFound=true;
+					disp('enum out of range')
+               			end
+			else
+               	        	errorFound=true;
+				disp('enum not found')
+			end
 
-		if exist('subnet', 'var')
-               		if length(subnet)==0
-               		        errorFound=true;
-				disp('subnet has zero length')
-               		end
-		else
-               	        errorFound=true;
-			disp('subnet not found')
+			if exist('subnet', 'var')
+               			if length(subnet)==0
+               		        	errorFound=true;
+					disp('subnet has zero length')
+               			end
+			else
+               	       		errorFound=true;
+				disp('subnet not found')
+			end
+		catch
+			errorFound = true;
 		end
 
                 if ~errorFound

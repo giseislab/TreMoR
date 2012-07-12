@@ -3,14 +3,16 @@
 ######################################################
 
 Processes &Tbl{
-rtrun_loadwaveformdata	nice  rtrun_matlab -p rtrun_loadwaveformdata -v -l lockfiles/rtrun_loadwaveformdata.lock
-rtrun_loadmissingdata	nice  rtrun_matlab -p rtrun_loadmissingdata -v -l lockfiles/rtrun_loadmissingdata.lock
-rtrun_dealloaded2filter	nice rtrun_matlab -p rtrun_dealloaded2filter -v -l lockfiles/rtrun_dealloaded2filter.lock
-rtrun_tremorwrapper	nice  rtrun_matlab -p rtrun_tremorwrapper -v -l lockfiles/rtrun_tremorwrapper.lock
-rtrun_tremorwrapper2	nice rtrun_matlab -p rtrun_tremorwrapper2 -v -l lockfiles/rtrun_tremorwrapper2.lock
+#rtrun_loadwaveformdata	nice  rtrun_matlab -p rtrun_loadwaveformdata -v -l lockfiles/rtrun_loadwaveformdata.lock
+rtrun_loadwaveformdata	nice  rtrun matlab -r rtrun_loadwaveformdata
+#rtrun_loadmissingdata	nice  rtrun_matlab -p rtrun_loadmissingdata -v -l lockfiles/rtrun_loadmissingdata.lock
+rtrun_loadmissingdata	nice  rtrun matlab -r rtrun_loadmissingdata
+rtrun_dealloaded2filter	nice  rtrun_matlab -p rtrun_dealloaded2filter -v -l lockfiles/rtrun_dealloaded2filter.lock
+rtrun_tremorwrapper	nice rtrun_matlab -p rtrun_tremorwrapper -v -l lockfiles/rtrun_tremorwrapper.lock
+rtrun_tremorwrapper2	nice  rtrun_matlab -p rtrun_tremorwrapper2 -v -l lockfiles/rtrun_tremorwrapper2.lock
 rtrun_tremorwrapper3	nice  rtrun_matlab -p rtrun_tremorwrapper3 -v -l lockfiles/rtrun_tremorwrapper3.lock
-rtrun_tremorwrapper4	nice  rtrun_matlab -p rtrun_tremorwrapper4 -v -l lockfiles/rtrun_tremorwrapper4.lock
-rtrun_tremorwrapper5	nice rtrun_matlab -p rtrun_tremorwrapper5 -v -l lockfiles/rtrun_tremorwrapper5.lock
+rtrun_tremorwrapper4	nice rtrun_matlab -p rtrun_tremorwrapper4 -v -l lockfiles/rtrun_tremorwrapper4.lock
+rtrun_tremorwrapper5	nice  rtrun_matlab -p rtrun_tremorwrapper5 -v -l lockfiles/rtrun_tremorwrapper5.lock
 }
 
 Run     &Arr{
@@ -36,7 +38,7 @@ rtrun_tremorwrapper5
 }
 
 Defines &Arr{
-ANTELOPE        /opt/antelope/5.0-64       # location of the real time software
+ANTELOPE        /opt/antelope/5.2-64       # location of the real time software
 #ALARMDB		dbalarm/alarm
 ELOG_MAXMSG 	0
 #AVOSEISWEB	avoseisweb
@@ -68,6 +70,7 @@ TREMOR_HOME	PRESERVE
 MATLAB_ANTELOPE	PRESERVE
 INTERNALWEBPRODUCTS	PRESERVE
 INTERNALWEBPRODUCTSURL	PRESERVE
+SCHEMA_DIR /opt/antelope/5.2-64/data/schemas:/Users/iceweb/run/schemas
 }
 
 # Start/restart parameters

@@ -86,3 +86,6 @@ function successful = remove_sgramfile(subnet, enum)
 		disp(sprintf('%s: *** Weird! %s does not exist - oh well I was going to delete it anyway',datestr(utnow), sgramfile,sfileptr(1).bytes));
 	end
 end
+
+function add_to_database(w)
+end
