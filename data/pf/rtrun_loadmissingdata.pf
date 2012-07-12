@@ -23,7 +23,7 @@ matlab_script   &Literal{ # This is the script that gets executed when Matlab st
 %	libgt.set_debug(2);
 	while 1
 		%logbenchmark('loadmisseddata', 0);
-		tremor_loadlivedata('snum', utnow-120/1440, 'delaymins', 22);
+		tremor_loadlivedata('snum', utnow-60/1440, 'delaymins', 11);
 		%tremor_loadlivedata();
 		pause(10);
 	end

@@ -3,7 +3,8 @@ function result = saveImageFile(arg1, arg2, arg3);
 % saveImageFile(IMGFULLFILEPATH, res);
 % res=200 for spectrograms
 global paths PARAMS; % we need to knwo the value of PARAMS.mode
-print_debug(sprintf('> %s',mfilename),2);
+printfunctionstack('>');
+%print_debug(sprintf('> %s',mfilename),2);
 result = 0;
 switch nargin
 	case 2,
@@ -41,5 +42,6 @@ catch
 	disp(sprintf('%s: Could not save the image file %s',datestr(utnow),outpath));
 end
 
-print_debug(sprintf('< %s',mfilename),2);
+%print_debug(sprintf('< %s',mfilename),2);
+printfunctionstack('<');
 

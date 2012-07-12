@@ -1,14 +1,15 @@
 function tremor_datasource2mat(subnets, tw)
+printfunctionstack('>');
 global paths PARAMS
 for c=1:numel(PARAMS.datasource)
-PARAMS.datasource(c)
 	if strcmp(PARAMS.datasource(c).type, 'antelope')
 		gismo_datasource(c) = datasource(PARAMS.datasource(c).type, PARAMS.datasource(c).path);
 	else
 		gismo_datasource(c) = datasource(PARAMS.datasource(c).type, PARAMS.datasource(c).path, str2num(PARAMS.datasource(c).port));
 	end
 end
-print_debug(sprintf('> %s',mfilename),1)
+%gismo_datasource = gismo_datasource(1);
+%print_debug(sprintf('> %s',mfilename),1)
 
 %%%%%%%%%%%%%%%%% LOOP OVER SUBNETS / STATIONS
 % loop over all subnets
@@ -89,4 +90,5 @@ for subnet_num=1:length(subnets)
 
 	end
 end
-print_debug(sprintf('< %s',mfilename),1)
+%print_debug(sprintf('< %s',mfilename),1)
+printfunctionstack('<');

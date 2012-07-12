@@ -1,10 +1,11 @@
 function tremor_wrapper(waveformdir)
 global paths PARAMS
-print_debug(sprintf('> %s at %s',mfilename, datestr(utnow,31)),1)
+printfunctionstack('>');
+%print_debug(sprintf('> %s at %s',mfilename, datestr(utnow,31)),1)
 load pf/tremor_runtime.mat
 highpassfilterobject = filterobject('h', 0.5, 2);
 makeSamFiles = false;
-makeSoundFiles = true; 
+makeSoundFiles = false; 
 while 1,
 
 	% PREP
@@ -168,7 +169,8 @@ while 1,
 	pause(5);
 end    
 
-print_debug(sprintf('< %s at %s',mfilename, datestr(now,31)),1)
+%print_debug(sprintf('< %s at %s',mfilename, datestr(now,31)),1)
+printfunctionstack('<');
 
 
 
