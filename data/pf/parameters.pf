@@ -56,7 +56,7 @@ spectrograms	spectrograms
 ##############################################################
 datasources &Tbl{
 # type...path...port
-antelope /avort/devrun/db/archive 0
+antelope /avort/oprun/db/archive 0
 winston	churchill.giseis.alaska.edu 16022
 }
 
