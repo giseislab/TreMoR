@@ -19,7 +19,9 @@ for subnet_num=1:length(subnets)
 
 	% get IceWeb stations
 	station = subnets(subnet_num).stations;
-	%station = subnets(subnet_num).stations(1);
+	if isempty(station)
+		continue;
+	end
     	scnl = station2scnl(station, 'AV');
 
 	% loop over all elements of tw

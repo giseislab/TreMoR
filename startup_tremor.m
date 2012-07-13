@@ -2,6 +2,7 @@ warning off;
 matlab_antelope=getenv('MATLAB_ANTELOPE');
 addpath(genpath(matlab_antelope));
 addpath(genpath('~/src/gismotools/GISMO'));
+addpath('test');
 %startup_volcseis;
 tremor_home = getenv('TREMOR_HOME');
 addpath(tremor_home);

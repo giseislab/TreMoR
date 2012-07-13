@@ -18,12 +18,12 @@ delete(tmpfile)
 
 % Resize the image (aspect ratio 16:21 same as 576:756) and convert it to an indexed image with 256 colors
 % (Note: we were originally creating 150x96, which is far off the aspect ratio of large spectrograms)
-[X,map] = rgb2ind(imresize(I, [126 96]), 256);
-thumbnailfile = sprintf('%s/smallest_%s%s',tmppath, tmpbase, tmpext);
-imwrite(X,map,thumbnailfile,'PNG'); 
-[X,map] = rgb2ind(imresize(I, [147 112]), 256);
-thumbnailfile = sprintf('%s/smaller_%s%s',tmppath, tmpbase, tmpext);
-imwrite(X,map,thumbnailfile,'PNG'); 
+%[X,map] = rgb2ind(imresize(I, [126 96]), 256);
+%thumbnailfile = sprintf('%s/smallest_%s%s',tmppath, tmpbase, tmpext);
+%imwrite(X,map,thumbnailfile,'PNG'); 
+%[X,map] = rgb2ind(imresize(I, [147 112]), 256);
+%thumbnailfile = sprintf('%s/smaller_%s%s',tmppath, tmpbase, tmpext);
+%imwrite(X,map,thumbnailfile,'PNG'); 
 [X,map] = rgb2ind(imresize(I, [198 151]), 256);
 thumbnailfile = sprintf('%s/small_%s%s',tmppath, tmpbase, tmpext);
 imwrite(X,map,thumbnailfile,'PNG'); 
@@ -36,12 +36,12 @@ removetraces;
 % Create traceless thumbnails.
 % Resize the image (aspect ratio 16:21 same as 576:756) and convert it to an indexed image with 256 colors
 % (Note: we were originally creating 150x96, which is far off the aspect ratio of large spectrograms)
-[X,map] = rgb2ind(imresize(I, [126 96]), 256);
-thumbnailfile = sprintf('%s/smallest2_%s%s',tmppath, tmpbase, tmpext);
-imwrite(X,map,thumbnailfile,'PNG'); 
-[X,map] = rgb2ind(imresize(I, [147 112]), 256);
-thumbnailfile = sprintf('%s/smaller2_%s%s',tmppath, tmpbase, tmpext);
-imwrite(X,map,thumbnailfile,'PNG'); 
+%[X,map] = rgb2ind(imresize(I, [126 96]), 256);
+%thumbnailfile = sprintf('%s/smallest2_%s%s',tmppath, tmpbase, tmpext);
+%imwrite(X,map,thumbnailfile,'PNG'); 
+%[X,map] = rgb2ind(imresize(I, [147 112]), 256);
+%thumbnailfile = sprintf('%s/smaller2_%s%s',tmppath, tmpbase, tmpext);
+%imwrite(X,map,thumbnailfile,'PNG'); 
 [X,map] = rgb2ind(imresize(I, [198 151]), 256);
 thumbnailfile = sprintf('%s/small2_%s%s',tmppath, tmpbase, tmpext);
 imwrite(X,map,thumbnailfile,'PNG'); 
