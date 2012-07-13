@@ -133,7 +133,7 @@ while ~found
 					delete(tenminspfile);
 				end
 			end
-			system(sprintf('mv %s %s',tmpfile, 'badWaveformMAT/'));
+			delete(tmpfile);
 			% in this case, found==false and waveform file has been blown away, so function should just load next one
 		end
 		printfunctionstack('<');

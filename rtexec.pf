@@ -16,8 +16,8 @@ rtrun_tremorwrapper5	nice  rtrun_matlab -p rtrun_tremorwrapper5 -v -l lockfiles/
 }
 
 Run     &Arr{
-rtrun_loadwaveformdata	no
-rtrun_loadmissingdata	no
+rtrun_loadwaveformdata	yes
+rtrun_loadmissingdata	yes
 rtrun_dealloaded2filter	yes
 rtrun_tremorwrapper	yes
 rtrun_tremorwrapper2	yes

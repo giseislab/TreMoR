@@ -18,7 +18,6 @@ function [w, filename, snum, enum, subnet] = save2waveformmat(w, matdir, snum, e
 		filesize = d(1).bytes;
 		disp(sprintf('%s: %s has size %d bytes',datestr(utnow), filename,filesize));
 		if (filesize < 10000)		
-			system(sprintf('cp %s %s',filename, '~/run/badwavfiles/'));
 			delete(filename);
 			if ~exist(filename, 'file')
 				disp(sprintf('%s: %s has been deleted - it was suspiciously small - there is probably a zero length spectrogram png out there somewhere too which needs deleting',datestr(utnow), filename));
