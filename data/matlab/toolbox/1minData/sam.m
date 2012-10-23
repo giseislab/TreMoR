@@ -196,6 +196,7 @@ classdef sam
                 end
                 r = self.distance * 100; % cm
                 ws = waveSpeed * 100; % cm/2
+                self.measure = sprintf('%sR%s',self.measure(1),self.measure(2:end));
                 switch waveType
                     case 'body'
         				self.data = self.data * r; % cm^2
@@ -218,6 +219,7 @@ classdef sam
                 self.data = self.data * self.distance; % Pa.m	
                 self.units = 'Pa m';
                 self.isReduced = true;
+                self.measure = sprintf('%sR%s',self.measure(1),self.measure(2:end));
             otherwise
                 error(sprintf('Units %s for measure %s not recognised', self.units, self.measure));
             end
@@ -270,7 +272,7 @@ classdef sam
         
         function self = resample(obj, measure, crunchfactor)
             w = obj.sam2waveform;
-            w = resample(w, measure, crunchfactor);
+            w = resample(w, measure(2:end), crunchfactor);
             self = waveform2sam(w);
             self.measure = measure;
         end
