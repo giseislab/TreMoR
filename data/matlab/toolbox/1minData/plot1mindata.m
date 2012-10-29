@@ -1,4 +1,4 @@
-function handlePlot = plot1mindata(samobject, yaxisType, h, addgrid, addlegend, fillbelow);
+function handlePlot = plot1mindata(samobject, yaxisType, h, addgrid, addlegend, fillbelow)
 % handle = plot1mindata(samobject, yaxisType, h, addgrid, addlegend, fillbelow);
 % to change where the legend plots set the global variable legend_ypos
 % a positive value will be within the axes, a negative value will be below
@@ -46,7 +46,7 @@ for c = numdatasets:-1:1
 
 		if strfind(samobject(c).measure, 'dr')
 			%ylabel(sprintf('%s (cm^2)',samobject(c).measure));
-			ylabel(sprintf('D_R (cm^2)',samobject(c).measure));
+			%ylabel(sprintf('D_R (cm^2)',samobject(c).measure));
 			Yticks = [0.01 0.02 0.05 0.1 0.2 0.5 1 2 5 10 20 50 ];
 			Ytickmarks = log10(Yticks);
 			for count = 1:length(Yticks)
@@ -63,7 +63,7 @@ for c = numdatasets:-1:1
         else
             handlePlot = fill([min(t) t max(t)], [min([y 0]) y min([y 0])], lineColour{c});
         end
-		ylabel(samobject(c).measure);
+		%ylabel(samobject(c).measure);
 
 
 		if c ~= numdatasets
@@ -78,9 +78,15 @@ for c = numdatasets:-1:1
         set(gca, 'YLim', [0 ylim(2)],'YTick',yt);
         %	set(gca,'YTickLabel',ytl);
 
-	end
-
-	datetickgt(samobject(c).snum, samobject(c).enum);
+    end
+    station = get(samobject(c).scnl, 'station');
+    channel = get(samobject(c).scnl, 'channel');
+    ylabelstr = sprintf('%s.%s %s_{%s} (%s)', station, channel, measure(1), measure(2:end), samobject(c).units)
+    ylabel(ylabelstr)
+    datetick('x')
+    %samobject(c)
+    %set(gca, 'YLim', [samobject(c).snum samobject(c).enum])
+	%datetickgt(samobject(c).snum, samobject(c).enum);
 	if addgrid
 		grid on;
 	end
