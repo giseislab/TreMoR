@@ -3,6 +3,7 @@ function result = saveImageFile(arg1, arg2, arg3);
 % saveImageFile(IMGFULLFILEPATH, res);
 % res=200 for spectrograms
 global paths PARAMS; % we need to knwo the value of PARAMS.mode
+import debug.*
 printfunctionstack('>');
 %print_debug(sprintf('> %s',mfilename),2);
 result = 0;

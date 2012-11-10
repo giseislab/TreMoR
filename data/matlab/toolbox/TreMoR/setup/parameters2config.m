@@ -105,9 +105,6 @@ function source = pf2source(subnet);
 %
 % Glenn Thompson, 2007-9.
 
-global paths 
-print_debug(sprintf('> %s', mfilename),4)
-
 source.longitude = -999;
 source.latitude = -999;
 
@@ -115,7 +112,7 @@ source.latitude = -999;
 try
 [pointerToSubnetPF, existsSubnetPF] = openPointerToSubnet(subnet);
 if existsSubnetPF
-    print_debug(['searching for volcano source coordinates in ',subnet,'.pf'],3);
+    debug.print_debug(['searching for volcano source coordinates in ',subnet,'.pf'],3);
     try 
 	pointerToSource =  pfget_arr(pointerToSubnetPF,'source');
     	source.longitude = pfget(pointerToSource,'longitude');
@@ -128,14 +125,14 @@ end
 
 if (source.longitude == -999)
 	%[source.longitude, source.latitude, minlon, maxlon, minlat, maxlat] = readavovolcs(subnet, '/avort/modrun/pf/avo_volcs.pf');
-    [source.longitude, source.latitude, minlon, maxlon, minlat, maxlat] = readavovolcs(subnet);
+    [source.longitude, source.latitude, minlon, maxlon, minlat, maxlat] = catalog.readavovolcs(subnet);
 end
 
 if (source.longitude == -999 || source.latitude == -999)
 	disp(['No source coordinates found for ',subnet]);
 end
 
-print_debug(sprintf('< %s', mfilename),4)
+debug.print_debug(sprintf('< %s', mfilename),4)
 
 
 
@@ -152,7 +149,7 @@ function [pointerToSubnetPF, existsSubnetPF] = openPointerToSubnet(subnet);
 
 global paths
 
-libgt.print_debug(sprintf('> %s', mfilename),5)
+debug.print_debug(sprintf('> %s', mfilename),5)
 
 % create pointer to iceweb parameter file
 parameterFilename = catpath(paths.PFS,sprintf('subnet_%s',subnet));
@@ -165,7 +162,7 @@ else
 	existsSubnetPF = 0;
 end
 
-libgt.print_debug(sprintf('< %s', mfilename),5)
+debug.print_debug(sprintf('< %s', mfilename),5)
 
 
 

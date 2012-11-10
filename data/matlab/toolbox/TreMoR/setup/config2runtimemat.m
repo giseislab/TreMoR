@@ -1,6 +1,6 @@
 function config2runtimemat();
 % produces tremorruntime.mat
-print_debug(sprintf('> %s', mfilename),5)
+debug.print_debug(sprintf('> %s', mfilename),5)
 [paths,PARAMS]=pf2PARAMS;
 infile = 'params/subnets.d';
 fin = fopen(infile,'r');
@@ -12,14 +12,19 @@ while 1,
 
 	if strfind(tline, 'SUBNET') 
 		fields = regexp(tline, '\t', 'split') ;
-		usethissubnet = str2num(fields{5});
-		if (usethissubnet == 1)
-			c = c + 1;
-			cc = 0;
-			subnets(c).name = fields{2};
+        if length(fields)>=5
+            usethissubnet = str2num(fields{5});
+            if (usethissubnet == 1)
+                c = c + 1;
+                cc  = 0;
+                subnets(c).name = fields{2};
         		subnets(c).source.latitude = str2num(fields{3});
         		subnets(c).source.longitude = str2num(fields{4});
-			subnets(c).use = str2num(fields{5});
+                subnets(c).use = str2num(fields{5});
+            end
+        else
+            disp(fields)
+            disp(length(fields))
 		end
 
 	end
@@ -46,4 +51,4 @@ fclose(fin)
 
 
 save pf/tremor_runtime.mat subnets PARAMS paths
-print_debug(sprintf('< %s', mfilename),5)
+debug.print_debug(sprintf('< %s', mfilename),5)

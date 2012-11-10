@@ -1,5 +1,5 @@
 function tremor_datasource2mat(subnets, tw)
-printfunctionstack('>');
+debug.printfunctionstack('>');
 global paths PARAMS
 for c=1:numel(PARAMS.datasource)
 	if strcmp(PARAMS.datasource(c).type, 'antelope')
@@ -93,7 +93,7 @@ for subnet_num=1:length(subnets)
 	end
 end
 %print_debug(sprintf('< %s',mfilename),1)
-printfunctionstack('<');
+debug.printfunctionstack('<');
 
 function scnl=station2scnl(station, network)
 for c = 1 : length(station)

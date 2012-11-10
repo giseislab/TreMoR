@@ -1,13 +1,13 @@
 function tremor_loadwaveformdata(varargin)
 global paths PARAMS
 
-libgt.print_debug(sprintf('> %s at %s',mfilename, datestr(now,31)),1)
+debug.print_debug(sprintf('> %s at %s',mfilename, datestr(now,31)),1)
 warning off
 load pf/tremor_runtime
 %subnets = randomizesubnets(subnets);
 
 % Process arguments
-[PARAMS.mode, snum, enum, nummins, delaymins, thissubnet] = process_options(varargin, 'mode', 'realtime', 'snum', 0, 'enum', 0, 'nummins', 10, 'delaymins', 0, 'thissubnet', '');
+[PARAMS.mode, snum, enum, nummins, delaymins, thissubnet] = matlab_extensions.process_options(varargin, 'mode', 'realtime', 'snum', 0, 'enum', 0, 'nummins', 10, 'delaymins', 0, 'thissubnet', '');
 
 % subset on thissubnet
 if ~strcmp(thissubnet, '') 
@@ -45,7 +45,7 @@ for count = length(tw.start) : -1 : 1
 	tremor_datasource2mat(subnets, thistw);
 end
 
-libgt.print_debug(sprintf('< %s at %s',mfilename, datestr(now,31)),1)
+debug.print_debug(sprintf('< %s at %s',mfilename, datestr(now,31)),1)
 
 function snew=randomizesubnets(s)
 l = length(s);

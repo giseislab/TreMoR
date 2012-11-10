@@ -7,7 +7,7 @@ function dealwaveformfiles(sourcedir, targetdirlist)
 
 global paths PARAMS
 %print_debug(sprintf('> %s at %s',mfilename, datestr(now,31)),1)
-printfunctionstack('>');
+debug.printfunctionstack('>');
 %load pf/runtime
 
 while 1,
@@ -52,5 +52,5 @@ while 1,
 end    
 
 %print_debug(sprintf('< %s at %s',mfilename, datestr(now,31)),1)
-printfunctionstack('<');
+debug.printfunctionstack('<');
 

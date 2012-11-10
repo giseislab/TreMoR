@@ -2,7 +2,7 @@ function [paths,PARAMS]=pf2PARAMS();
 % [paths,PARAMS]=pf2PARAMS()
 
 % create pointer to main parameter file
-parametersfile = catpath('pf','parameters');
+parametersfile = matlab_extensions.catpath('pf','parameters');
 
 if exist([parametersfile,'.pf'], 'file')
 
@@ -53,7 +53,7 @@ if exist([parametersfile,'.pf'], 'file')
  	% Alarm system
 	PARAMS.triggersForAlarmFraction = pfget_num(parameterspf,'triggersForAlarmFraction');
 
-	print_debug('PARAMS setup OK',1)
+	debug.print_debug('PARAMS setup OK',1)
 else
 	error(sprintf('%s: parameter file %s.pf does not exist',mfilename, parametersfile));
 end

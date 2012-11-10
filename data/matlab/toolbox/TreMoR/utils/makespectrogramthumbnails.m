@@ -1,4 +1,5 @@
 function makespectrogramthumbnails(tenminspfile)
+import debug.*
 printfunctionstack('>');
 %print_debug('> makespectrogramthumbnails', 2);
 

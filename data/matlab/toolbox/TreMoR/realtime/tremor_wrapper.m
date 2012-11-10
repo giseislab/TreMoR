@@ -1,6 +1,6 @@
 function tremor_wrapper(waveformdir)
 global paths PARAMS
-printfunctionstack('>');
+debug.printfunctionstack('>');
 %print_debug(sprintf('> %s at %s',mfilename, datestr(utnow,31)),1)
 load pf/tremor_runtime.mat
 highpassfilterobject = filterobject('h', 0.5, 2);
@@ -48,7 +48,7 @@ while 1,
 		w(c) = detrend(fillgaps(w(c),mean(w(c))));
         	if strcmp(get(w(c),'Units'), 'Counts')
                 	resp = get(w(c), 'response');
-                        print_debug(sprintf('Applying calib of %d for %s.%s',resp.calib, get(w(c),'station'), get(w(c), 'channel')), 1);
+                        debug.print_debug(sprintf('Applying calib of %d for %s.%s',resp.calib, get(w(c),'station'), get(w(c), 'channel')), 1);
                         if (resp.calib ~= 0)
                                 w(c) = w(c) * resp.calib;
                                 %w(c) = set(w(c), 'units', resp.units);
@@ -57,10 +57,10 @@ while 1,
                 end
 		if strfind(get(w(c), 'channel'),'BH')
 			try
-	                        print_debug(sprintf('Applying high pass filter to %s.%s', get(w(c),'station'), get(w(c), 'channel')), 1);
+	                        debug.print_debug(sprintf('Applying high pass filter to %s.%s', get(w(c),'station'), get(w(c), 'channel')), 1);
 				w(c) = filtfilt(highpassfilterobject, w(c));
 			catch
-	                        print_debug(sprintf('Filter failed'), 1);
+	                        debug.print_debug(sprintf('Filter failed'), 1);
 			end
 		end
 	end
@@ -72,7 +72,7 @@ while 1,
 	tic;
 	tenminspfile = getSgram10minName(subnet, enum);
 	%specgram3(w, sprintf('%s %s - %s UTC', subnet, datestr(snum,31), datestr(enum,13)), PARAMS.spectralobject , 0.75);
-	specgram3(w, '', PARAMS.spectralobject , 0.75);
+	specgram3(PARAMS.spectralobject, w, 0.75);
 	logbenchmark('computing & plotting spectrograms', toc);
 	disp(sprintf('%s %s: computing & plotting spectrograms (%.1f s)', mfilename, datestr(utnow), toc));
 
@@ -82,7 +82,7 @@ while 1,
 	if saveImageFile(tenminspfile, 72)
 
 		fileinfo = dir(tenminspfile);
-		print_debug(sprintf('%s %s: spectrogram PNG size is %d',mfilename, datestr(utnow), fileinfo.bytes),0);	
+		debug.print_debug(sprintf('%s %s: spectrogram PNG size is %d',mfilename, datestr(utnow), fileinfo.bytes),0);	
 
 		% make thumbnails
 		makespectrogramthumbnails(tenminspfile);
@@ -102,12 +102,12 @@ while 1,
 		% php script can match spectrogram panel with appropriate wav file 
 		% 20121101 GTHO COmment: Could replace use of bnameroot below with strrep, since it is just used to change file extensions
 		% e.g. strrep(tenminspfile, '.png', sprintf('_%s_%s.wav', sta, chan)) 
-		[bname, dname, bnameroot, bnameext] = basename(tenminspfile);
+		[bname, dname, bnameroot, bnameext] = matlab_extensions.basename(tenminspfile);
 		fsound = fopen(sprintf('%s%s%s.sound', dname, filesep, bnameroot),'a');
 		for c=1:length(w)
 			soundfilename = catpath(dname, sprintf('%s_%s_%s.wav',bnameroot, get(w(c),'station'), get(w(c), 'channel')  ) );
 			fprintf(fsound,'%s\n', soundfilename);  
-			print_debug(sprintf('Writing to %s',soundfilename),0); 
+			debug.print_debug(sprintf('Writing to %s',soundfilename),0); 
 			data = get(w(c),'data');
 			m = max(data);
 			if m == 0
@@ -144,9 +144,9 @@ while 1,
 	            		if isfield(samcollection, measure)
 	                		eval(sprintf('s = samcollection.%s;',measure));
 	   		        	if isempty(s)
-	            	        		print_debug(sprintf('SAM object for %s is blank',measure),2);
+	            	        		debug.print_debug(sprintf('SAM object for %s is blank',measure),2);
 	       			    	else
-	                    			print_debug(sprintf('Calling save2bob for %s', measure),3);
+	                    			debug.print_debug(sprintf('Calling save2bob for %s', measure),3);
 	                    			try
 	                       				save2bob(s.station, s.channel, s.dnum, s.data, measure);
 			               		catch
@@ -154,7 +154,7 @@ while 1,
 	                	  		end
 			        	end
 	       		 	else
-	      				print_debug(sprintf('measure %s not found',measure),2);
+	      				debug.print_debug(sprintf('measure %s not found',measure),2);
 	       	    		end
 	       		end
 	    	end
@@ -172,7 +172,7 @@ while 1,
 end    
 
 %print_debug(sprintf('< %s at %s',mfilename, datestr(now,31)),1)
-printfunctionstack('<');
+debug.printfunctionstack('<');
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -286,7 +286,7 @@ while ~found
 		diaryname = waveformfilename2diaryname(filename);
 		diary(diaryname);
 		%disp('> loadnextwaveformmat');
-		printfunctionstack('>');
+		debug.printfunctionstack('>');
 		disp(sprintf('%s %s: Started', mfilename, datestr(utnow)));
 		disp(sprintf('%s %s: Size of %s is %d bytes', mfilename, datestr(utnow), filename, filesize));
 
@@ -311,7 +311,7 @@ while ~found
 			end
 			disp(sprintf('%s %s: tremor_wrapper will not run for this timewindow', mfilename, datestr(utnow)));
 			%disp('< loadnextwaveformmat');
-			printfunctionstack('<');
+			debug.printfunctionstack('<');
 			diary off;
 			continue;
 		end
@@ -404,7 +404,7 @@ while ~found
 			delete(tmpfile);
 			% in this case, found==false and waveform file has been blown away, so function should just load next one
 		end
-		printfunctionstack('<');
+		debug.printfunctionstack('<');
 		diary off;
 
         else
@@ -420,109 +420,22 @@ fprintf('\n');
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function [w, filename, snum, enum, subnet] = save2waveformmat(w, matdir, snum, enum, subnet, varargin)
-	global paths PARAMS;
-	%print_debug(sprintf('> %s',mfilename),1);
-	printfunctionstack('>');
-	[matdir2] = process_options(varargin, 'copy', '');
-	%filename = sprintf('%s/%s_%s.mat',matdir,subnet,datestr(snum,30));
-	filename = sprintf('%s/%s_%s.mat',matdir,subnet,datestr(enum,30));
-	if ~exist(matdir, 'dir')
-		mkdir('.', matdir);
-	end
-	disp(sprintf('%s: Saving to %s',datestr(utnow), filename));
-	successful = false;
-	eval(sprintf('save %s w snum enum subnet paths PARAMS',filename));
-	
-	% check file size is reasonable - if not, delete and return
-	d = dir(filename);
-	if length(d)==1
-		filesize = d(1).bytes;
-		disp(sprintf('%s: %s has size %d bytes',datestr(utnow), filename,filesize));
-		if (filesize < 10000)		
-			delete(filename);
-			if ~exist(filename, 'file')
-				disp(sprintf('%s: %s has been deleted - it was suspiciously small - there is probably a zero length spectrogram png out there somewhere too which needs deleting',datestr(utnow), filename));
-			else
-				disp(sprintf('%s: *** Weird! Could not delete %s',datestr(utnow), filename));
-			end
-
-			remove_sgramfile(subnet, enum)
-			print_debug(sprintf('< %s',mfilename),1);
-			return;	
-		end	
-		disp(sprintf('%s: Waveform MAT file created',datestr(utnow)));
-	else
-		disp(sprintf('%s: *** Weird %s not created',datestr(utnow), filename))
-		d
-		w
-		for c=1:numel(w)
-			w(c)
-		end	
-		matdir
-		snum, datestr(snum)
-		enum, datestr(enum)
-		subnet
-		remove_sgramfile(subnet, enum)
-		print_debug(sprintf('< %s',mfilename),1);
-		return;	
-	end
-
-
-	% make a second copy if asked
-	if ~isempty(matdir2)
-		filename2 = sprintf('%s/%s_%s.mat',matdir2,subnet,datestr(snum,30));
-		if ~exist(matdir2, 'dir')
-			mkdir('.', matdir2);
-		end
-		%disp(sprintf('Copying to %s',filename2));
-		disp(sprintf('Saving to %s',filename2));
-		eval(sprintf('save %s w snum enum subnet paths PARAMS',filename2));
-		%system(sprintf('cp %s %s',filename, filename2));
-	end
-
-	
-	printfunctionstack('<');
-	%print_debug(sprintf('< %s',mfilename),1);
-
-end
-
-function successful = remove_sgramfile(subnet, enum)
-	successful = true;
-	sgramfile = getSgram10minName(subnet, enum);
-	if exist(sgramfile, 'file')
-		sfileptr=dir(sgramfile);
-		disp(sprintf('%s: %s has size %d bytes',datestr(utnow), sgramfile,sfileptr(1).bytes));
-		if (sfileptr(1).bytes < 1000)
-			delete(sgramfile);
-			if ~exist(sgramfile, 'file')
-				disp(sprintf('%s: %s has been deleted - it was suspiciously small',datestr(utnow), sgramfile));
-			else
-				successful = false;	
-				disp(sprintf('%s: *** Weird! Could not delete %s',datestr(utnow), sgramfile));
-			end
-		end
-	else
-		successful = false;	
-		disp(sprintf('%s: *** Weird! %s does not exist - oh well I was going to delete it anyway',datestr(utnow), sgramfile,sfileptr(1).bytes));
-	end
-end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function summariseWaveformMat(filename, snum, enum, subnet)
-printfunctionstack('>');
+debug.printfunctionstack('>');
 disp(sprintf('** waveform loaded **'));
 %fprintf('file=%s\n',filename);
 disp(sprintf('Start time is %s UTC',datestr(snum)));
 disp(sprintf('End time is %s UTC',datestr(enum)));
-printfunctionstack('<');
+debug.printfunctionstack('<');
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function diaryname = waveformfilename2diaryname(waveformMat)
-printfunctionstack('>');
-fields = regexp(basename(waveformMat), '_', 'split');
+debug.printfunctionstack('>');
+fields = regexp(matlab_extensions.basename(waveformMat), '_', 'split');
 datestring = fields{2};
 yyyy = datestring(1:4);
 mm = datestring(5:6);
@@ -532,13 +445,13 @@ mi = datestring(12:13);
 ss = datestring(14:15);
 enum = datenum(sprintf('%s/%s/%s %s:%s:%s', yyyy, mm, dd, hr, mi, ss));
 diaryname = getSgramDiaryName(fields{1}, enum);
-printfunctionstack('<');
+debug.printfunctionstack('<');
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function tenminspfile = waveformfilename2sgram10minname(waveformMat)
-printfunctionstack('>');
-fields = regexp(basename(waveformMat), '_', 'split');
+debug.printfunctionstack('>');
+fields = regexp(matlab_extensions.basename(waveformMat), '_', 'split');
 datestring = fields{2};
 yyyy = datestring(1:4);
 mm = datestring(5:6);
@@ -548,4 +461,4 @@ mi = datestring(12:13);
 ss = datestring(14:15);
 enum = datenum(sprintf('%s/%s/%s %s:%s:%s', yyyy, mm, dd, hr, mi, ss));
 tenminspfile = getSgram10minName(fields{1}, enum);
-printfunctionstack('<');
+debug.printfunctionstack('<');

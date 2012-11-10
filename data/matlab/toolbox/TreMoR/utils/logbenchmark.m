@@ -1,5 +1,5 @@
 function logbenchmark(modulename, numsecs)
-printfunctionstack('>');
+debug.printfunctionstack('>');
 modulename = regexprep(modulename,'[^\w'']','_');
 benchmarklock = sprintf('logs/benchmark_%s.lock',modulename);
 benchmarkfile = sprintf('logs/benchmark_%s.txt',modulename);
@@ -13,5 +13,5 @@ fbench = fopen(benchmarkfile, 'a');
 fprintf(fbench, '%f\t%.1f\n',now, numsecs);
 fclose(fbench);
 delete(benchmarklock);
-printfunctionstack('<');
+debug.printfunctionstack('<');
 
