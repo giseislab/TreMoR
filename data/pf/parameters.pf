@@ -2,7 +2,7 @@
 ############# LIST OF VOLCANO SUBNETS TO USE ##################
 ###############################################################
 subnetnames &Tbl{
-Wrangell
+#Wrangell
 Spurr
 Redoubt
 Iliamna
@@ -44,7 +44,7 @@ detectAlarms        1                       # used in iceweb2
 ###############################################################
 ############# PATHS                          ##################
 ###############################################################
-DBMASTER        dbmaster/master_stations    # used in db2stationmetadata, db2stationcoordinates, icewebpaths, getStationsWithinDist
+DBMASTER        /avort/oprun/dbmaster/master_stations    # used in db2stationmetadata, db2stationcoordinates, icewebpaths, getStationsWithinDist
 PFS             pf                          # used in openPointerToSubnet, pf2PARAMS, icewebpaths
 ONEMINDATA      1mindata                    # used in loadwfmeas, make1minPlots, plotdr, plotoneminwrapper, save1min2file, save2bob, save2wfmeas
 WEBDIR          www                         # used in make1minPlots, iceweb2, icewebpaths

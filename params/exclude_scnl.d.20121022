@@ -1,0 +1,101 @@
+# STATION.CHANNEL.NETWORK.LOCATION
+# Updates: 
+# Scott Stihler, 2012/07/11
+# Glenn Thompson, 2012/08/01 - Scott asked SSBA to be exclused since it is close to SSLW
+SSBA.BHZ.AV
+########### Marginal
+KCG.EHZ.AV
+########### Cross feeding
+#INE.EHZ.AV is a mix of ILW.EHZ.AV and AUE.EHZ.AV, 
+#KOKV.EHZ.AV is KONW.EHZ.AV
+#KOKV.EHN.AV is KOWE.EHZ.AV
+#Some Tanaga and Gareloi stations are cross-fed too
+KOKV.EHZ.AV
+KOKV.EHN.AV
+########### Bad helicorder data
+#VNSS.EHZ.AV
+#ISNN.EHZ.AV
+#HAG.EHZ.AV
+#BLHA.EHZ.AV
+#KOSE.EHZ.AV
+#KONE.EHZ.AV
+#KVT.EHZ.AV
+#KEL.EHZ.AV
+#KCE.EHZ.AV
+#KBM.EHZ.AV
+#CNTC.EHZ.AV
+########### Blank helicorder data
+#WESN.EHZ.AV
+#WASW.EHZ.AV
+########### No helicorder data
+#WACK.EHZ.AV
+#WANC.EHZ.AV
+#WAZA.EHZ.AV
+#CGL.EHZ.AV
+#NCG.EHZ.AV
+#BKG.EHZ.AV
+#BGR.EHZ.AV
+#SPBG.BHZ.AV
+#AUS.EHZ.AV
+#AUL.BHZ.AV
+#ISTK.EHZ.AV
+#WESS.EHZ.AV
+#WFAR.EHZ.AV
+#WPOG.EHZ.AV
+#OKSO.BHZ.AV
+#OKFG.BHZ.AV
+#OKCD.BHZ.AV
+#OKCE.BHZ.AV
+#AKMO.BHZ.AV
+#AKT.EHZ.AV
+#AKLV.BHZ.AV
+#AKBB.BHZ.AV
+#TACS.EHZ.AV
+#TAFL.EHZ.AV
+#GSSP.EHZ.AV
+#GANO.EHZ.AV
+#GANE.EHZ.AV
+########### Skip these because they are co-located
+# RSO and RDSO are co-located
+RSO.EHZ.AV
+# CRP and SPCP are co-located
+CRP.EHZ.AV
+########## Updates 2012/10/03
+# This station is not coming back anytime soon - see Scott Stihler email of 20121003
+IVS.EHZ.AV
+# Other stations Cyrus said weren't coming back
+KAIC.EHZ.AV
+ANON.EHZ.AV
+WTUG.EHZ.AV
+# Scott Stihler 2012/09/19 "replace MGOD_EHZ with MGOD_BHZ" (a new station)
+MGOD.EHZ.AV
+# Dead during regional on 2012/10/01 0405 and 2012/09/30 16:42
+CP2.EHZ.AV
+BGL.EHZ.AV
+#?RDSO.BHZ.AV
+RDDF.BHZ.AV
+# ILI.EHZ.AV very noisy
+# OPT.EHZ.AV should be fixed in Oct 2012
+AUP.EHZ.AV
+AUNW.EHZ.AV
+FOSS.EHZ.AV
+FOPK.EHZ.AV
+FONW.EHZ.AV
+CDD.EHZ.AV
+PLWL.EHZ.AV
+AZAC.EHZ.AV
+VNNF.EHZ.AV
+VNSW.EHZ.AV
+VNKR.EHZ.AV
+PV6.EHZ.AV
+SSLS.EHZ.AV
+ISLZ.EHZ.AV
+BRPK.EHZ.AV
+MSOM.EHZ.AV
+OKCF.EHZ.AV
+GSCK.EHZ.AV
+KONW.EHZ.AV
+GASW.EHZ.AV
+GAKI.EHZ.AV
+CEPE.EHZ.AV
+# Dead networks: Wrangell, Fourpeaked

@@ -1,0 +1,239 @@
+Schema spectrograms0.1
+	Description ( "AVO TreMoR system spectrograms schema" )
+	Detail {
+	}
+	Timedate lddate
+	;
+
+Attribute server
+	String (50)
+	Format ( "%-15s" )
+	Null ( "-" )
+	Description ( "server URL" )
+	Detail {
+		Server URL, e.g. churchill.giseis.alaska.edu
+	}
+	;
+
+		This is a network code from autoDRM.  It may
+		need to be combined with a station code to form a 
+		unique key in local databases.
+	}
+	;
+
+Attribute winston_attempts
+	Integer (8)
+	Format ( "%8ld" )
+	Null ( "0" )
+	Range ( "winston_attempts > -1" )
+	Description ( "winston attempts" )
+	Detail {
+		Number of times data retrieval from a Winston server was attempted
+	}
+	;
+
+Attribute winston_success
+	Integer (8)
+	Format ( "%8ld" )
+	Null ( "0" )
+	Range ( "winston_success > -1" )
+	Description ( "winston success" )
+	Detail {
+		Number of times data retrieval from a Winston server was successful
+	}
+	;
+
+Attribute datascope_attempts
+	Integer (8)
+	Format ( "%8ld" )
+	Null ( "0" )
+	Range ( "datascope_attempts > -1" )
+	Description ( "datascope attempts" )
+	Detail {
+		Number of times data retrieval from a Datascope database was attempted
+	}
+	;
+
+
+Attribute datascope_success
+	Integer (8)
+	Format ( "%8ld" )
+	Null ( "0" )
+	Range ( "datascope_success > -1" )
+	Description ( "datascope success" )
+	Detail {
+		Number of times data retrieval from a Datascope database was successful
+	}
+	;
+
+Attribute nsamples
+	Integer (8)
+	Format ( "%8ld" )
+	Null ( "0" )
+	Range ( "nsamples > -1" )
+	Description ( "number of samples retrieved" )
+	Detail {
+		Number of samples retrieved from datasource 
+	}
+	;
+
+Attribute chan
+	String (8)
+	Format ( "%-8s" )
+	Null ( "-" )
+	Description ( "channel" )
+	Detail {
+		This is an eight-character code, which, taken together
+		with sta, jdate and time, uniquely identifies the source
+		of the seismic data, including the geographic location,
+		spatial orientation, sensor and subsequent data
+		processing.
+	}
+	;
+
+Attribute net
+	String (8)
+	Format ( "%-8s" )
+	Null ( "-" )
+	Description ( "unique network identifier" )
+	Detail {
+		This character string is the name of a seismic network. 
+		One example is WWSSN.
+	}
+	;
+
+Attribute median
+	Real (13)
+	Format ( "%13.6e" )
+	Null ( "-9.000000e+99" )
+	Description ( "Median value" )
+	Detail {
+		This is the median value of a time
+		segment of (optionally) filtered waveform data.
+	};
+
+Attribute mean
+	Real (13)
+	Format ( "%13.6e" )
+	Null ( "-9.000000e+99" )
+	Description ( "Mean value" )
+	Detail {
+		This is the mean value of a time
+		segment of (optionally) filtered waveform data.
+	};
+
+Attribute min
+	Real (13)
+	Format ( "%13.6e" )
+	Null ( "-9.000000e+99" )
+	Description ( "Min value" )
+	Detail {
+		This is the minimum value of a time
+		segment of (optionally) filtered waveform data.
+	};
+
+Attribute max
+	Real (13)
+	Format ( "%13.6e" )
+	Null ( "-9.000000e+99" )
+	Description ( "Max value" )
+	Detail {
+		This is the maxmimum value of a time
+		segment of (optionally) filtered waveform data.
+	};
+
+Attribute peakf
+	Real (13)
+	Format ( "%13.6e" )
+	Null ( "-9.000000e+99" )
+	Range ( "peakf >= 0.0" )
+	Description ( "Peak frequency (Hz)" )
+	Detail {
+		This is the peak frequency value of a time
+		segment of (optionally) filtered waveform data.
+		This is the biggest spike in the amplitude spectrum.
+	}
+	;
+
+Attribute meanf
+	Real (13)
+	Format ( "%13.6e" )
+	Null ( "-9.000000e+99" )
+	Range ( "meanf >= 0.0" )
+	Description ( "Mean frequency (Hz)" )
+	Detail {
+		This is the mean frequency value of a time
+		segment of (optionally) filtered waveform data.
+		This is evaluated by taking integrating the product
+		of frequency and amplitude, and then dividing by
+		the frequency interval. So it is the average, rather than
+		peak .
+	};
+
+Attribute rms
+	Real (13)
+	Format ( "%13.6e" )
+	Null ( "-9.000000e+99" )
+	Range ( "rms >= 0.0" )
+	Description ( "Root-mean-square value" )
+	Detail {
+		This is the root-mean-square value of a time
+		segment of (optionally) filtered waveform data.
+	}
+	;
+
+Attribute sta
+	String (6)
+	Format ( "%-6s" )
+	Null ( "-" )
+	Description ( "station" )
+	Detail {
+		This is the common code-name of a seismic observatory. 
+		Generally only three or four characters are used.
+	}
+	;
+
+Attribute starttime
+	Time (17)
+	Format ( "%17.5f" )
+	Null ( "-9999999999.99900" )
+	Units ( "Seconds" )
+	Description ( "start time" )
+	Detail {
+		Start time given as seconds and fractions of a second
+		since hour 0 January 1, 1970, and stored in a double
+		precision floating number.  
+	}
+	;
+
+Attribute endtime
+	Time (17)
+	Format ( "%17.5f" )
+	Null ( "-9999999999.99900" )
+	Units ( "Seconds" )
+	Description ( "start time" )
+	Detail {
+		Start time given as seconds and fractions of a second
+		since hour 0 January 1, 1970, and stored in a double
+		precision floating number.  
+	}
+	;
+
+Relation datasource
+	Fields ( sta chan net starttime endtime server winston_attempts winston_success datascope_attempts datascope_success lddate )
+	Primary ( sta chan net )
+	Description ( "track where waveform data are coming from " )
+	Detail {
+		Track whether data are coming from Winston or Datascope.
+		Starttime and endtime here track most recent timewindow processed.
+	}
+	;
+
+Relation timewindow
+	Fields ( sta chan net time endtime nsamples median mean max min rms peakf meanf lddate )
+	Primary ( sta chan net time endtime )
+	Description ( "track data processed " )
+	Detail {
+		Track data quantity and quality through start and end times, samples, and statistics.
+	}
+	;
