@@ -3,25 +3,22 @@
 ######################################################
 
 Processes &Tbl{
-#rtrun_loadwaveformdata	  rtrun_matlab -p rtrun_loadwaveformdata -v -l lockfiles/rtrun_loadwaveformdata.lock
-rtrun_loadwaveformdata	  rtrun matlab -r rtrun_loadwaveformdata
-#rtrun_loadmissingdata	  rtrun_matlab -p rtrun_loadmissingdata -v -l lockfiles/rtrun_loadmissingdata.lock
-rtrun_loadmissingdata	 rtrun matlab -r rtrun_loadmissingdata
-#rtrun_dealloaded2filter	  rtrun_matlab -p rtrun_dealloaded2filter -v -l lockfiles/rtrun_dealloaded2filter.lock
-rtrun_dealloaded2filter	  rtrun matlab -r rtrun_dealloaded2filter 
-#rtrun_tremorwrapper	  rtrun_matlab -p rtrun_tremorwrapper -v -l lockfiles/rtrun_tremorwrapper.lock
-rtrun_tremorwrapper	  rtrun matlab -r rtrun_tremorwrapper 
-rtrun_tremorwrapper2	 rtrun_matlab -p rtrun_tremorwrapper2 -v -l lockfiles/rtrun_tremorwrapper2.lock
-rtrun_tremorwrapper3	  rtrun_matlab -p rtrun_tremorwrapper3 -v -l lockfiles/rtrun_tremorwrapper3.lock
-rtrun_tremorwrapper4	  rtrun_matlab -p rtrun_tremorwrapper4 -v -l lockfiles/rtrun_tremorwrapper4.lock
-rtrun_tremorwrapper5	 rtrun_matlab -p rtrun_tremorwrapper5 -v -l lockfiles/rtrun_tremorwrapper5.lock
+# Removed rtrun_matlab on 20130123 as it was crashing
+rtrun_loadwaveformdata	rtrun matlab -r rtrun_loadwaveformdata
+rtrun_loadmissingdata	rtrun  matlab -r rtrun_loadmissingdata
+rtrun_dealwaveformfiles	rtrun matlab -r rtrun_dealwaveformfiles
+rtrun_tremorwrapper1	rtrun  matlab -r "rtrun_tremorwrapper(1)"
+rtrun_tremorwrapper2	rtrun  matlab -r "rtrun_tremorwrapper(2)"
+rtrun_tremorwrapper3	rtrun  matlab -r "rtrun_tremorwrapper(3)"
+rtrun_tremorwrapper4	rtrun  matlab -r "rtrun_tremorwrapper(4)"
+rtrun_tremorwrapper5	rtrun matlab -r "rtrun_tremorwrapper(5)"
 }
 
 Run     &Arr{
 rtrun_loadwaveformdata	yes
 rtrun_loadmissingdata	yes
-rtrun_dealloaded2filter	yes
-rtrun_tremorwrapper	yes
+rtrun_dealwaveformfiles	yes
+rtrun_tremorwrapper1	yes
 rtrun_tremorwrapper2	yes
 rtrun_tremorwrapper3	yes
 rtrun_tremorwrapper4	yes
@@ -31,8 +28,8 @@ rtrun_tremorwrapper5	yes
 Pf_restart      &Tbl{
 rtrun_loadwaveformdata	
 rtrun_loadmissingdata	
-rtrun_dealloaded2filter		
-rtrun_tremorwrapper	
+rtrun_dealwaveformfiles		
+rtrun_tremorwrapper1	
 rtrun_tremorwrapper2	
 rtrun_tremorwrapper3	
 rtrun_tremorwrapper4	
@@ -115,11 +112,11 @@ crontab &Arr{
 #bronco_diagnostics UTC 0,20,40 * * * * nice bin/system_diagnostics.tcsh > www/bronco_diagnostics.txt
 # remove any spectrograms older than 9 days and smaller than 1000000 bytes (1MB) - this should be all of them!
 ## remove_old_spectrograms UTC 0,20,40 * * * * bin/remove_small_spectrograms 365 999999999
-itsrunning UTC * * * * * epoch now
-parameterspf2kiska LOCAL 50 17 * * * rsync pf/parameters.pf www/pf/parameters.pf
+itsrunning UTC 0,10,20,30,40,50 * * * * epoch now
+params2web LOCAL 50 17 * * * rsync -a pf/* params/* www/pf/
 rtexec2src LOCAL 51 * * * * rsync rtexec.pf startup.m startup_tremor.m src/autobackups/
-src2raven LOCAL 52 0 * * * rsync -a src/* iceweb@raven:/Volumes/ravdata/broncobackups/src
-gismo2raven LOCAL 52 0 * * * rsync -a GISMO/* iceweb@raven:/Volumes/ravdata/broncobackups/GISMO
+#src2raven LOCAL 52 0 * * * rsync -a src/* iceweb@raven:/Volumes/ravdata/broncobackups/src
+#gismo2raven LOCAL 52 0 * * * rsync -a GISMO/* iceweb@raven:/Volumes/ravdata/broncobackups/GISMO
 # keep all log files small
 cleanlogs list 59 * * * * truncate_log -m 50 -r logs/*
 # kill all MATLAB processes once a day, because rtrun_matlab creates zombies, probably when a script crashes, and can lead to multiple MATLAB jobs for the same task. These are probably what ultimately consumes all disk memory and causes bronco to become unresponsive at terminal and to ssh. Here we use killall -9 MATLAB and rm -f /tmp/rtrun_matlab*

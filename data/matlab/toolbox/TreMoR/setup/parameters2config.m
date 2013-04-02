@@ -26,7 +26,11 @@ for c=1:length(PARAMS.subnetnames)
     subnets.source = pf2source(subnets.name);
     subnets.stations = getStationsWithinDist(subnets.source.longitude, subnets.source.latitude, KM, paths.DBMASTER, MAXCHANS);
     for k=1:length(subnets.stations)
-        subnets.stations(k).response = response_get_from_db(subnets.stations(k).name, subnets.stations(k).channel, now, PARAMS.f, paths.DBMASTER);
+	try
+        	subnets.stations(k).response = response_get_from_db(subnets.stations(k).name, subnets.stations(k).channel, now, PARAMS.f, paths.DBMASTER);
+	catch
+        	subnets.stations(k).response = [];
+	end
     end
     usesubnet = ~excluded_subnet(subnets.name);
     fprintf(fout, 'SUBNET\t%s\t%.4f\t%.4f\t%d\n',subnets.name, subnets.source.latitude, subnets.source.longitude,usesubnet);
@@ -42,9 +46,7 @@ for c=1:length(PARAMS.subnetnames)
     end
     fprintf(fout, '\n\n'); % end of subnet
 
-   
-end
-fclose(fout);
+end   
 
 function exclude = excluded_scnl(sta, chan)
 exclude = false;

@@ -9,10 +9,7 @@ matlab_paths	&Tbl{ # think of this like addpath in Matlab
     #&tremor_home
 }
 matlab_script   &Literal{ # This is the script that gets executed when Matlab starts,
-	pwd
 	startup_tremor;
-	%debug(0);
-	%warning off;
-	tremor_makesamplots();
+	rtrun_loadwaveformdata();
 }
 matlab_timeout_sec	86400

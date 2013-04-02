@@ -8,7 +8,7 @@ load pf/tremor_runtime
 
 % Process arguments
 [PARAMS.mode, snum, enum, nummins, delaymins, thissubnet] = matlab_extensions.process_options(varargin, 'mode', 'realtime', 'snum', 0, 'enum', 0, 'nummins', 10, 'delaymins', 0, 'thissubnet', '');
-
+thissubnet
 % subset on thissubnet
 if ~strcmp(thissubnet, '') 
 	index = 0;
@@ -19,6 +19,7 @@ if ~strcmp(thissubnet, '')
 	end
 	if index > 0
 		subnets = subnets(index);
+		disp('subnet found')
 	else
 		disp('subnet not found')
 		return;
