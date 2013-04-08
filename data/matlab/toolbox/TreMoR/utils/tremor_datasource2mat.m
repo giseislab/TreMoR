@@ -140,6 +140,8 @@ for i=1:numel(w)
         thisnuniquevalues = 0;
         thisreportstring = '';
         thiserrorstring = '';
+	bitrange = NaN;
+	
 
         % set stuff from waveform object
         thissta = get(w(i), 'station');
