@@ -1,4 +1,5 @@
-function startup_tremor(queue_num);
+function startup_tremor(queue_num)
+set(0, 'DefaultFigureVisible', 'off');
 debug.set_debug(12);
 while 1
 	logbenchmark('rtrun_tremorwrapper', 0);

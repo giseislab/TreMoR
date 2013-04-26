@@ -1,6 +1,0 @@
-#!/bin/bash
-#str = $1
-#ps -e | grep $1 | awk '$0~/$str/&&$0!~/awk/{print $1}' | xargs kill
-#ps -e | grep rtrun_matlab | awk '$0~/rtrun_matlab/&&$0!~/awk/{print $1}' | xargs kill
-ps -e | grep rtrun_matlab | awk '$0~/rtrun_matlab/&&$0!~/awk/{print $1}'
-

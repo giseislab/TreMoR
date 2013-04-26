@@ -1,5 +1,6 @@
 #!/usr/bin/perl
-chdir('www/plots/sp');
+use Env;
+chdir('spectrograms');
 @volcanoes = glob('*');
 foreach $volcano (@volcanoes) {
 	next unless (-d $volcano); # only get directories,  not colorbar.png

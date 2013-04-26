@@ -141,6 +141,7 @@ for i=1:numel(w)
         thisreportstring = '';
         thiserrorstring = '';
 	bitrange = NaN;
+	mode_fraction = 1.0;
 	
 
         % set stuff from waveform object

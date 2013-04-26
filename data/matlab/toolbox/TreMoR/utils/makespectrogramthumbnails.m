@@ -43,10 +43,12 @@ removetraces;
 %[X,map] = rgb2ind(imresize(I, [147 112]), 256);
 %thumbnailfile = sprintf('%s/smaller2_%s%s',tmppath, tmpbase, tmpext);
 %imwrite(X,map,thumbnailfile,'PNG'); 
-[X,map] = rgb2ind(imresize(I, [198 151]), 256);
-thumbnailfile = sprintf('%s/small2_%s%s',tmppath, tmpbase, tmpext);
-imwrite(X,map,thumbnailfile,'PNG'); 
-close;
+
+% 20130412 Commenting out this part because removetraces is not working. If it want to make this work, suggest calling removetraces from within tremor_wrapper right after saving the large labelled spectrogram.
+%[X,map] = rgb2ind(imresize(I, [198 151]), 256);
+%thumbnailfile = sprintf('%s/small2_%s%s',tmppath, tmpbase, tmpext);
+%imwrite(X,map,thumbnailfile,'PNG'); 
+%close;
 
 
 % Create a thumbnail spectrogram
@@ -87,7 +89,7 @@ end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function removetraces()
-
+% this does appear to work okay in interactive mode
 ax=get(gcf, 'Children');
 numpanels = length(ax);
 h = 2/numpanels;

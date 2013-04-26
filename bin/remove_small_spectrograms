@@ -6,7 +6,7 @@ die unless($#ARGV==1);
 $MINDAYSAGO = $ARGV[0];
 $MINSIZE = $ARGV[1];
 $MAXDAYSAGO = 99999; 
-$topdir = "www/plots/sp"; 
+$topdir = "spectrograms"; 
 $CWD = $topdir;
 @subnetes = glob('*');
 foreach $subnet (@subnetes) {
