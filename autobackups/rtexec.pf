@@ -4,14 +4,14 @@
 
 Processes &Tbl{
 # Removed rtrun_matlab on 20130123 as it was crashing
-rtrun_loadwaveformdata	rtrun matlab -r rtrun_loadwaveformdata
-rtrun_loadmissingdata	rtrun  matlab -r rtrun_loadmissingdata
-rtrun_dealwaveformfiles	rtrun matlab -r rtrun_dealwaveformfiles
-rtrun_tremorwrapper1	rtrun  matlab -r "rtrun_tremorwrapper(1)"
-rtrun_tremorwrapper2	rtrun  matlab -r "rtrun_tremorwrapper(2)"
-rtrun_tremorwrapper3	rtrun  matlab -r "rtrun_tremorwrapper(3)"
-rtrun_tremorwrapper4	rtrun  matlab -r "rtrun_tremorwrapper(4)"
-rtrun_tremorwrapper5	rtrun matlab -r "rtrun_tremorwrapper(5)"
+rtrun_loadwaveformdata	rtrun  matlab -r rtrun_loadwaveformdata
+rtrun_loadmissingdata	rtrun matlab -r rtrun_loadmissingdata
+rtrun_dealwaveformfiles	rtrun  matlab -r rtrun_dealwaveformfiles
+rtrun_tremorwrapper1	rtrun matlab -r "rtrun_tremorwrapper(1)"
+rtrun_tremorwrapper2	rtrun matlab -r "rtrun_tremorwrapper(2)"
+rtrun_tremorwrapper3	rtrun matlab -r "rtrun_tremorwrapper(3)"
+rtrun_tremorwrapper4	rtrun matlab -r "rtrun_tremorwrapper(4)"
+rtrun_tremorwrapper5	rtrun  matlab -r "rtrun_tremorwrapper(5)"
 }
 
 Run     &Arr{
