@@ -3,23 +3,22 @@
 ######################################################
 
 Processes &Tbl{
-#rtrun_loadwaveformdata	nice  rtrun_matlab -p rtrun_loadwaveformdata -v -l lockfiles/rtrun_loadwaveformdata.lock
-rtrun_loadwaveformdata	nice  rtrun matlab -r rtrun_loadwaveformdata
-#rtrun_loadmissingdata	nice  rtrun_matlab -p rtrun_loadmissingdata -v -l lockfiles/rtrun_loadmissingdata.lock
-rtrun_loadmissingdata	nice  rtrun matlab -r rtrun_loadmissingdata
-rtrun_dealloaded2filter	nice  rtrun_matlab -p rtrun_dealloaded2filter -v -l lockfiles/rtrun_dealloaded2filter.lock
-rtrun_tremorwrapper	nice rtrun_matlab -p rtrun_tremorwrapper -v -l lockfiles/rtrun_tremorwrapper.lock
-rtrun_tremorwrapper2	nice  rtrun_matlab -p rtrun_tremorwrapper2 -v -l lockfiles/rtrun_tremorwrapper2.lock
-rtrun_tremorwrapper3	nice  rtrun_matlab -p rtrun_tremorwrapper3 -v -l lockfiles/rtrun_tremorwrapper3.lock
-rtrun_tremorwrapper4	nice rtrun_matlab -p rtrun_tremorwrapper4 -v -l lockfiles/rtrun_tremorwrapper4.lock
-rtrun_tremorwrapper5	nice  rtrun_matlab -p rtrun_tremorwrapper5 -v -l lockfiles/rtrun_tremorwrapper5.lock
+# Removed rtrun_matlab on 20130123 as it was crashing
+rtrun_loadwaveformdata	rtrun  matlab -display :0 -nodesktop -nosplash -r rtrun_loadwaveformdata
+rtrun_loadmissingdata	rtrun matlab -display :0 -nodesktop -nosplash -r rtrun_loadmissingdata
+rtrun_dealwaveformfiles	rtrun matlab -display :0 -nodesktop -nosplash -r rtrun_dealwaveformfiles
+rtrun_tremorwrapper1	rtrun matlab -display :0 -nodesktop -nosplash -r "rtrun_tremorwrapper(1)"
+rtrun_tremorwrapper2	rtrun matlab -display :0 -nodesktop -nosplash -r "rtrun_tremorwrapper(2)"
+rtrun_tremorwrapper3	rtrun matlab -display :0 -nodesktop -nosplash -r "rtrun_tremorwrapper(3)"
+rtrun_tremorwrapper4	rtrun matlab -display :0 -nodesktop -nosplash -r "rtrun_tremorwrapper(4)"
+rtrun_tremorwrapper5	rtrun  matlab -display :0 -nodesktop -nosplash -r "rtrun_tremorwrapper(5)"
 }
 
 Run     &Arr{
 rtrun_loadwaveformdata	yes
 rtrun_loadmissingdata	yes
-rtrun_dealloaded2filter	yes
-rtrun_tremorwrapper	yes
+rtrun_dealwaveformfiles	yes
+rtrun_tremorwrapper1	yes
 rtrun_tremorwrapper2	yes
 rtrun_tremorwrapper3	yes
 rtrun_tremorwrapper4	yes
@@ -29,8 +28,8 @@ rtrun_tremorwrapper5	yes
 Pf_restart      &Tbl{
 rtrun_loadwaveformdata	
 rtrun_loadmissingdata	
-rtrun_dealloaded2filter		
-rtrun_tremorwrapper	
+rtrun_dealwaveformfiles		
+rtrun_tremorwrapper1	
 rtrun_tremorwrapper2	
 rtrun_tremorwrapper3	
 rtrun_tremorwrapper4	
@@ -38,17 +37,14 @@ rtrun_tremorwrapper5
 }
 
 Defines &Arr{
-ANTELOPE        /opt/antelope/5.2-64       # location of the real time software
-#ALARMDB		dbalarm/alarm
+ANTELOPE	PRESERVE
+SITE_DB	dbmaster/master_stations
 ELOG_MAXMSG 	0
-#AVOSEISWEB	avoseisweb
 }
 
 Env     &Arr{
-ANTELOPE                $ANTELOPE
-#PATH                    .:./bin:$ANTELOPE/bin:/opt/free/gmt/bin:/usr/sfw/bin:/usr/local/bin:/bin:/usr/bin:/usr/sbin:/usr/proc/bin:/usr/openwin/bin:/usr/X11R6/bin:/usr/X11/bin
+ANTELOPE                PRESERVE
 PATH			PRESERVE
-#PFPATH                  $ANTELOPE/data/pf:$AVOSEIS/data/pf:./pf:.
 PFPATH			PRESERVE
 HOME                    PRESERVE
 TZ                      PRESERVE
@@ -57,20 +53,14 @@ LOGNAME                 PRESERVE
 TERM                    PRESERVE || xterm
 DISPLAY                 PRESERVE || :0
 SCHEMA_DEFAULT          css3.0
+SCHEMA_DIR PRESERVE
 SHELL			PRESERVE
-DBMASTER                PRESERVE || /scratch/run/dbmaster/master_stations
-DB                	PRESERVE || /scratch/run/db/archive
-#AVOSEIS			PRESERVE
-#PERL5LIB                $AVOSEIS/data/perl
 PERL5LIB		PRESERVE
-#ALARMDB                 $ALARMDB
-HTTP			http://giseis.alaska.edu/AVO/internal/avoseis/dev/
-HOST	PRESERVE
-TREMOR_HOME	PRESERVE
-MATLAB_ANTELOPE	PRESERVE
-INTERNALWEBPRODUCTS	PRESERVE
-INTERNALWEBPRODUCTSURL	PRESERVE
-SCHEMA_DIR /opt/antelope/5.2-64/data/schemas:/Users/iceweb/run/schemas
+# needed by spectrograms
+SITE_DB	$SITE_DB
+ONEMINDATA	1mindata
+INTERNALWEBPRODUCTS	/usr/local/mosaic/AVO/avoseis/webapps/private
+MATLAB_ANTELOPE	$ANTELOPE/local/data/matlab/2010a/antelope
 }
 
 # Start/restart parameters
@@ -84,15 +74,12 @@ Shutdown_order &Tbl{
 }
 
 Shutdown_when_task_dies	&Arr{
-# dbreplay 	20
 }
 
-#startup_shutdown_email	west@gi.alaska.edu,mitch@giseis.alaska.edu,gthompson@.alaska.edu
-startup_shutdown_email	gthompson@alaska.edu
+startup_shutdown_email	mitch@giseis.alaska.edu,gthompson@alaska.edu
 
 # resource problems
-#status_email		west@gi.alaska.edu, gthompson@.alaska.edu
-status_email		gthompson@alaska.edu
+status_email		mitch@giseis.alaska.edu, gthompson@alaska.edu
 
 Startup_tasks   &Tbl{
 }
@@ -104,21 +91,29 @@ max_cron_gap    3600
 
 crontab &Arr{
 #  task    UTC/LOCAL Min Hr Day Month DayOfWeek  Command
-# TreMor2 cronjobs
-makeTreMoRMenu UTC 0 * * * * nice bin/makeTreMoRMenu  pf
-# TreMor_diagnostics UTC 4,14,24,34,44,54 * * * * nice bin/TreMor_diagnostics.pl pf # move to regular rtexec.pf, just in case this gets switched off accidentally
-## rtrun_makesamplots UTC 1 * * * * nice rtrun_matlab -p rtrun_makesamplots -v
-## rtrun_runalarm UTC 0,20,40 * * * * nice rtrun_matlab -p rtrun_runalarm -v
-rtrun_runbenchmarkplots UTC 0,20,40 * * * * nice rtrun_matlab -p rtrun_benchmarkplots -v
-bronco_diagnostics UTC 0,20,40 * * * * nice bin/system_diagnostics.tcsh > www/bronco_diagnostics.txt
-# remove any spectrograms older than 9 days and smaller than 1000000 bytes (1MB) - this should be all of them!
-## remove_old_spectrograms UTC 0,20,40 * * * * bin/remove_small_spectrograms 365 999999999
-itsrunning UTC * * * * * epoch now
-subnets2kiska LOCAL 50 17 * * * rsync pf/parameters.pf www/pf/parameters.pf
-# keep all log files small
+#
+# remove any spectrograms older than X days and with size less than Y bytes  (turn this on if don't want an archive)
+# Note: ideally there would be a mechanism that removed all spectrograms after (say) 1 month that were more than (say) 24 hours from a permalinked spectrogram
+# or unless they were marked as keepers (e.g. part of an unrest sequence like Redoubt 2009).
+## remove_old_spectrograms UTC 0,20,40 * * * * bin/remove_small_spectrograms 30 999999999
+#
+# Synchronize parameters to the webserver for use by PHP scripts 
+#params2web LOCAL 50 17 * * * rsync -a pf/* params/* $INTERNALWEBPRODUCTS/TreMoR/pf/
+#
+# Automatically back up anything that might have changed to the repository (though it still needs to be committed and pushed)
+# The idea here is that rtexec.pf, startup.m and startup_tremor.m may be edited in the run directory, which is outside of the repository.
+# We don't want to overwrite the version in the repository, until they've been live tested. But we do want to back them up in a separate part of the repository,
+# so changes are tracked.
+rtexec2src LOCAL 51 * * * * rsync rtexec.pf startup.m startup_tremor.m src/autobackups/
+#
+# keep all log files small (50 means 50kB max size)
 cleanlogs list 59 * * * * truncate_log -m 50 -r logs/*
+#
 # kill all MATLAB processes once a day, because rtrun_matlab creates zombies, probably when a script crashes, and can lead to multiple MATLAB jobs for the same task. These are probably what ultimately consumes all disk memory and causes bronco to become unresponsive at terminal and to ssh. Here we use killall -9 MATLAB and rm -f /tmp/rtrun_matlab*
 killallmatlabjobs list 37 7,19 * * * bin/killmatlabjobs.sh
+#
+# Build spectrograms for unrest periods - only turn this on when adding more to the archive (by editing unrest.m)
+#unrest	LOCAL 0 21 18 04 Thu rtrun matlab -display :0 -nodesktop -nosplash -r unrest
 }
 
 Time_to_die     30

@@ -98,7 +98,7 @@ crontab &Arr{
 ## remove_old_spectrograms UTC 0,20,40 * * * * bin/remove_small_spectrograms 30 999999999
 #
 # Synchronize parameters to the webserver for use by PHP scripts 
-params2web LOCAL 50 17 * * * rsync -a pf/* params/* $INTERNALWEBPRODUCTS/TreMoR/pf/
+#params2web LOCAL 50 17 * * * rsync -a pf/* params/* $INTERNALWEBPRODUCTS/TreMoR/pf/
 #
 # Automatically back up anything that might have changed to the repository (though it still needs to be committed and pushed)
 # The idea here is that rtexec.pf, startup.m and startup_tremor.m may be edited in the run directory, which is outside of the repository.
