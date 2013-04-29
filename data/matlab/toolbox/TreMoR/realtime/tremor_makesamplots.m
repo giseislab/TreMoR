@@ -14,7 +14,7 @@ for subnet_num=1:length(subnets)
 		for measureNum = 1:length(PARAMS.measures)
 			measure = PARAMS.measures{measureNum};
 			plotsamwrapper(subnet, station, snum, enum, measure, 'despikeOn', false, 'downsampleOn', false, 'correctOn', false, 'reduceOn', false);
-			IMGDIR = catpath(paths.WEBDIR, 'plots', measure);
+			IMGDIR = catpath(paths.spectrogram_plots, measure);
 			saveImageFile(IMGDIR, IMGBASE, 90);
 			close;
 		end

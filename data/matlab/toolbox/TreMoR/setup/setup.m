@@ -279,15 +279,8 @@ if exist(setupfile, 'file')
     PARAMS.channel_mask = pfget(setuppf, 'channel_mask');
     
     % paths (removed from setup.pf file 2013/04/22)
-    %paths.DBMASTER = pfget(setuppf,'DBMASTER');
     paths.DBMASTER = getenv('SITE_DB');
-    %paths.PFS = pfget(setuppf,'PFS');
     paths.PFS = 'pf';
-    %paths.ONEMINDATA = pfget(setuppf,'ONEMINDATA');
-    paths.ONEMINDATA = getenv('ONEMINDATA');
-    %paths.WEBDIR = pfget(setuppf,'WEBDIR'); 
-    paths.WEBDIR = sprintf('%s/TreMoR',getenv('INTERNALWEBPRODUCTS')); 
-    %paths.spectrograms = pfget(setuppf,'spectrograms'); 
     paths.spectrogram_plots = 'plots'; 
 
     % datasource
