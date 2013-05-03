@@ -6,9 +6,8 @@ function dealwaveformfiles(sourcedir, targetdirlist)
 % 	dealwaveformfiles('waveforms_filtered', {'waveforms_sgram';'waveforms_sam'})
 
 global paths PARAMS
-%print_debug(sprintf('> %s at %s',mfilename, datestr(now,31)),1)
+
 debug.printfunctionstack('>');
-%load pf/runtime
 
 while 1,
 		filelist = dir(sprintf('%s/*.mat',sourcedir));

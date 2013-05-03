@@ -4,14 +4,14 @@
 
 Processes &Tbl{
 # Removed rtrun_matlab on 20130123 as it was crashing
-rtrun_loadwaveformdata	rtrun  matlab -display :0 -nodesktop -nosplash -r rtrun_loadwaveformdata
-rtrun_loadmissingdata	rtrun matlab -display :0 -nodesktop -nosplash -r rtrun_loadmissingdata
-rtrun_dealwaveformfiles	rtrun matlab -display :0 -nodesktop -nosplash -r rtrun_dealwaveformfiles
-rtrun_tremorwrapper1	rtrun matlab -display :0 -nodesktop -nosplash -r "rtrun_tremorwrapper(1)"
-rtrun_tremorwrapper2	rtrun matlab -display :0 -nodesktop -nosplash -r "rtrun_tremorwrapper(2)"
-rtrun_tremorwrapper3	rtrun matlab -display :0 -nodesktop -nosplash -r "rtrun_tremorwrapper(3)"
-rtrun_tremorwrapper4	rtrun matlab -display :0 -nodesktop -nosplash -r "rtrun_tremorwrapper(4)"
-rtrun_tremorwrapper5	rtrun  matlab -display :0 -nodesktop -nosplash -r "rtrun_tremorwrapper(5)"
+rtrun_loadwaveformdata	rtrun  matlab -display :0 -nodesktop -nosplash -r "rtrun_loadwaveformdata()"
+rtrun_loadmissingdata	rtrun  matlab -display :0 -nodesktop -nosplash -r "rtrun_loadmissingdata()"
+rtrun_dealwaveformfiles	rtrun  matlab -display :0 -nodesktop -nosplash -r rtrun_dealwaveformfiles
+rtrun_tremorwrapper1	rtrun  matlab -display :0 -nodesktop -nosplash -r "rtrun_tremorwrapper(1)"
+rtrun_tremorwrapper2	rtrun  matlab -display :0 -nodesktop -nosplash -r "rtrun_tremorwrapper(2)"
+rtrun_tremorwrapper3	rtrun  matlab -display :0 -nodesktop -nosplash -r "rtrun_tremorwrapper(3)"
+rtrun_tremorwrapper4	rtrun  matlab -display :0 -nodesktop -nosplash -r "rtrun_tremorwrapper(4)"
+rtrun_tremorwrapper5	rtrun matlab -display :0 -nodesktop -nosplash -r "rtrun_tremorwrapper(5)"
 }
 
 Run     &Arr{
@@ -40,6 +40,8 @@ Defines &Arr{
 ANTELOPE	PRESERVE
 SITE_DB	dbmaster/master_stations
 ELOG_MAXMSG 	0
+#MATFILE	pf/tremor_runtime.mat
+MATFILE	pf/tremor_test_colorbar.mat
 }
 
 Env     &Arr{
@@ -58,9 +60,8 @@ SHELL			PRESERVE
 PERL5LIB		PRESERVE
 # needed by spectrograms
 SITE_DB	$SITE_DB
-ONEMINDATA	1mindata
-INTERNALWEBPRODUCTS	/usr/local/mosaic/AVO/avoseis/webapps/private
 MATLAB_ANTELOPE	$ANTELOPE/local/data/matlab/2010a/antelope
+MATFILE	$MATFILE
 }
 
 # Start/restart parameters
@@ -189,3 +190,4 @@ minimum_Mbytes_root_space_left		100
 
 
 pf_revision_time 1180591796
+

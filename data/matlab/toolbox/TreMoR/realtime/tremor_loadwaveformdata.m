@@ -3,12 +3,19 @@ global paths PARAMS
 
 debug.print_debug(sprintf('> %s at %s',mfilename, datestr(now,31)),1)
 warning off
-load pf/tremor_runtime
-%subnets = randomizesubnets(subnets);
+
 
 % Process arguments
-[PARAMS.mode, snum, enum, nummins, delaymins, thissubnet] = matlab_extensions.process_options(varargin, 'mode', 'realtime', 'snum', 0, 'enum', 0, 'nummins', 10, 'delaymins', 0, 'thissubnet', '');
-thissubnet
+[thismode, snum, enum, nummins, delaymins, thissubnet, matfile] = matlab_extensions.process_options(varargin, 'mode', 'realtime', 'snum', 0, 'enum', 0, 'nummins', 10, 'delaymins', 0, 'thissubnet', '', 'matfile', 'pf/tremor_runtime.mat');
+if exist(matfile, 'file')
+    load(matfile);
+    PARAMS.mode = thismode;
+    clear thismode;
+else
+    disp('matfile not found')
+    return
+end
+
 % subset on thissubnet
 if ~strcmp(thissubnet, '') 
 	index = 0;

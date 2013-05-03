@@ -1,8 +1,13 @@
-function tremor_wrapper(waveformdir)
+function tremor_wrapper(waveformdir, matfile)
 global paths PARAMS
 debug.printfunctionstack('>');
 %print_debug(sprintf('> %s at %s',mfilename, datestr(utnow,31)),1)
-load pf/tremor_runtime.mat
+if exist(matfile, 'file')
+    feval('load',matfile);
+else
+    disp('matfile not found')
+    return
+end
 highpassfilterobject = filterobject('h', 0.5, 2);
 makeSamFiles = false;
 makeSoundFiles = false; 
