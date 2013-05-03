@@ -21,7 +21,6 @@ for subnet_num=1:length(subnets)
 	if isempty(station)
 		continue;
 	end
-    	scnl = station2scnl(station, 'AV');
 
 	% loop over all elements of tw
 	for twcount = 1:length(tw.start)
@@ -51,7 +50,7 @@ for subnet_num=1:length(subnets)
 
 		% Get waveform data
 		disp(sprintf('%s %s: Getting waveforms for %s from %s to %s at %s',mfilename, datestr(utnow), subnet , datestr(snum), datestr(enum)));
-		w = waveform_wrapper(scnl, snum, enum, gismo_datasource);
+		w = waveform_wrapper([station.scnl], snum, enum, gismo_datasource);
 
 		% Did we get any data - if not, delete spectrogram file so it will try again later, and quit loop.	
 		if isempty(w)
@@ -114,15 +113,16 @@ for subnet_num=1:length(subnets)
 end
 debug.printfunctionstack('<');
 
-function scnl=station2scnl(station, network)
-for c = 1 : length(station)
-	if exist('network','var')
-		scnl(c) = scnlobject(station(c).name, station(c).channel, network);
-	else
-
-		scnl(c) = scnlobject(station(c).name, station(c).channel);
-	end
-end
+%function scnl=station2scnl(station, network)
+% No longer needed because scnl is available in pf/tremor_runtime.mat from getStationsWithinDist
+%for c = 1 : length(station)
+%	if exist('network','var')
+%		scnl(c) = scnlobject(station(c).name, station(c).channel, network);
+%	else
+%
+%		scnl(c) = scnlobject(station(c).name, station(c).channel);
+%	end
+%end
 
 
 function waveform_soh(w, snum, enum)

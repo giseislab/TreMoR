@@ -58,8 +58,6 @@ SHELL			PRESERVE
 PERL5LIB		PRESERVE
 # needed by spectrograms
 SITE_DB	$SITE_DB
-ONEMINDATA	1mindata
-INTERNALWEBPRODUCTS	/usr/local/mosaic/AVO/avoseis/webapps/private
 MATLAB_ANTELOPE	$ANTELOPE/local/data/matlab/2010a/antelope
 }
 
