@@ -13,5 +13,11 @@ end
 
 for c=1:length(idxempty)
         i = idxempty(c);
-        w(i) = set(w(i), 'data', data, 'freq', 100, 'start', snum);
+	chan = get(w(i), 'chan');
+	if strcmp(chan(1), 'B') 
+		freq = 50;
+	else
+		freq = 100;
+	end
+        w(i) = set(w(i), 'data', data, 'freq', freq, 'start', snum);
 end

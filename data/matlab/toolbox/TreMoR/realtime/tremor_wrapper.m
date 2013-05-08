@@ -19,6 +19,10 @@ while 1,
 	diaryname = getSgramDiaryName(subnet, enum);
 	diary(diaryname);
 	disp(sprintf('%s %s: Started',mfilename,datestr(utnow)));
+	if isempty(w)
+		empty_waveform_object(w);
+		continue;
+	end
 	logbenchmark('loading next waveform and doing prep', toc);
 	disp(sprintf('%s %s: loading next waveform and doing prep (%.1f s)', mfilename, datestr(utnow), toc));
         
@@ -48,7 +52,12 @@ while 1,
 	%%%%%%%%%%%%%% PREPARE SPECTROGRAM WAVEFORM OBJECTS %%%%%%%%%%%%%%%%
       	% For spectrogram waveforms, remove calib only. Also high pass filter broadband channels.
 	tic;
-	w = waveform_fillempty(w, snum, enum); % alternative is the waveform_nonempty function, which eliminates empty waveform objects, rather than replacing them with waveform objects containing zeros. Both eliminate waveform objects of length 1 - these corrupt waveform objects cause masaive problems - no idea where they coome from 
+	%w = waveform_fillempty(w, snum, enum); % alternative is the waveform_nonempty function, which eliminates empty waveform objects, rather than replacing them with waveform objects containing zeros. Both eliminate waveform objects of length 1 - these corrupt waveform objects cause masaive problems - no idea where they coome from 
+	w = waveform_nonempty(w); 
+	if isempty(w)
+		empty_waveform_object(w);
+		continue;
+	end
 	for c=1:numel(w)
 		w(c) = detrend(fillgaps(w(c),mean(w(c))));
         	if strcmp(get(w(c),'Units'), 'Counts')
@@ -467,3 +476,7 @@ ss = datestring(14:15);
 enum = datenum(sprintf('%s/%s/%s %s:%s:%s', yyyy, mm, dd, hr, mi, ss));
 tenminspfile = getSgram10minName(fields{1}, enum);
 debug.printfunctionstack('<');
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function empty_waveform_object(w)
+disp(sprintf('%s %s: Waveform object is empty - no data to process',mfilename,datestr(utnow)));

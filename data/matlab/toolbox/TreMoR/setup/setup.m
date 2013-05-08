@@ -20,6 +20,7 @@ function pf2matfile()
 
 MAX_CHANNELS_TO_FIND = 40;
 
+
 % Get user verification of filenames
 setupfile = dinput('Path of setup parameter file: ', 'pf/setup.pf');
 if ~exist(setupfile, 'file')
@@ -47,6 +48,14 @@ if exist(matfile, 'file')
 end
 
 [paths,PARAMS,subnets]=pf2PARAMS(setupfile);
+for c=1:numel(PARAMS.datasource)
+        if strcmp(PARAMS.datasource(c).type, 'antelope')
+                gismo_datasource(c) = datasource(PARAMS.datasource(c).type, PARAMS.datasource(c).path);
+        else
+                gismo_datasource(c) = datasource(PARAMS.datasource(c).type, PARAMS.datasource(c).path, str2num(PARAMS.datasource(c).port));
+        end
+end
+
 subnetnames = {subnets.name};
 
 disp('The subnets chosen are:');
@@ -89,9 +98,26 @@ for c=1:length(subnetnames)
     totalinuse = 0;
     for k=1:length(thissubnet.stations)
 
+        fprintf('Processing %s.%s.%s\n',thissubnet.stations(k).name, thissubnet.stations(k).channel, get(thissubnet.stations(k).scnl, 'network'));
 	% If there is no calib value, don't even allow this as an option
        	if isnan(thissubnet.stations(k).response.calib)
-		fprintf('No calibration for %s.%s: omitting.\n',thissubnet.stations(k).name, thissubnet.stations(k).channel);
+        	fprintf(fout, '#nocalib\t%s.%s.%s\t%.4f\t%.4f\t%.2f\t%.4f\t%d\n',thissubnet.stations(k).name, thissubnet.stations(k).channel, get(thissubnet.stations(k).scnl, 'network'), thissubnet.stations(k).latitude, thissubnet.stations(k).longitude, thissubnet.stations(k).elev, NaN, 0);
+		continue;
+	end
+
+	% If there are no waveform data within past 12 hours, don't even allow as an option
+	snum = utnow-0.5;
+	enum = utnow-0.1;
+	w = waveform_wrapper(thissubnet.stations(k).scnl, snum, enum, gismo_datasource);
+	if isempty(w)
+        	fprintf(fout, '#nodata\t%s.%s.%s\t%.4f\t%.4f\t%.2f\t%.4f\t%d\n',thissubnet.stations(k).name, thissubnet.stations(k).channel, get(thissubnet.stations(k).scnl, 'network'), thissubnet.stations(k).latitude, thissubnet.stations(k).longitude, thissubnet.stations(k).elev, thissubnet.stations(k).response.calib, 0);
+		continue;
+	end
+
+	% Check waveform soh
+	percentagegot = waveform_soh(w, snum, enum);
+	if percentagegot < 50
+        	fprintf(fout, '#%.1f\t%s.%s.%s\t%.4f\t%.4f\t%.2f\t%.4f\t%d\n',percentagegot, thissubnet.stations(k).name, thissubnet.stations(k).channel, get(thissubnet.stations(k).scnl, 'network'), thissubnet.stations(k).latitude, thissubnet.stations(k).longitude, thissubnet.stations(k).elev, thissubnet.stations(k).response.calib, 0);
 		continue;
 	end
 
@@ -102,21 +128,28 @@ for c=1:length(subnetnames)
                 useit = 1;
 		totalinuse = totalinuse + 1;
 		laststation = thissubnet.stations(k).name;
+		newstations(totalinuse) = thissubnet.stations(k);
         end
 
 	% Write out scnl summary line for this scnl
         fprintf(fout, 'scn\t%s.%s.%s\t%.4f\t%.4f\t%.2f\t%.4f\t%d\n',thissubnet.stations(k).name, thissubnet.stations(k).channel, get(thissubnet.stations(k).scnl, 'network'), thissubnet.stations(k).latitude, thissubnet.stations(k).longitude, thissubnet.stations(k).elev, thissubnet.stations(k).response.calib, useit);
-        fprintf('scn\t%s.%s.%s\t%.4f\t%.4f\t%.2f\t%.4f\t%d\n',thissubnet.stations(k).name, thissubnet.stations(k).channel, get(thissubnet.stations(k).scnl, 'network'), thissubnet.stations(k).latitude, thissubnet.stations(k).longitude, thissubnet.stations(k).elev, thissubnet.stations(k).response.calib, useit);
 
     end
     fprintf(fout, '\n\n'); % end of subnet
-    fprintf('\n\n'); % end of subnet
-
+    % Exclude subnet with no stations, otherwise get a crash 8 lines below
+    if ~exist('newstations', 'var')
+	thissubnet.use = 0;
+    end
     % Now we have a successfully fleshed-out metadata for this subnet, let's reset subnets accordingly
     if thissubnet.use
 	newsubnet_num = newsubnet_num + 1;
     	newsubnets(newsubnet_num) = thissubnet;
+	newsubnets(newsubnet_num).stations = newstations;
+
     end
+    % this variable might not exist, but can still clear it anyway
+    clear newstations;
+
 end 
 
 save2mat(matfile, newsubnets, paths, PARAMS);
@@ -280,6 +313,10 @@ if exist(setupfile, 'file')
     
     % paths (removed from setup.pf file 2013/04/22)
     paths.DBMASTER = getenv('SITE_DB');
+    if isempty(paths.DBMASTER)
+	disp('You must run setup from rtrun, e.g.\n\trtrun matlab -r setup')
+	exit();
+    end
     paths.PFS = 'pf';
     paths.spectrogram_plots = 'plots'; 
 
