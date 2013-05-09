@@ -37,10 +37,10 @@ Semisopochnoi	51.9288	179.5977	30	0
 LittleSitkin	51.9531	178.5356	30	0
 #
 # AEIC regional subnetworks here
-Kantishna	63.637	-150.000	200	1
-Susitna		62.820	-148.513	200	1
-PrinceWmSnd	60.688	-147.096	200	1
-IcyBay		59.988	-141.495	200	1
+Kantishna	63.4000	-151.2000	160	1
+Susitna		62.8295	-148.5509	160	1
+PrinceWmSnd	61.0400	-147.7300	160	1
+IcyBay		60.0463	-141.3353	160	0
 }
 
 # Maximum number of scnls to display in a spectrogram
