@@ -1,0 +1,10 @@
+The old colorbar was wrong because spectralobject was overriding with it's own SPECTRAL_MAP defined inside spectralobject/spectralobject.m. 
+This default spectralobject colormap is shown here.
+A new colormap was designed after much trial and error (see obsolete_colormaps directory). The new one is called iceweb_spectrogram_colormap.
+So from a colormap definition function, the generate_spectrogram_colormaps function generates both of these colormaps and saves them to a PNG file.
+The main plot shows how the Red, Green, Blue and overall intensity bands vary. The adjacent colorbar is based on 60dB = 1 nm/s, 120db = 1 mm/s etc.
+This can be cropped manually to produce a standalone colorbar. This should be considered an optional part of the setup procedure.
+
+Rather than create a colormap everytime it is run, the colormap (and colorbar) should be configured at setup time and saved into pf/tremor_runtime.m
+
+
