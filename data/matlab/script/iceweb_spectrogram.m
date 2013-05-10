@@ -9,12 +9,12 @@ function w=iceweb_spectrogram(matfile, subnet, snum, enum, mycmap)
 %
 % 	Example:
 %		The following will create an IceWeb-like spectrogram for Shishaldin Volcano 
-%		from 10:00 UTC to 11:00 UTC on 10th April 2008 and uses the redhot colormap:
+%		from 10:00 UTC to 11:00 UTC on 10th April 2008 and uses the default_spectralobject_colormap colormap:
 %	
 %  		iceweb_spectrogram('pf/tremor_runtime.mat', 'Shishaldin', datenum(2008,4,10,10,0,0), ...
-%		datenum(2008,4,10,11,0,0), redhot);
+%		datenum(2008,4,10,11,0,0), default_spectralobject_colormap);
 %
-%       iceweb_spectrogram('pf/tremor_runtime.mat', 'Kanaga', datenum(2013,05,08,22,20,00), datenum(2013,05,08,22,30,00), hothothot);
+%       iceweb_spectrogram('pf/tremor_runtime.mat', 'Kanaga', datenum(2013,05,08,22,20,00), datenum(2013,05,08,22,30,00), iceweb_spectrogram_colormap);
 %
 %
 %	Author:
