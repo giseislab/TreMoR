@@ -8,3 +8,6 @@ print -dpng -r100 -f1 default_spectralobject_colormap.png
 %figure(2)
 showRGBchannels(iceweb_spectrogram_colormap(1024), [35 125]);
 print -dpng -r100 -f2 iceweb_spectrogram_colormap.png
+
+showRGBchannels(extended_spectralobject_colormap, [40 140]);
+print -dpng -r100 -f3 iceweb_spectrogram_colormap.png
