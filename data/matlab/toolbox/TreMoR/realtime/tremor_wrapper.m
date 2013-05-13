@@ -87,7 +87,8 @@ while 1,
 	tenminspfile = getSgram10minName(subnet, enum);
 	%specgram3(w, sprintf('%s %s - %s UTC', subnet, datestr(snum,31), datestr(enum,13)), PARAMS.spectralobject , 0.75);
 	%specgram3(PARAMS.spectralobject, w, 0.75);
-	specgram3(PARAMS.spectralobject, w, 0.75, iceweb_spectrogram_colormap);
+	%specgram3(PARAMS.spectralobject, w, 0.75, iceweb_spectrogram_colormap);
+	specgram3(PARAMS.spectralobject, w, 0.75, extended_spectralobject_colormap);
 	logbenchmark('computing & plotting spectrograms', toc);
 	disp(sprintf('%s %s: computing & plotting spectrograms (%.1f s)', mfilename, datestr(utnow), toc));
 

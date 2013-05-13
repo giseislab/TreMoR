@@ -10,4 +10,4 @@ showRGBchannels(iceweb_spectrogram_colormap(1024), [35 125]);
 print -dpng -r100 -f2 iceweb_spectrogram_colormap.png
 
 showRGBchannels(extended_spectralobject_colormap, [40 140]);
-print -dpng -r100 -f3 iceweb_spectrogram_colormap.png
+print -dpng -r100 -f3 extended_colormap.png
