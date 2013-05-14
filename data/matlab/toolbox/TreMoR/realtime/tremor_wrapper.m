@@ -60,18 +60,24 @@ while 1,
 	end
 	for c=1:numel(w)
 		w(c) = detrend(fillgaps(w(c),mean(w(c))));
+		thissta = get(w(c), 'station');
+		thischan = get(w(c), 'channel');
+
         	if strcmp(get(w(c),'Units'), 'Counts')
                 	resp = get(w(c), 'response');
-                        debug.print_debug(sprintf('Applying calib of %d for %s.%s',resp.calib, get(w(c),'station'), get(w(c), 'channel')), 1);
+			rawmax = nanmax(abs(get(w(c), 'data')));
+                        fprintf('%s: Max raw amplitude for %s.%s = %e counts\n',mfilename, thissta, thischan, rawmax);
+                        fprintf('%s: Applying calib of %d for %s.%s\n',mfilename, resp.calib, thissta, thischan);
                         if (resp.calib ~= 0)
                                 w(c) = w(c) * resp.calib;
                                 %w(c) = set(w(c), 'units', resp.units);
                                 w(c) = set(w(c), 'units', 'nm / sec');
                         end
+                        fprintf('%s: Max corrected amplitude for %s.%s = %e nm/s\n',mfilename: thissta, thischan, rawmax);
                 end
-		if strfind(get(w(c), 'channel'),'BH')
+		if strfind(thischan,'BH')
 			try
-	                        debug.print_debug(sprintf('Applying high pass filter to %s.%s', get(w(c),'station'), get(w(c), 'channel')), 1);
+	                        debug.print_debug(sprintf('Applying high pass filter to %s.%s', thissta, thischan), 1);
 				w(c) = filtfilt(highpassfilterobject, w(c));
 			catch
 	                        debug.print_debug(sprintf('Filter failed'), 1);
