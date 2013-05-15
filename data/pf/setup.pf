@@ -78,8 +78,8 @@ npoles	2
 ###############################################################
 nfft		1024	# must be a power of 2, number of samples to use for fft in spectrogram calculation
 overlap		924 # number of samples to overlap the sliding window for spectrogram calculation
-blue		40 # decibels for bottom end of colorbar(blue)
-red         140 # decibels for top end of colorbar (red)
+blue		40 # decibels for bottom end of colorbar(blue) (Note: colorbar bottoms out with white, but ignore this)
+red         120 # decibels for top end of colorbar (red) (Note: colorbar now tops out with pink)
 max_freq	10.0 # highest frequency to display in spectrogram images
 
 ###############################################################
