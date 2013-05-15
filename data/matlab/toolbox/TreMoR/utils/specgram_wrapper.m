@@ -45,7 +45,7 @@ debug.print_debug(sprintf('%d waveform objects',numel(w)),0);
 % draw spectrogram using Celso's 
 try
     setmap(s, mycolormap)
-	sg = specgram(s, w, 'xunit', 'date', 'colorbar', 'none', 'yscale', 'normal'); % default for colormap is SPECTRAL_MAP
+	sg = specgram_local(s, w, 'xunit', 'date', 'colorbar', 'none', 'yscale', 'normal'); % default for colormap is SPECTRAL_MAP
 
 catch
 	debug.print_debug('specgram failed on waveform vector. Trying again, using nonempty rather than fillempty',0);
