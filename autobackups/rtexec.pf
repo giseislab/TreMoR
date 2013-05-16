@@ -4,8 +4,9 @@
 
 Processes &Tbl{
 # Removed rtrun_matlab on 20130123 as it was crashing
-rtrun_loadwaveformdata	rtrun  matlab -display :0 -nodesktop -nosplash -r "rtrun_loadwaveforms('delaymins', 10)"
-rtrun_loadmissingdata	rtrun  matlab -display :0 -nodesktop -nosplash -r "rtrun_loadwaveforms('snum', utnow-2/24, 'delaymins', 30)"
+
+rtrun_loadwaveformdata	rtrun  matlab -display :0 -nodesktop -nosplash -r "rtrun_loadwaveforms('delaymins', 1)"
+rtrun_loadmissingdata	rtrun  matlab -display :0 -nodesktop -nosplash -r "rtrun_loadwaveforms('snum', utnow-2/24, 'delaymins', 60)"
 rtrun_dealwaveformfiles	rtrun  matlab -display :0 -nodesktop -nosplash -r rtrun_dealwaveformfiles
 rtrun_tremorwrapper1	rtrun  matlab -display :0 -nodesktop -nosplash -r "rtrun_tremorwrapper(1)"
 rtrun_tremorwrapper2	rtrun  matlab -display :0 -nodesktop -nosplash -r "rtrun_tremorwrapper(2)"
@@ -97,6 +98,9 @@ crontab &Arr{
 # Note: ideally there would be a mechanism that removed all spectrograms after (say) 1 month that were more than (say) 24 hours from a permalinked spectrogram
 # or unless they were marked as keepers (e.g. part of an unrest sequence like Redoubt 2009).
 ## remove_old_spectrograms UTC 0,20,40 * * * * bin/remove_small_spectrograms 30 999999999
+#
+# reconfigure the station list daily depending on what channels are coming in
+rtrun_setup LOCAL 00 00 * * * rtrun  matlab -display :0 -nodesktop -nosplash -r "setup('mode', 'auto')"
 #
 # Synchronize parameters to the webserver for use by PHP scripts 
 #params2web LOCAL 50 17 * * * rsync -a pf/* params/* $INTERNALWEBPRODUCTS/TreMoR/pf/

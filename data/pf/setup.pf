@@ -18,7 +18,7 @@ Snowy		58.3336	-154.6859	30	0
 Katmai		58.2790	-154.9533	30	0
 Martin		58.1692	-155.3566	30	0
 # Peulik dead
-Peulik		57.7510	-156.3680	30	0
+Peulik		57.7510	-156.3680	30	1
 Aniakchak	56.8815	-158.1546	30	1
 Veniaminof	56.1979	-159.3931	30	1
 Pavlof		55.4173	-161.8937	30	1
@@ -33,14 +33,14 @@ GreatSitkin	52.0765	-176.1109	30	1
 Kanaga		51.9242	-177.1623	30	1
 Tanaga		51.8840	-178.1430	30	1
 Gareloi		51.7892	-178.7960	30	1
-Semisopochnoi	51.9288	179.5977	30	0
-LittleSitkin	51.9531	178.5356	30	0
+Semisopochnoi	51.9288	179.5977	30	1	
+LittleSitkin	51.9531	178.5356	30	1
 #
 # AEIC regional subnetworks here
 Kantishna	63.4000	-151.2000	160	1
 Susitna		62.8295	-148.5509	160	1
 PrinceWmSnd	61.0400	-147.7300	160	1
-IcyBay		60.0463	-141.3353	160	0
+IcyBay		60.0463	-141.3353	160	1
 }
 
 # Maximum number of scnls to display in a spectrogram
