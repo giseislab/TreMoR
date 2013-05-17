@@ -10,12 +10,13 @@ function [w, filename, snum, enum, subnet] = save2waveformmat(w, matdir, snum, e
 	end
 	disp(sprintf('%s: Saving to %s',datestr(utnow), filename));
 	successful = false;
-	eval(sprintf('save %s w snum enum subnet paths PARAMS',filename));
+	eval(sprintf('save -mat %s.tmp w snum enum subnet paths PARAMS',filename));
 	
 	% check file size is reasonable - if not, delete and return
-	d = dir(filename);
+	d = dir(sprintf('%s.tmp',filename));
 	if length(d)==1
 		filesize = d(1).bytes;
+		system(sprintf('mv %s.tmp %s',filename, filename));
 		disp(sprintf('%s: %s has size %d bytes',datestr(utnow), filename,filesize));
 		if (filesize < 10000)		
 			delete(filename);
@@ -26,7 +27,7 @@ function [w, filename, snum, enum, subnet] = save2waveformmat(w, matdir, snum, e
 			end
 
 			remove_sgramfile(subnet, enum)
-			debug.print_debug(sprintf('< %s',mfilename),1);
+			debug.printfunctionstack('<');
 			return;	
 		end	
 		disp(sprintf('%s: Waveform MAT file created',datestr(utnow)));
@@ -42,7 +43,7 @@ function [w, filename, snum, enum, subnet] = save2waveformmat(w, matdir, snum, e
 		enum, datestr(enum)
 		subnet
 		remove_sgramfile(subnet, enum)
-		debug.print_debug(sprintf('< %s',mfilename),1);
+		debug.printfunctionstack('<');
 		return;	
 	end
 
@@ -61,7 +62,6 @@ function [w, filename, snum, enum, subnet] = save2waveformmat(w, matdir, snum, e
 
 	
 	debug.printfunctionstack('<');
-	%print_debug(sprintf('< %s',mfilename),1);
 
 end
 
@@ -82,6 +82,6 @@ function successful = remove_sgramfile(subnet, enum)
 		end
 	else
 		successful = false;	
-		disp(sprintf('%s: *** Weird! %s does not exist - oh well I was going to delete it anyway',datestr(utnow), sgramfile,sfileptr(1).bytes));
+		disp(sprintf('%s: *** Weird! %s does not exist - oh well I was going to delete it anyway',datestr(utnow), sgramfile));
 	end
 end

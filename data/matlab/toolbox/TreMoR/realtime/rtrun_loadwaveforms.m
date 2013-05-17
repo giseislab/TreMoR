@@ -9,5 +9,6 @@ while 1
 	else
 		tremor_loadwaveformdata('delaymins', delaymins, 'matfile', matfile);
 	end
+	disp(sprintf('Waiting %s',datestr(utnow,30)));
 	pause(60);
 end

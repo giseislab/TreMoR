@@ -7,17 +7,17 @@ Processes &Tbl{
 
 rtrun_loadwaveformdata	rtrun  matlab -display :0 -nodesktop -nosplash -r "rtrun_loadwaveforms('delaymins', 1)"
 rtrun_loadmissingdata	rtrun  matlab -display :0 -nodesktop -nosplash -r "rtrun_loadwaveforms('snum', utnow-2/24, 'delaymins', 60)"
-rtrun_dealwaveformfiles	rtrun  matlab -display :0 -nodesktop -nosplash -r rtrun_dealwaveformfiles
-rtrun_tremorwrapper1	rtrun  matlab -display :0 -nodesktop -nosplash -r "rtrun_tremorwrapper(1)"
-rtrun_tremorwrapper2	rtrun  matlab -display :0 -nodesktop -nosplash -r "rtrun_tremorwrapper(2)"
-rtrun_tremorwrapper3	rtrun  matlab -display :0 -nodesktop -nosplash -r "rtrun_tremorwrapper(3)"
-rtrun_tremorwrapper4	rtrun  matlab -display :0 -nodesktop -nosplash -r "rtrun_tremorwrapper(4)"
-rtrun_tremorwrapper5	rtrun  matlab -display :0 -nodesktop -nosplash -r "rtrun_tremorwrapper(5)"
+rtrun_dealwaveformfiles	rtrun matlab -display :0 -nodesktop -nosplash -r rtrun_dealwaveformfiles
+rtrun_tremorwrapper1	rtrun matlab -display :0 -nodesktop -nosplash -r "rtrun_tremorwrapper(1)"
+rtrun_tremorwrapper2	rtrun matlab -display :0 -nodesktop -nosplash -r "rtrun_tremorwrapper(2)"
+rtrun_tremorwrapper3	rtrun matlab -display :0 -nodesktop -nosplash -r "rtrun_tremorwrapper(3)"
+rtrun_tremorwrapper4	rtrun matlab -display :0 -nodesktop -nosplash -r "rtrun_tremorwrapper(4)"
+rtrun_tremorwrapper5	rtrun matlab -display :0 -nodesktop -nosplash -r "rtrun_tremorwrapper(5)"
 }
 
 Run     &Arr{
 rtrun_loadwaveformdata	yes
-rtrun_loadmissingdata	yes
+rtrun_loadmissingdata	no
 rtrun_dealwaveformfiles	yes
 rtrun_tremorwrapper1	yes
 rtrun_tremorwrapper2	yes
@@ -100,7 +100,7 @@ crontab &Arr{
 ## remove_old_spectrograms UTC 0,20,40 * * * * bin/remove_small_spectrograms 30 999999999
 #
 # reconfigure the station list daily depending on what channels are coming in
-rtrun_setup LOCAL 00 00 * * * rtrun  matlab -display :0 -nodesktop -nosplash -r "setup('mode', 'auto')"
+## rtrun_setup LOCAL 00 00 * * * rtrun  matlab -display :0 -nodesktop -nosplash -r "setup('runmode', 'auto')"
 #
 # Synchronize parameters to the webserver for use by PHP scripts 
 #params2web LOCAL 50 17 * * * rsync -a pf/* params/* $INTERNALWEBPRODUCTS/TreMoR/pf/
@@ -118,7 +118,7 @@ cleanlogs list 59 * * * * truncate_log -m 50 -r logs/*
 killallmatlabjobs list 37 7,19 * * * bin/killmatlabjobs.sh
 #
 # Build spectrograms for unrest periods - only turn this on when adding more to the archive (by editing unrest.m)
-#unrest	LOCAL 0 21 18 04 Thu rtrun matlab -display :0 -nodesktop -nosplash -r unrest
+#unrest LOCAL 0 21 18 04 Thu rtrun matlab -display :0 -nodesktop -nosplash -r unrest
 }
 
 Time_to_die     30

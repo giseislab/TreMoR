@@ -52,8 +52,8 @@ while 1,
 	%%%%%%%%%%%%%% PREPARE SPECTROGRAM WAVEFORM OBJECTS %%%%%%%%%%%%%%%%
       	% For spectrogram waveforms, remove calib only. Also high pass filter broadband channels.
 	tic;
-	%w = waveform_fillempty(w, snum, enum); % alternative is the waveform_nonempty function, which eliminates empty waveform objects, rather than replacing them with waveform objects containing zeros. Both eliminate waveform objects of length 1 - these corrupt waveform objects cause masaive problems - no idea where they coome from 
-	w = waveform_nonempty(w); 
+	w = waveform_fillempty(w, snum, enum); % alternative is the waveform_nonempty function, which eliminates empty waveform objects, rather than replacing them with waveform objects containing zeros. Both eliminate waveform objects of length 1 - these corrupt waveform objects cause masaive problems - no idea where they coome from 
+	%w = waveform_nonempty(w); 
 	if isempty(w)
 		empty_waveform_object(w);
 		continue;
@@ -363,6 +363,7 @@ while ~found
                 	eval(cmd);
 
            		% Sanity checks
+			disp('Starting sanity checks')
                		errorFound=false;
 			if exist('w', 'var')
                			if ~strcmp(class(w),'waveform')
@@ -413,7 +414,10 @@ while ~found
 			summariseWaveformMat(filename, snum, enum, subnet);
 			delete(tmpfile);
 		else
-			disp('*** file looks bad - skipping');
+			disp('*** file looks bad - moving to corrupt');
+			badfile = sprintf('corrupt/%s',d(i(end)).name);
+			cmd = sprintf('mv %s %s',tmpfile,badfile);
+			disp(cmd);
 			% need to delete zero length spectrogram file too - else this ten minutes will never be filled in 
 			if numel(tenminspfileptr)==1
 				if (tenminspfileptr(1).bytes < 100)

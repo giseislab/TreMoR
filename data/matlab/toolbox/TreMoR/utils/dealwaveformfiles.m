@@ -19,7 +19,7 @@ while 1,
 				targetdirlist = {targetdirlist};
 			end
 			for tdn = 1:numel(targetdirlist)
-				targetdir = targetdirlist{tdn}
+				targetdir = targetdirlist{tdn};
 				%[basedir, topdir] = basename(targetdir); 
 				[topdir, basedir] = fileparts(targetdir); 
 	
@@ -35,6 +35,7 @@ while 1,
 					bestdir = d(i).name;
 					expr = sprintf('cp %s/%s %s/%s/%s',sourcedir, filename, topdir, bestdir, filename );
 					disp(expr); 
+					pause(1);
 					status = system(expr);	
 					clear d m i bestdir expr numfiles
 				end
@@ -45,8 +46,8 @@ while 1,
 
 
 		% Pause briefly
-		fprintf('.');
-		pause(1);
+		disp(sprintf('Waiting %s',datestr(utnow,30)));
+		pause(10);
 
 end    
 
