@@ -16,7 +16,7 @@ h=colorbar('EastOutside'); %generate colorbar
 cpos=get(h,'position'); %get position of colorbar
 set(h,'position',[cpos(1)+0.2 cpos(2:4)]); %shift colorbar
 ylabel1 = get(h,'ylabel'); 
-set(ylabel1,'fontWeight', 'bold','fontSize', 14, 'String',sprintf('Relative Spectral Power (dB)\n'));
+set(ylabel1,'fontWeight', 'bold','fontSize', 14, 'String',sprintf('Relative Spectral Power (dB) \n'));
 %set(ylabel1,'fontWeight', 'bold','fontSize', 14, 'String',sprintf('Ground Velocity\n'));
 ytick = get(h, 'YTick');
 dbtick = 10*ceil(decibelsrange(1)/10) : 10 : 10*floor(decibelsrange(2)/10);
