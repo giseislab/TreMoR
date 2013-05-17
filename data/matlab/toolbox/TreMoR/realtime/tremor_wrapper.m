@@ -52,26 +52,32 @@ while 1,
 	%%%%%%%%%%%%%% PREPARE SPECTROGRAM WAVEFORM OBJECTS %%%%%%%%%%%%%%%%
       	% For spectrogram waveforms, remove calib only. Also high pass filter broadband channels.
 	tic;
-	%w = waveform_fillempty(w, snum, enum); % alternative is the waveform_nonempty function, which eliminates empty waveform objects, rather than replacing them with waveform objects containing zeros. Both eliminate waveform objects of length 1 - these corrupt waveform objects cause masaive problems - no idea where they coome from 
-	w = waveform_nonempty(w); 
+	w = waveform_fillempty(w, snum, enum); % alternative is the waveform_nonempty function, which eliminates empty waveform objects, rather than replacing them with waveform objects containing zeros. Both eliminate waveform objects of length 1 - these corrupt waveform objects cause masaive problems - no idea where they coome from 
+	%w = waveform_nonempty(w); 
 	if isempty(w)
 		empty_waveform_object(w);
 		continue;
 	end
 	for c=1:numel(w)
 		w(c) = detrend(fillgaps(w(c),mean(w(c))));
+		thissta = get(w(c), 'station');
+		thischan = get(w(c), 'channel');
+
         	if strcmp(get(w(c),'Units'), 'Counts')
                 	resp = get(w(c), 'response');
-                        debug.print_debug(sprintf('Applying calib of %d for %s.%s',resp.calib, get(w(c),'station'), get(w(c), 'channel')), 1);
+			rawmax = nanmax(abs(get(w(c), 'data')));
+                        fprintf('%s: Max raw amplitude for %s.%s = %e counts\n',mfilename, thissta, thischan, rawmax);
+                        fprintf('%s: Applying calib of %d for %s.%s\n',mfilename, resp.calib, thissta, thischan);
                         if (resp.calib ~= 0)
                                 w(c) = w(c) * resp.calib;
                                 %w(c) = set(w(c), 'units', resp.units);
                                 w(c) = set(w(c), 'units', 'nm / sec');
                         end
+                        fprintf('%s: Max corrected amplitude for %s.%s = %e nm/s\n',mfilename: thissta, thischan, rawmax);
                 end
-		if strfind(get(w(c), 'channel'),'BH')
+		if strfind(thischan,'BH')
 			try
-	                        debug.print_debug(sprintf('Applying high pass filter to %s.%s', get(w(c),'station'), get(w(c), 'channel')), 1);
+	                        debug.print_debug(sprintf('Applying high pass filter to %s.%s', thissta, thischan), 1);
 				w(c) = filtfilt(highpassfilterobject, w(c));
 			catch
 	                        debug.print_debug(sprintf('Filter failed'), 1);
@@ -85,10 +91,8 @@ while 1,
 	%%%%%%%%%%%% COMPUTE / PLOT SPECTROGRAMS %%%%%%%%%%%		
 	tic;
 	tenminspfile = getSgram10minName(subnet, enum);
-	%specgram3(w, sprintf('%s %s - %s UTC', subnet, datestr(snum,31), datestr(enum,13)), PARAMS.spectralobject , 0.75);
-	%specgram3(PARAMS.spectralobject, w, 0.75);
-	%specgram3(PARAMS.spectralobject, w, 0.75, iceweb_spectrogram_colormap);
-	specgram3(PARAMS.spectralobject, w, 0.75, extended_spectralobject_colormap);
+	%specgram_wrapper(PARAMS.spectralobject, w, 0.75, iceweb_spectrogram_colormap);
+	specgram_wrapper(PARAMS.spectralobject, w, 0.75, extended_spectralobject_colormap);
 	logbenchmark('computing & plotting spectrograms', toc);
 	disp(sprintf('%s %s: computing & plotting spectrograms (%.1f s)', mfilename, datestr(utnow), toc));
 
@@ -359,6 +363,7 @@ while ~found
                 	eval(cmd);
 
            		% Sanity checks
+			disp('Starting sanity checks')
                		errorFound=false;
 			if exist('w', 'var')
                			if ~strcmp(class(w),'waveform')
@@ -409,7 +414,10 @@ while ~found
 			summariseWaveformMat(filename, snum, enum, subnet);
 			delete(tmpfile);
 		else
-			disp('*** file looks bad - skipping');
+			disp('*** file looks bad - moving to corrupt');
+			badfile = sprintf('corrupt/%s',d(i(end)).name);
+			cmd = sprintf('mv %s %s',tmpfile,badfile);
+			disp(cmd);
 			% need to delete zero length spectrogram file too - else this ten minutes will never be filled in 
 			if numel(tenminspfileptr)==1
 				if (tenminspfileptr(1).bytes < 100)

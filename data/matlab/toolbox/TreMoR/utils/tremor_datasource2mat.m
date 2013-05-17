@@ -58,18 +58,6 @@ for subnet_num=1:length(subnets)
 			delete(tenminspfile)
 			diary off;
 			break;
-		else
-			% GTHO 20130125: Capture data requests that failed
-			for i=1:numel(w)
-        			dl0 = get(w(i), 'data_length');
-				if (dl0==0)
-        				sta0 = get(w(i), 'station');
-        				chan0 = get(w(i), 'channel');
-					flogbadchannels = fopen('logs/badchannels.log', 'a');
-        				fprintf(flogbadchannels, '%s: waveform %d: got %d samples for %s-%s for time %s to %s\n',datestr(utnow), i,dl0,sta0,chan0, datestr(snum), datestr(enum));
-					fclose(flogbadchannels);
-				end
-			end
 		end
 
 		% If we are requesting real-time data, wait for data to backfill because there may be latency.
@@ -90,18 +78,8 @@ for subnet_num=1:length(subnets)
 			end
 		end
 
-		% Report waveform state-of-health data into log file
-		%try
-			waveform_soh(w, snum, enum);
-		%catch ME
-		%	ME
-			%ME.stack
-
-		%end
-
 		% Save waveform data
 		save2waveformmat(w, 'waveform_files/loaded', snum, enum, subnet);
-		%save2waveformmat(w, 'waveform_files/loaded', snum, enum, subnet, 'copy', 'waveform_files_copy');
 
 		% update benchmark log
 		logbenchmark(mfilename, toc);
@@ -112,16 +90,5 @@ for subnet_num=1:length(subnets)
 	end
 end
 debug.printfunctionstack('<');
-
-%function scnl=station2scnl(station, network)
-% No longer needed because scnl is available in pf/tremor_runtime.mat from getStationsWithinDist
-%for c = 1 : length(station)
-%	if exist('network','var')
-%		scnl(c) = scnlobject(station(c).name, station(c).channel, network);
-%	else
-%
-%		scnl(c) = scnlobject(station(c).name, station(c).channel);
-%	end
-%end
 
 

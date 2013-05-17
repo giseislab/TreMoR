@@ -1,0 +1,197 @@
+######################################################
+# AVORT RTEXEC.PF FILE
+######################################################
+
+Processes &Tbl{
+# Removed rtrun_matlab on 20130123 as it was crashing
+
+rtrun_loadwaveformdata	rtrun  matlab -display :0 -nodesktop -nosplash -r "rtrun_loadwaveforms('delaymins', 1)"
+rtrun_loadmissingdata	rtrun  matlab -display :0 -nodesktop -nosplash -r "rtrun_loadwaveforms('snum', utnow-2/24, 'delaymins', 60)"
+rtrun_dealwaveformfiles	rtrun matlab -display :0 -nodesktop -nosplash -r rtrun_dealwaveformfiles
+rtrun_tremorwrapper1	rtrun matlab -display :0 -nodesktop -nosplash -r "rtrun_tremorwrapper(1)"
+rtrun_tremorwrapper2	rtrun matlab -display :0 -nodesktop -nosplash -r "rtrun_tremorwrapper(2)"
+rtrun_tremorwrapper3	rtrun matlab -display :0 -nodesktop -nosplash -r "rtrun_tremorwrapper(3)"
+rtrun_tremorwrapper4	rtrun matlab -display :0 -nodesktop -nosplash -r "rtrun_tremorwrapper(4)"
+rtrun_tremorwrapper5	rtrun matlab -display :0 -nodesktop -nosplash -r "rtrun_tremorwrapper(5)"
+}
+
+Run     &Arr{
+rtrun_loadwaveformdata	yes
+rtrun_loadmissingdata	no
+rtrun_dealwaveformfiles	yes
+rtrun_tremorwrapper1	yes
+rtrun_tremorwrapper2	yes
+rtrun_tremorwrapper3	yes
+rtrun_tremorwrapper4	yes
+rtrun_tremorwrapper5	yes
+}
+
+Pf_restart      &Tbl{
+rtrun_loadwaveformdata	
+rtrun_loadmissingdata	
+rtrun_dealwaveformfiles		
+rtrun_tremorwrapper1	
+rtrun_tremorwrapper2	
+rtrun_tremorwrapper3	
+rtrun_tremorwrapper4	
+rtrun_tremorwrapper5	
+}
+
+Defines &Arr{
+ANTELOPE	PRESERVE
+SITE_DB	dbmaster/master_stations
+ELOG_MAXMSG 	0
+MATFILE	pf/tremor_runtime.mat
+#MATFILE	pf/tremor_test_colorbar.mat
+}
+
+Env     &Arr{
+ANTELOPE                PRESERVE
+PATH			PRESERVE
+PFPATH			PRESERVE
+HOME                    PRESERVE
+TZ                      PRESERVE
+PWD                     PRESERVE
+LOGNAME                 PRESERVE
+TERM                    PRESERVE || xterm
+DISPLAY                 PRESERVE || :0
+SCHEMA_DEFAULT          css3.0
+SCHEMA_DIR PRESERVE
+SHELL			PRESERVE
+PERL5LIB		PRESERVE
+# needed by spectrograms
+SITE_DB	$SITE_DB
+MATLAB_ANTELOPE	$ANTELOPE/local/data/matlab/2010a/antelope
+MATFILE	$MATFILE
+}
+
+# Start/restart parameters
+Start_period                     10      
+Minimum_period_between_starts   10      
+Failure_threshold       60     #  seconds
+Failure_repetitions     1440       
+Failure_retry_period    86400    #  1 day
+
+Shutdown_order &Tbl{
+}
+
+Shutdown_when_task_dies	&Arr{
+}
+
+startup_shutdown_email	mitch@giseis.alaska.edu,gthompson@alaska.edu
+
+# resource problems
+status_email		mitch@giseis.alaska.edu, gthompson@alaska.edu
+
+Startup_tasks   &Tbl{
+}
+
+Shutdown_tasks  &Tbl{
+}
+
+max_cron_gap    3600 
+
+crontab &Arr{
+#  task    UTC/LOCAL Min Hr Day Month DayOfWeek  Command
+#
+# remove any spectrograms older than X days and with size less than Y bytes  (turn this on if don't want an archive)
+# Note: ideally there would be a mechanism that removed all spectrograms after (say) 1 month that were more than (say) 24 hours from a permalinked spectrogram
+# or unless they were marked as keepers (e.g. part of an unrest sequence like Redoubt 2009).
+## remove_old_spectrograms UTC 0,20,40 * * * * bin/remove_small_spectrograms 30 999999999
+#
+# reconfigure the station list daily depending on what channels are coming in
+## rtrun_setup LOCAL 00 00 * * * rtrun  matlab -display :0 -nodesktop -nosplash -r "setup('runmode', 'auto')"
+#
+# Synchronize parameters to the webserver for use by PHP scripts 
+#params2web LOCAL 50 17 * * * rsync -a pf/* params/* $INTERNALWEBPRODUCTS/TreMoR/pf/
+#
+# Automatically back up anything that might have changed to the repository (though it still needs to be committed and pushed)
+# The idea here is that rtexec.pf, startup.m and startup_tremor.m may be edited in the run directory, which is outside of the repository.
+# We don't want to overwrite the version in the repository, until they've been live tested. But we do want to back them up in a separate part of the repository,
+# so changes are tracked.
+rtexec2src LOCAL 51 * * * * rsync rtexec.pf startup.m startup_tremor.m src/autobackups/
+#
+# keep all log files small (50 means 50kB max size)
+cleanlogs list 59 * * * * truncate_log -m 50 -r logs/*
+#
+# kill all MATLAB processes once a day, because rtrun_matlab creates zombies, probably when a script crashes, and can lead to multiple MATLAB jobs for the same task. These are probably what ultimately consumes all disk memory and causes bronco to become unresponsive at terminal and to ssh. Here we use killall -9 MATLAB and rm -f /tmp/rtrun_matlab*
+killallmatlabjobs list 37 7,19 * * * bin/killmatlabjobs.sh
+#
+# Build spectrograms for unrest periods - only turn this on when adding more to the archive (by editing unrest.m)
+#unrest LOCAL 0 21 18 04 Thu rtrun matlab -display :0 -nodesktop -nosplash -r unrest
+}
+
+Time_to_die     30
+
+Limit   &Arr{
+cputime         unlimited
+#cputime         100
+filesize        unlimited
+#filesize        10 # assuming this in Mbytes
+descriptors     unlimited       # large for orb2db
+stacksize       8388608         # unlimited is too big: can't have larger orbs
+datasize        unlimited
+coredumpsize    unlimited       # so that we may get a core dump
+#coredumpsize    0       # assuming this prevents core dump
+vmemoryuse      unlimited
+#vmemoryuse      10 #assuming this is megatbytes
+}
+
+umask	002
+
+Database        rtsys/rtsys
+
+email_incident_reports  gthompson@alaska.edu
+
+include_corefile        no
+
+Chatter_limit   7200    # minimum gap between messages= 2hours
+Min_vmfree        50    # Mbytes
+
+
+####################################################################
+# rtm Parameters
+# The following parameters are not used directly by rtexec, but
+# are instead read and used by rtm.
+####################################################################
+
+disks   &Tbl{
+# name    file  minfree_Mbytes min_kinodes description
+root      /     20   1  root partition: required by many unix tasks
+tmp       /tmp  20   1  tmp = swap: indicates memory usage
+run      .     20   1  log files
+}
+
+Buttons &Tbl{         # Use {} instead of '' to conform to tcl's quoting
+}
+
+# Other files to add to edit menu
+Edit_files &Tbl{
+}
+
+Parameter_files &Arr{   # if the parameter file doesn't follow the convention
+                        # of being named after either the task name or 
+                        # the program name, it should be specified here, so
+                        # that rtm can allow editing it.
+aprogram        different.pf
+}
+
+# The following are tasks which talk to the data orbserver, and
+# which therefore should have an input and output bar on the 
+# Processing Tasks panel of rtm.
+orbtasks &Arr{
+}
+
+title		TreMoR system   # alternate location to specify rtm title
+network_code    AV		# network code for rtreport and rtsys
+
+# following are used by rtreport
+
+minimum_days_data_space_left		3
+minimum_Mbytes_database_space_left	2000
+maximum_Mbytes_logs_space_used		100
+minimum_Mbytes_root_space_left		100
+
+
+pf_revision_time 1180591796
+

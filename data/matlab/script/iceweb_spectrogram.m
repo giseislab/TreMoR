@@ -64,7 +64,7 @@ for subnet_num=1:length(subnets)
             end
         end
 
-        specgram3(PARAMS.spectralobject, w, 0.7, mycmap);
+        specgram_wrapper(PARAMS.spectralobject, w, 0.7, mycmap);
     end
 end
 
