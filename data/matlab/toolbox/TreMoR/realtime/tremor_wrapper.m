@@ -29,25 +29,9 @@ while 1,
 	%%%%%%%%%%%%%%% ADD RESPONSE FROM SUBNETS TO WAVEFORM OBJECTS %%%%%%%%%
        	% Add response structures to waveform objects
 	tic;
-	subnetnum = find(strcmp( {subnets.name}, subnet));
-	stations = {subnets(subnetnum).stations.name};
-	channels = {subnets(subnetnum).stations.channel};
-	for c=1:numel(w)
-		try
-			station = get(w(c), 'station');
-			channel = get(w(c), 'channel');
-			try
-				stachanindex = find(strcmp(stations, station) & strcmp(channels, channel));
-				w(c) = addfield(w(c), 'response', subnets(subnetnum).stations(stachanindex).response);
-			catch
-				fprintf('adding response failed for %s.%s\n',station,channel);
-			end
-		catch
-			fprintf('could not get station and/or channel\n');
-		end
-	end
+    [ w ] = waveform_addresponse( w, matfile, subnets, subnet );
+	
 	logbenchmark('adding response structures to waveform objects', toc);
-	disp(sprintf('%s %s: adding response structures to waveform objects (%.1f s)', mfilename, datestr(utnow), toc));
 
 	%%%%%%%%%%%%%% PREPARE SPECTROGRAM WAVEFORM OBJECTS %%%%%%%%%%%%%%%%
       	% For spectrogram waveforms, remove calib only. Also high pass filter broadband channels.
@@ -65,7 +49,7 @@ while 1,
 
         	if strcmp(get(w(c),'Units'), 'Counts')
                 	resp = get(w(c), 'response');
-			rawmax = nanmax(abs(get(w(c), 'data')));
+rawmax = nanmax(abs(get(w(c), 'data')));
                         fprintf('%s: Max raw amplitude for %s.%s = %e counts\n',mfilename, thissta, thischan, rawmax);
                         fprintf('%s: Applying calib of %d for %s.%s\n',mfilename, resp.calib, thissta, thischan);
                         if (resp.calib ~= 0)

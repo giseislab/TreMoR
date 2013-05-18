@@ -1,57 +1,25 @@
-function w=iceweb_sonogram(matfile, subnet, snum, enum)
-% ICEWEB_SONOGRAM Create a customised IceWeb-like spectrogram plot
-%
-% 	ICEWEB_SONOGRAM(MATFILE, SUBNET, SNUM, ENUM) plays sound files 
-%       based on the station/channel list in the MATFILE for that particular
-%	subnet. The start and end times are defined by the arguments SNUM and ENUM which 
-%	must be in Matlab datenumber format. See DATENUM.
-%
-%
-% 	Example:
-%		The following will play sound files for Shishaldin Volcano 
-%		from 10:00 UTC to 11:00 UTC on 10th April 2008
-%	
-%  		iceweb_sonogram('pf/tremor_runtime.mat', 'Shishaldin', datenum(2008,4,10,10,0,0), ...
-%		datenum(2008,4,10,11,0,0));
-%
-%       iceweb_sonogram('pf/tremor_runtime.mat', 'Kanaga', datenum(2013,05,08,22,20,00), datenum(2013,05,08,22,30,00), iceweb_spectrogram_colormap);
-%
+function waveform2sonogram(w)
+% WAVEFORM2SONOGRAM Play waveform objects as sound
 %
 %	Author:
 %		Glenn Thompson (glennthompson1971@gmail.com), 2008-04-11
 close all
-load(matfile);
-for c=1:numel(PARAMS.datasource)
-	if strcmp(PARAMS.datasource(c).type, 'antelope')
-		gismo_datasource(c) = datasource(PARAMS.datasource(c).type, PARAMS.datasource(c).path);
-	else
-		gismo_datasource(c) = datasource(PARAMS.datasource(c).type, PARAMS.datasource(c).path, str2num(PARAMS.datasource(c).port));
-	end
-end
+
 PARAMS.mode = 'interactive';
 disp(sprintf('You have requested a sonogram from %s to %s', datestr(snum,0), datestr(enum,0)));
 debug.set_debug(2);
 %SPEEDUP = ceil((enum-snum)*86400/10);
 SPEEDUP = 60;
-for subnet_num=1:length(subnets)
-	% which subnet?
-	thissubnet = subnets(subnet_num).name;
-    if strcmp(subnet, thissubnet) 
-        station = subnets(subnet_num).stations;
-        w = waveform_wrapper([station.scnl], snum, enum, gismo_datasource);
-        wf = w;
-        for c=1:length(w)
-		if get(w(c), 'data_length') == 0
-			continue;
-		end
-	   hf = figure;
+wf = w;
+for c=1:length(w)
+            if get(w(c), 'data_length') == 0
+                continue;
+            end
+            hf = figure;
             w(c) = demean(w(c));
             w(c) = fillgaps(w(c), 'meanall');
 	    
             subplot(2,2,1),plot(w(c));
-            %h = spectrum.welch;
-            %subplot(2,2,2), psd(h, get(w(c), 'data'), 'Fs', get(w(c), 'freq'),  'FreqPoints', 'User Defined', 'FrequencyVector', 0.1:0.1:25);
-            %[f, A] = fouriertransform(w(c), 1024);
             [YfreqDomain,frequencyRange] = positiveFFT(w(c));
             subplot(2,2,2),plot(frequencyRange,abs(YfreqDomain));
             xlabel('Freq (Hz)')
@@ -62,9 +30,6 @@ for subnet_num=1:length(subnets)
 	
             wf(c) = filtfilt(filterobject('b', [0.5 15.0], 3), w(c));
             subplot(2,2,3),plot(wf(c));
-            %subplot(2,2,4), psd(h, get(wf(c), 'data'), 'Fs', get(wf(c), 'freq'),  'FreqPoints', 'User Defined', 'FrequencyVector', 0.1:0.1:25);
-            %[f, A] = fouriertransform(wf(c), 1024);
-            %subplot(2,2,4), plot(f, A);
             [YfreqDomain,frequencyRange] = positiveFFT(wf(c));
             subplot(2,2,4),plot(frequencyRange,abs(YfreqDomain));
             xlabel('Freq (Hz)')
@@ -104,13 +69,9 @@ for subnet_num=1:length(subnets)
                         return;
                 end
             end
-	    close all;
-        end
-    
-    end
-    
-    
+            close all;
 end
+
 
 
 function audioPlayPlot(y, Fs)
@@ -345,11 +306,5 @@ end
 
 filtdata = filtfilt(b,a,data); % zero phase filter the data
 
-function [ env ] = smooth_envelope( gram, span )
-%smooth_envelope provides a smoothed envelope of the input seismogram
-%   Uses the hilbert transform h and computes sqrt( gram^2 + h^2)
-% smooths useing a aquare convolution of span points
-envl= sqrt(imag(hilbert(gram)).^2 + gram.^2);
-window = ones(span,1)/span;
-env=convn(envl,window,'same');
+
 
