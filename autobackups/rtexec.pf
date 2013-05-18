@@ -5,7 +5,7 @@
 Processes &Tbl{
 # Removed rtrun_matlab on 20130123 as it was crashing
 
-rtrun_loadwaveformdata	rtrun  matlab -display :0 -nodesktop -nosplash -r "rtrun_loadwaveforms('delaymins', 1)"
+rtrun_loadwaveformdata	rtrun matlab -display :0 -nodesktop -nosplash -r "rtrun_loadwaveforms('delaymins', 1)"
 rtrun_loadmissingdata	rtrun  matlab -display :0 -nodesktop -nosplash -r "rtrun_loadwaveforms('snum', utnow-2/24, 'delaymins', 60)"
 rtrun_dealwaveformfiles	rtrun matlab -display :0 -nodesktop -nosplash -r rtrun_dealwaveformfiles
 rtrun_tremorwrapper1	rtrun matlab -display :0 -nodesktop -nosplash -r "rtrun_tremorwrapper(1)"
@@ -17,7 +17,7 @@ rtrun_tremorwrapper5	rtrun matlab -display :0 -nodesktop -nosplash -r "rtrun_tre
 
 Run     &Arr{
 rtrun_loadwaveformdata	yes
-rtrun_loadmissingdata	no
+rtrun_loadmissingdata	yes
 rtrun_dealwaveformfiles	yes
 rtrun_tremorwrapper1	yes
 rtrun_tremorwrapper2	yes
