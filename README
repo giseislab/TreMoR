@@ -27,4 +27,4 @@ GISMO is linked through GISMO@.
 rtexec.pf, startup.m, and startup_tremor.m are autoarchived to src/autobackups hourly. These do not
 overwrite those in src/, just in case need to rollback.  
 
-Once a day /opt/AVOSEIS, GISMO and src are rsynced to raven.
+
