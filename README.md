@@ -1,3 +1,4 @@
+# TreMoR
 
 This is the Antelope real-time environment for running IceWeb 2.0 (aka TreMoR) interface used to generate spectrograms for http://www.aeic.alaska.edu/spectrograms, last updated in 2013 when I left UAFGI. It does not appear that anyone at UAFGI has modified the code since.
 The corresponding Web interface is https://github.com/giseislab/TreMoR-spectrograms-web-interface.
