@@ -4,7 +4,7 @@ The corresponding Web interface is https://github.com/giseislab/TreMoR-spectrogr
 
 See https://github.com/geoscience-community-codes/IceWeb for a more recent combined version of both and background.
 
------------------------------------
+<pre>
 Listing of project run directory afer it was recreated on 20130123:
 
 lrwxrwxr-x   1 iceweb  analyst    33 Jan 23 12:38 GISMO@ -> /Users/iceweb/src/GISMO/git/GISMO
@@ -33,5 +33,5 @@ GISMO is linked through GISMO@.
 
 rtexec.pf, startup.m, and startup_tremor.m are autoarchived to src/autobackups hourly. These do not
 overwrite those in src/, just in case need to rollback.  
-
+</pre>
 
